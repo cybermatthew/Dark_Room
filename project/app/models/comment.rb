@@ -1,6 +1,4 @@
-class Comment < ActiveRecord::Base
-	attr_accessible :photo_id, :user_id, :text, :created_at
-	
+class Comment < ActiveRecord::Base	
 	belongs_to :photo
 	belongs_to :user
 end

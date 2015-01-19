@@ -59,6 +59,9 @@
 			    var featherEditor = new Aviary.Feather({
 			        apiKey: '5ee2fa12a60942b4a817edb17bfae759',
 			        //tools: ['draw', 'stickers'],
+			        onLoad: function() {
+        				document.getElementById('editButton').style.display = 'block';
+    				},
 			        onSave: function(imageID, newURL) {
 			            var img = document.getElementById(imageID);
 			            img.src = newURL;
@@ -77,7 +80,7 @@
 			<!-- Add an edit button, passing the HTML id of the image
 			    and the public URL to the image -->
 			<a href="#" onclick="return launchEditor('catImg', 
-			    'http://scienceblogs.com/gregladen/files/2012/12/Beautifull-cat-cats-14749885-1600-1200.jpg');">Edit Image(for testing purposes only. Need to look into making sure that saving with Ruby works. Can also consider adding more features.)</a>
+			    'http://scienceblogs.com/gregladen/files/2012/12/Beautifull-cat-cats-14749885-1600-1200.jpg');" id = "editButton">Edit Image(for testing purposes only. Need to look into making sure that saving with Ruby works. Can also consider adding more features.)</a>
 
 			<img src = "http://scienceblogs.com/gregladen/files/2012/12/Beautifull-cat-cats-14749885-1600-1200.jpg" alt = "Uploaded User Image" class = "section2Img" id = "catImg"/>
 		<!--...that's nested between these two comment tabs. Don't forget to adjust the image name, URL, and hyperlink as necessary.-->
