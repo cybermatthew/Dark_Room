@@ -58,7 +58,8 @@
 
 			    var featherEditor = new Aviary.Feather({
 			        apiKey: '5ee2fa12a60942b4a817edb17bfae759',
-			        //tools: ['draw', 'stickers'],
+			        apiVersion: 3,
+			        enableCORS: true,
 			        onLoad: function() {
         				document.getElementById('editButton').style.display = 'block';
     				},
