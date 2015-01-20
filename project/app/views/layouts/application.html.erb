@@ -8,7 +8,21 @@
 </head>
 <body>
 
-<%= yield %>
+	<div class="flash">
+		<% if flash[:notice] %>
+			<div class="alert alert-danger alert-dismissable">
+		    	 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		    	<%= flash[:notice] %>
+		    </div>
+		<% elsif flash[:error] %>
+			<div class="alert alert-danger alert-dismissable">
+	    	 	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+	    		<%= flash[:error] %>
+	    	</div>
+		<% end %>
+	</div>
+
+	<%= yield %>
 
 </body>
 </html>

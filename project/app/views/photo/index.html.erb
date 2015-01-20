@@ -1,4 +1,3 @@
-hi there
-<% @photos.each do |photo| %>
-<%= photo.filename %><br>
+<% if !@error %>
+	<%= @photo.filename %>
 <% end %>
