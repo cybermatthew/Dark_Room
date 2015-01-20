@@ -126,16 +126,12 @@
 
 	<!----------------------- SECTION 4 DIV---------------------->
 	<div id = "section4Div">
-		<br>
-		<br>
-		&nbsp; Hello, <br>
-		&nbsp; <span style = "color:blue;"> userID... </span>
-		<br>
-		&nbsp; <a href = "">View Profile</a>
-		<br>
-		&nbsp; <a href = "">Logout</a>
-		<br>
-		<br>
+		<% if @currentUser %>
+			<h3>Hi <%= @currentUser.username %>!</h3>
+			<a href="/user/logout">Logout?</a></p>
+		<% else %>
+			<a href="/user/login">Login</a>
+		<% end %>
 	</div>
 
 </div>
