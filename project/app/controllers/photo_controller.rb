@@ -13,7 +13,7 @@ class PhotoController < ApplicationController
 		# else
 		# 	@photo = Photo.find(params[:id])
 		# end
-		@photos = Photo.all
+		@photos = Photo.find(:all)
 	end
 
 
@@ -21,9 +21,5 @@ class PhotoController < ApplicationController
 	## Strong Parameters
 	def photo_params
 		params.require(:photo).permit(:filename, :description, :votes, :user_id, :scrimage_id, :parent_photo_id)
-	end
-
-	def comment_params
-		params.require(:comment).permit(:photo_id, :user_id, :text, :created_at)
 	end
 end
