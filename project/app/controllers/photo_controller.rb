@@ -1,9 +1,9 @@
 class PhotoController < ApplicationController
 	def index
-		user_id = session[:user_id]
+		@user_id = session[:user_id]
 		@loggedIn = true
 
-		if user_id.nil?
+		if @user_id.nil?
 			@loggedIn = false
 		end
 
@@ -15,8 +15,17 @@ class PhotoController < ApplicationController
 			@error = true
 		else
 			@photo = Photo.find(params[:id])
+			@comments = Comment.where(:photo_id => params[:id])
 		end
 		# @photos = Photo.all
+	end
+
+
+	def create_comment
+		@comment = Comment.new(:photo_id => params[:photo_id], :user_id => params[:user_id], :text => params[:text])
+		@comment.save()
+
+		render :partial => "create_comment"
 	end
 
 
