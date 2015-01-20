@@ -1,6 +1,6 @@
 class PhotoController < ApplicationController
 	def index
-		@user_id = session[:user_id]
+		@user_id = session[:id]
 		@loggedIn = true
 
 		if @user_id.nil?
