@@ -1,6 +1,7 @@
 class UserController < ApplicationController
 	def index
-		@users = User.all
+		@user = User.find_by_id(params[:id])
+
 	end
 
 	def new
@@ -15,6 +16,7 @@ class UserController < ApplicationController
 	def create
 		params.permit!
 		@user = User.new(params[:user])
+		@user.points = 0;
 		if !@user.valid?
 			render :action => "new"
 		else
