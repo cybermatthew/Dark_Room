@@ -1,0 +1,123 @@
+<div>
+
+	<!----------------------- SECTION 1 DIV----------------------->
+	<div id = "section1Div"> 
+		<h1>  &nbsp;  </h1> <!-- Placeholder. Keeps section 1 in line with section 2-->
+		<b> <u>Your scrIMAGE Newsfeed</u> </b>
+		<br>
+		<br>
+		
+			<u> New Images People Have Uploaded:</u>
+			<img src = "http://photography.naturestocklibrary.com/orca-stock-photo.jpg" alt = "scrIMAGE Image" class = "section1Img"/>
+			<br>
+			<a href = ""> View Image Tree</a>
+			<br>
+			<br>
+			<a href = ""> View Other Image Trees</a>
+			<br>
+			<br>
+			<br>
+			<u> scrIMAGEs You're Following:</u>
+			<br>
+			<a href = ""> user1 vs user2</a> </br>
+			<a href = ""> user3 vs user4</a> </br>
+			<a href = ""> user5 vs user6</a> </br>
+			<a href = ""> View Other scrIMAGEs  </a> 
+			<br>
+			<br>
+			<a href = ""> Enter Your Own scrIMAGE </a>
+		
+	</div>
+
+	<!------------------- SECTION 2 DIV---------------->
+	<div id = "section2Div">
+		<h1> scrIMAGE </h1>
+		<b> <u> Your Images </u> </br>
+		<br>
+
+		<!-- To use the API, copy and paste all the code...--> 
+			<!-- Load widget code -->
+			<script type="text/javascript" src="http://feather.aviary.com/imaging/v1/editor.js"></script>
+
+			<!-- Instantiate the widget -->
+			<script type="text/javascript">
+
+			    var featherEditor = new Aviary.Feather({
+			        apiKey: '5ee2fa12a60942b4a817edb17bfae759',
+			        apiVersion: 3,
+			        enableCORS: true,
+			        onLoad: function() {
+        				document.getElementById('editButton').style.display = 'block';
+    				},
+			        onSave: function(imageID, newURL) {
+			            var img = document.getElementById(imageID);
+			            img.src = newURL;
+			        }
+			    });
+
+			    function launchEditor(id, src) {
+			        featherEditor.launch({
+			            image: id,
+			            url: src
+			        });
+			        return false;
+			    }
+			</script>              
+
+			<!-- Add an edit button, passing the HTML id of the image
+			    and the public URL to the image -->
+			<a href="#" onclick="return launchEditor('catImg', 
+			    'http://scienceblogs.com/gregladen/files/2012/12/Beautifull-cat-cats-14749885-1600-1200.jpg');" id = "editButton">Edit Image(for testing purposes only. Need to look into making sure that saving with Ruby works. Can also consider adding more features.)</a>
+
+			<img src = "http://scienceblogs.com/gregladen/files/2012/12/Beautifull-cat-cats-14749885-1600-1200.jpg" alt = "Uploaded User Image" class = "section2Img" id = "catImg"/>
+		<!--...that's nested between these two comment tabs. Don't forget to adjust the image name, URL, and hyperlink as necessary.-->
+		<br>
+		<a href = ""> View Image Tree</a>
+		<br>
+		<br>
+		<a href = ""> View All Your Images</a>
+		<br>
+		<br>
+		<a href = ""> Upload New Image </a>
+	</div>
+
+	<!------------------- SECTION 3 DIV------------------>
+	<div id = "section3Div"> 
+		<br>
+		<br>
+		<br>
+		<img src = "http://www.genengnews.com/app_themes/genconnect/images/default_profile.jpg"/ alt = "Profile Image" id = "profileImg">
+		<br>
+		<br>
+		<br>
+		<div id = "coolOrMeh"> 
+			<u> Cool or Meh?</u> 
+			<br>
+			<br>
+			<img src = "http://community.ashworthcollege.edu/servlet/JiveServlet/showImage/2-117708-22554/digital,graphics,manipulation,photography,creative,graphic,design,photoshop-0f5c062855b6b7c412b092db611225bc_h.jpg" alt = "Cool or Meh Image" class = "section3Img"/>
+			<br>
+			<a href = ""> View Larger</a>
+			<br>
+			<br>
+			<button>Cool!</button>
+			&nbsp;
+			&nbsp;
+			<button>Meh.</button>
+			<br>
+			<br>
+			<a href = ""> View Another Image</a>
+		</div>
+		<br>
+	</div>
+
+	<!----------------------- SECTION 4 DIV---------------------->
+	<div id = "section4Div">
+		<% if @currentUser %>
+			<h3>Hi <%= @currentUser.username %>!</h3>
+			<a href="/user/logout">Logout?</a></p>
+		<% else %>
+			<a href="/user/login">Login</a> | <a href="/user/new">Register</a>
+		<% end %>
+	</div>
+
+</div>

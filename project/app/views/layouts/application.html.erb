@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>scrIMAGE</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
+	<title>scrIMAGE</title>
+	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  	<%= csrf_meta_tags %>
 </head>
 <body>
-
-	<div class="flash">
+	<!-- <div class="flash">
 		<% if flash[:notice] %>
 			<div class="alert alert-danger alert-dismissable">
 		    	 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -20,9 +19,41 @@
 	    		<%= flash[:error] %>
 	    	</div>
 		<% end %>
+	</div> -->
+
+	<div class="sidebar">
+		<a href="/"><img src="/scrimage_logo.png" class="logo"></a>
+		<% if @currentUser %>
+			<h3>Hi <%= @currentUser.username %>!
+			<a href="/user/logout">Logout?</a></h3>
+		<% else %>
+			<a href="/user/login">Login</a> | <a href="/user/new">Register</a>
+		<% end %>
+
+		
+		<div id = "coolOrMeh"> 
+			<u> Cool or Meh?</u> 
+			<br>
+			<br>
+			<img src = "http://community.ashworthcollege.edu/servlet/JiveServlet/showImage/2-117708-22554/digital,graphics,manipulation,photography,creative,graphic,design,photoshop-0f5c062855b6b7c412b092db611225bc_h.jpg" alt = "Cool or Meh Image" class = "section3Img"/>
+			<br>
+			<a href = ""> View Larger</a>
+			<br>
+			<br>
+			<button>Cool!</button>
+			&nbsp;
+			&nbsp;
+			<button>Meh.</button>
+			<br>
+			<br>
+			<a href = ""> View Another Image</a>
+		</div>
+
 	</div>
+	<div class="main">
 
-	<%= yield %>
+		<%= yield %>
 
+	</div>
 </body>
 </html>
