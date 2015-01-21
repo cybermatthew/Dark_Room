@@ -7,24 +7,11 @@
   	<%= csrf_meta_tags %>
 </head>
 <body>
-	<!-- <div class="flash">
-		<% if flash[:notice] %>
-			<div class="alert alert-danger alert-dismissable">
-		    	 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-		    	<%= flash[:notice] %>
-		    </div>
-		<% elsif flash[:error] %>
-			<div class="alert alert-danger alert-dismissable">
-	    	 	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-	    		<%= flash[:error] %>
-	    	</div>
-		<% end %>
-	</div> -->
-
 	<div class="sidebar">
+
 		<a href="/"><img src="/scrimage_logo.png" class="logo"></a>
-		<% if @currentUser %>
-			<h3>Hi <%= @currentUser.username %>!
+		<% if logged_in? %>
+			<h3>Hi <%= current_user.username %>!
 			<a href="/user/logout">Logout?</a></h3>
 		<% else %>
 			<a href="/user/login">Login</a> | <a href="/user/new">Register</a>
