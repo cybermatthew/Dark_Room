@@ -61,8 +61,4 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-
-  # get ':controller(/:action(/:id))'
-  # post ':controller(/:action(/:id))'
-  # delete ':controller(/:action(/:id))'
 end

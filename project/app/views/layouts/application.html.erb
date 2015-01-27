@@ -43,7 +43,7 @@
 	<div class="main">
 
 		<% flash.each do |message_type, message| %>
-        	<%= message %>	
+        	<h1 class="<%= message_type %>"><%= message %></h1>
       	<% end %>
 
 		<%= yield %>

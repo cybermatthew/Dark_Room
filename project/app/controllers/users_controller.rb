@@ -1,11 +1,13 @@
 class UsersController < ApplicationController
+	before_action :logged_in_user, only: [:edit, :update]
+	before_action :correct_user, only: [:edit, :update]
+
 	def index
 		@users = User.all
 	end
 
 	def show
 		@user = User.find_by_id(params[:id])
-		@is_user_home = params[:id].to_s == session[:id].to_s
 	end
 
 	def new
@@ -14,7 +16,6 @@ class UsersController < ApplicationController
 
 	def edit
 		@user = User.find_by_id(params[:id])
-		@can_edit = params[:id].to_s == session[:id].to_s
 	end
 
 	def create
@@ -33,6 +34,7 @@ class UsersController < ApplicationController
 	def update
 		@user = User.find_by_id(params[:id])
 		if @user.update_attributes(user_params)
+			flash[:success] = "Profile updated"
       		redirect_to @user
     	else
       		render 'edit'
@@ -40,8 +42,26 @@ class UsersController < ApplicationController
 	end
 
 	private
-	## Strong Parameters
+
+	# Strong Parameters, prevent mass assignment
 	def user_params
-		params.require(:user).permit(:username, :password, :password_confirmation)
+		params.require(:user).permit(:username, :password, :password_confirmation, :bio)
 	end
+
+	# Before filters
+
+    def logged_in_user # Confirms user is logged in
+      unless logged_in?
+        flash[:error] = "Please log in"
+        redirect_to login_url
+      end
+    end
+
+    def correct_user
+    	@user = User.find(params[:id])
+      	unless current_user?(@user)
+      		flash[:error] = "You do not have permission to edit this user's profile"
+      		redirect_to(root_url) 
+      	end
+    end
 end
