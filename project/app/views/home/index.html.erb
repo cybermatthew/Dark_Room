@@ -3,26 +3,26 @@
 <u> New Images People Have Uploaded:</u>
 <img src = "http://photography.naturestocklibrary.com/orca-stock-photo.jpg" alt = "scrIMAGE Image" class = "section1Img"/>
 <br>
-<a href = ""> View Image Tree</a>
+<a href = "#"> View Image Tree</a>
 <br>
 <br>
-<a href = ""> View Other Image Trees</a>
+<a href = "#"> View Other Image Trees</a>
 <br>
 <br>
 <br>
 <u> scrIMAGEs You're Following:</u>
 <br>
-<a href = ""> user1 vs user2</a> </br>
-<a href = ""> user3 vs user4</a> </br>
-<a href = ""> user5 vs user6</a> </br>
-<a href = ""> View Other scrIMAGEs  </a> 
+<a href = "#"> user1 vs user2</a> </br>
+<a href = "#"> user3 vs user4</a> </br>
+<a href = "#"> user5 vs user6</a> </br>
+<a href = "#"> View Other scrIMAGEs  </a> 
 <br>
 <br>
-<a href = ""> Enter Your Own scrIMAGE </a>
+<a href = "#"> Enter Your Own scrIMAGE </a>
 
 <!-- START PHOTO EDITING API --> 
 	<!-- Load widget code -->
-	<script type="text/javascript" src="http://feather.aviary.com/imaging/v1/editor.js"></script>
+	<script type="text/javascript" src="http://feather.aviary.com/js/feather.js"></script>
 
 	<!-- Instantiate the widget -->
 	<script type="text/javascript">
@@ -30,6 +30,9 @@
 	    var featherEditor = new Aviary.Feather({
 	        apiKey: '5ee2fa12a60942b4a817edb17bfae759',
 	        apiVersion: 3,
+	        theme: 'light', // Check out our new 'light' and 'dark' themes!
+       		tools: 'all',
+       		appendTo: '',
 	        enableCORS: true,
 	        onLoad: function() {
 				document.getElementById('editButton').style.display = 'block';
@@ -37,7 +40,10 @@
 	        onSave: function(imageID, newURL) {
 	            var img = document.getElementById(imageID);
 	            img.src = newURL;
-	        }
+	        },
+	        onError: function(errorObj) {
+           		alert(errorObj.message);
+       		}
 	    });
 
 	    function launchEditor(id, src) {
@@ -52,7 +58,7 @@
 	<!-- Add an edit button, passing the HTML id of the image
 	    and the public URL to the image -->
 	<a href="#" onclick="return launchEditor('catImg', 
-	    'http://scienceblogs.com/gregladen/files/2012/12/Beautifull-cat-cats-14749885-1600-1200.jpg');" id = "editButton">Edit Image(for testing purposes only. Need to look into making sure that saving with Ruby works. Can also consider adding more features.)</a>
+	    'http://upload.wikimedia.org/wikipedia/commons/2/22/Turkish_Van_Cat.jpg');" id = "editButton">Edit Image(for testing purposes only. Need to look into making sure that saving with Ruby works.)</a>
 
-	<img src = "http://scienceblogs.com/gregladen/files/2012/12/Beautifull-cat-cats-14749885-1600-1200.jpg" alt = "Uploaded User Image" class = "section2Img" id = "catImg"/>
+	<img src = "http://upload.wikimedia.org/wikipedia/commons/2/22/Turkish_Van_Cat.jpg" alt = "Uploaded User Image" class = "section2Img" id = "catImg"/>
 <!-- END PHOTO EDITING API -->
