@@ -1,4 +1,4 @@
-<h1>Registration</h1>
+<h1>Sign up</h1>
 
 <% if flash[:loggedin] %>
 	<p><%= flash[:loggedin] %> | <a href="/user/logout">Logout?</a></p>
@@ -13,11 +13,11 @@
 	  <p><%= msg %></p>
 	<% end %>
 
-	<%= form_for @user, :url => {:action => :create} do |form| %>
+	<%= form_for(@user) do |form| %>
 	  Username: <br/><%= form.text_field(:username) %><br/>
 	  Password: <br/><%= form.password_field(:password) %><br/>
 	  Password (again): <br/><%= form.password_field(:password_confirmation) %><br/>
 	  <br/>
-	  <%= form.submit "Register" %>
+	  <%= form.submit "Sign up" %>
 	<% end %>
 <% end %>
