@@ -1,7 +1,9 @@
 class UserController < ApplicationController
 	def index
 		@user = User.find_by_id(params[:id])
-
+		if params[:id] == session[:id]
+			@isOwnProfile = true;
+		end
 	end
 
 	def new
@@ -17,6 +19,7 @@ class UserController < ApplicationController
 		params.permit!
 		@user = User.new(params[:user])
 		@user.points = 0;
+		@user.bio = "Generic new user bio. Boo."
 		if !@user.valid?
 			render :action => "new"
 		else

@@ -15,9 +15,14 @@
  */
 
 body, html {
-	background-color: #B9D033;
-	color: #6F483F;
+	background-color: #fff;
+	color: #343642;
 	font-family: 'Helvetica Nue', Helvetica;
+	font-size: 11pt;
+}
+
+.container {
+	display: flex;
 }
 
 .sidebar {
@@ -25,18 +30,55 @@ body, html {
 	max-width:300px;
 	float:left;
 	margin-right: 20px;
-	padding:6px;
 	background-image: url('/bg.png');
 }
 
 .logo {
 	max-width:100%;
 	max-height:100%;
+	margin-top:10px;
 }
 
 .main {
 	max-width:800px;
 	overflow:hidden;
-	padding: 6px;
 	background-image: url('/bg.png');
+	flex: 1;
+}
+
+p {
+	padding:10px;
+}
+
+a:link, a:active, a:visited {
+	color: #343642;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #358795;
+	text-decoration: none;
+
+}
+
+h1 {
+	color: #ED7263;
+	text-align: center;
+	text-transform: uppercase;
+	background-color: #343642;
+	padding:4px;
+	margin-top:30px;
+	font-size: 12pt;
+}
+
+.main h1 {
+	margin-top: 0px;
+}
+
+h1 a:link, h1 a:active, h1 a:visited {
+	color: #ED7263;
+	text-align: center;
+	text-transform: uppercase;
+	background-color: #343642;
+	font-size: 12pt;
 }

@@ -7,19 +7,22 @@
   	<%= csrf_meta_tags %>
 </head>
 <body>
+<div class="container">
 	<div class="sidebar">
 
-		<a href="/"><img src="/scrimage_logo.png" class="logo"></a>
+		<a href="/"><img src="/scrimage_logo2.png" class="logo"></a>
 		<% if logged_in? %>
-			<h3>Hi <%= current_user.username %>!
-			<a href="/user/logout">Logout?</a></h3>
+			<h1>Hi <a href="/user?id=<%= current_user.id %>"><%= current_user.username %></a>! [<a href="/user/logout">logout</a>]</h1>
+			
 		<% else %>
-			<a href="/user/login">Login</a> | <a href="/user/new">Register</a>
+			<h1><a href="/user/login">Login</a> | <a href="/user/new">Register</a></h1>
 		<% end %>
+
+		<p>Welcome to scrIMAGE! Description of website, what you can do, blah blah blah, fill up some space before the next header, somebody write something here pls. Kthxbai.</p>
 
 		
 		<div id = "coolOrMeh"> 
-			<u> Cool or Meh?</u> 
+			<h1>Cool or Meh?</h1> 
 			<br>
 			<br>
 			<img src = "http://community.ashworthcollege.edu/servlet/JiveServlet/showImage/2-117708-22554/digital,graphics,manipulation,photography,creative,graphic,design,photoshop-0f5c062855b6b7c412b092db611225bc_h.jpg" alt = "Cool or Meh Image" class = "section3Img"/>
@@ -42,5 +45,6 @@
 		<%= yield %>
 
 	</div>
+</div>
 </body>
 </html>
