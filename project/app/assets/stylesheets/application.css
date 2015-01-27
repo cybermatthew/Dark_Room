@@ -46,6 +46,16 @@ body, html {
 	flex: 1;
 }
 
+img.homepage {
+	width:150px;
+	margin-right:10px;
+}
+
+div.images {
+	text-align: center;
+	margin-bottom: 20px;
+}
+
 p {
 	padding:10px;
 }
