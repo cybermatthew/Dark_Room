@@ -1,0 +1,13 @@
+<h1>User Login</h1>
+
+<% if flash[:loggedin] %>
+	<p><%= flash[:loggedin] %> | <a href="/logout">Logout?</a></p>
+<% else %>
+	<p>If you don't have an account, <a href="/signup">signup here</a>.</p>
+
+	<%= form_for(:session, :url => login_path) do |form| %>
+		  Username: <br/><%= form.text_field(:username) %><br/>
+		  Password: <br/><%= form.password_field(:password) %><br/><br/>
+		  <%= form.submit "Login" %>
+	<% end %>
+<% end %>

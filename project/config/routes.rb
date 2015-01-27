@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
-  root :to => 'home#index'
-  get 'home/index'
-  get 'signup' => 'users#new'
 
+  root :to => 'home#index'
+  get    'signup'  => 'users#new'
+  get    'login'   => 'sessions#new'
+  post   'login'   => 'sessions#create'
+  delete 'logout'  => 'sessions#destroy'
   resources :users
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -60,7 +62,7 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
 
-  get ':controller(/:action(/:id))'
-  post ':controller(/:action(/:id))'
-  delete ':controller(/:action(/:id))'
+  # get ':controller(/:action(/:id))'
+  # post ':controller(/:action(/:id))'
+  # delete ':controller(/:action(/:id))'
 end
