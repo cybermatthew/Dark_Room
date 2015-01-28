@@ -1,9 +1,0 @@
-<% if !@error %>
-	<h1>Create Scrimage</h1>
-	<br>
-	<%= form_tag("/create", method: "post") do %>
-		Name: <%= text_field_tag(:q) %>
-		<br><br>
-		<center><%= submit_tag("Create Scrimage") %></center>
-	<% end %>
-<% end %>

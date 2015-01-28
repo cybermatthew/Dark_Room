@@ -1,5 +1,5 @@
 class ScrimageController < ApplicationController
-	def index
+	def start
 		@user_id = session[:id]
 		@loggedIn = true
 
