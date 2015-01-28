@@ -1,0 +1,18 @@
+<% @user.errors.full_messages.each do |msg| %>
+	<h1 class="error"><%= msg %></h1>
+<% end %>
+<h1>Sign up</h1>
+
+<% if flash[:loggedin] %>
+	<p><%= flash[:loggedin] %> | <a href="/logout">Logout?</a></p>
+<% else %>
+	<p>If you already have an account, <a href="/login">login here</a>.</p>
+
+	<%= form_for(@user) do |form| %>
+	  Username: <br/><%= form.text_field(:username) %><br/>
+	  Password: <br/><%= form.password_field(:password) %><br/>
+	  Password (again): <br/><%= form.password_field(:password_confirmation) %><br/>
+	  <br/>
+	  <%= form.submit "Sign up" %>
+	<% end %>
+<% end %>
