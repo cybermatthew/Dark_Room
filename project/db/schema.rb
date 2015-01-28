@@ -27,19 +27,21 @@ ActiveRecord::Schema.define(version: 20150124213702) do
     t.integer  "votes"
     t.integer  "user_id"
     t.integer  "scrimage_id"
-    t.integer  "parent_photo_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.integer  "parent_photo_id", default: -1
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
   end
 
   create_table "scrimages", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "timed"
     t.datetime "start_time"
     t.datetime "end_time"
     t.integer  "original_photo_id"
     t.string   "description"
-    t.integer  "winner_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.integer  "winner_id",         default: -1
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
   end
 
   create_table "sessions", force: :cascade do |t|
