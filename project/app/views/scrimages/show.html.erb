@@ -1,7 +1,24 @@
+<input id='scrimageID' type=hidden value=<%= @scrimage.id %> >
+
 <h1>Scrimage: <%= @scrimage.name %></h1>
-Start Time: <%= @scrimage.start_time.to_formatted_s(:long)  %><br>
-End Time: <%= @scrimage.end_time.to_formatted_s(:long)  %><br>
-Days: <%= @daysDif  %><br>
-Hours: <%= @hoursDif %><br>
-Minutes: <%= @minutesDif %><br>
-Seconds: <%= @secondsDif %>
+<div id="clockDiv"></div>
+
+<script type="text/javascript">
+
+	$(function(){
+		updateTime();
+		setInterval('updateTime()', 1);
+	});
+
+	function updateTime(){
+		$.ajax({
+			url: "/scrimages/update_time",
+			type: "POST",
+			data: {id: $("#scrimageID").val()},
+			success: function(msg){
+				$("#clockDiv").html(msg);
+			}
+		});
+	}
+
+</script>

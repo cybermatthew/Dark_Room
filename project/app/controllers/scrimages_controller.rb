@@ -1,6 +1,10 @@
 class ScrimagesController < ApplicationController
 	def show
 		@scrimage = Scrimage.find(params[:id])
+	end
+
+	def update_time
+		@scrimage = Scrimage.find(params[:id])
 
 		remainingSeconds = (@scrimage.end_time.to_time - DateTime.now.to_time).to_i
 		@daysDif = remainingSeconds/(60*60*24)
@@ -12,6 +16,8 @@ class ScrimagesController < ApplicationController
 		@minutesDif = remainingSeconds/60
 
 		@secondsDif = remainingSeconds - (@minutesDif*60)
+
+		render :partial => "update_time"
 	end
 
 	def new_scrimage
