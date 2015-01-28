@@ -28,6 +28,21 @@ class PhotoController < ApplicationController
 		render :partial => "create_comment"
 	end
 
+	def save_edited_photo
+		require "open-uri"
+		respond_to do |format|
+			format.json{
+				photoName = params[:editedPhotoLink]
+				image_from_web  = open(photoName) {|f| f.read }
+				file_name = photoName.split("/").pop()
+				rootDir = Rails.root.join("public/images", file_name)
+				File.open(rootDir, 'wb') do |f| 
+					f.write(image_from_web) 
+				end
+				render :json => {:file_name => photoName} #Sends the photo link back as a response.
+			}
+  		end
+	end
 
 	private
 	## Strong Parameters
