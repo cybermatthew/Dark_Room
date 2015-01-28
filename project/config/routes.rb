@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   delete 'logout'  => 'sessions#destroy'
   resources :users
 
+  post 'photo/create_comment'
   resources :photo
 
   # must put custom routes first

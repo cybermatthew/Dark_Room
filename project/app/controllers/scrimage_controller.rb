@@ -9,4 +9,8 @@ class ScrimageController < ApplicationController
 
 		@error = false
 	end
+
+	def create
+		
+	end
 end
