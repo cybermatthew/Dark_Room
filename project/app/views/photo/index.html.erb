@@ -1,7 +1,6 @@
-<input type=hidden id="userID" value='1' >
-<input type=hidden id="photoID" value='<%= @photo.id %>' >
-
 <% if !@error %>
+	<input type=hidden id="userID" value='1' >
+	<input type=hidden id="photoID" value='<%= @photo.id %>' >
 	<center><h1><%= @photo.description %></h1></center>
 	<table>
 		<tr>
