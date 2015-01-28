@@ -1,5 +1,5 @@
 class Photo < ActiveRecord::Base
-	validates :filename, :presence => true
+	validates :filename, :user_id, :scrimage_id, :presence => true
 	
 	belongs_to :user
 	has_many :comments
