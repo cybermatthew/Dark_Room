@@ -1,7 +1,7 @@
 <% if !@error %>
 	<h1>Create Scrimage</h1>
 	<br>
-	<%= form_tag("/scrimage/create", method: "post") do %>
+	<%= form_tag("/scrimages/create", method: "post") do %>
 		<center>
 			<%= radio_button_tag(:type, :timed, :selected) %>Timed (5 days)
 			<%= radio_button_tag(:type, :untimed) %>Untimed

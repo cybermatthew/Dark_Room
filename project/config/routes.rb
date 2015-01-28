@@ -8,18 +8,18 @@ Rails.application.routes.draw do
   resources :users
 
 
-  resource :photo do
-    post 'create_comment' => 'photo#create_comment'
+  resource :photos do
+    post 'create_comment' => 'photos#create_comment'
+    post 'save_edited_photo' => 'photos#save_edited_photo'
   end
+  resources :photos
 
   # must put custom routes first
-  resource :scrimage do
-    get 'new_scrimage' => 'scrimage#new_scrimage'
-    post 'create' => 'scrimage#create'
+  resource :scrimages do
+    get 'new_scrimage'
+    post 'create'
   end
-
-  post 'photo/save_edited_photo'
-  resources :photo
+  resources :scrimages
 
 
   # The priority is based upon order of creation: first created -> highest priority.

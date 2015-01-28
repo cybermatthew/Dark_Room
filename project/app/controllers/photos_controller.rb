@@ -1,5 +1,5 @@
-class PhotoController < ApplicationController
-	def index
+class PhotosController < ApplicationController
+	def show
 		@user_id = session[:id]
 		@loggedIn = true
 
