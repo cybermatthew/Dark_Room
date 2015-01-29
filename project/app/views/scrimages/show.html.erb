@@ -1,24 +1,44 @@
+<input id="initialRemainingSeconds" type=hidden value=<%= @remainingSeconds %> >
+
 <input id='scrimageID' type=hidden value=<%= @scrimage.id %> >
 
 <h1>Scrimage: <%= @scrimage.name %></h1>
+Start Time: <%= @scrimage.start_time.to_formatted_s(:long)  %><br>
+End Time: <%= @scrimage.end_time.to_formatted_s(:long)  %><br>
 <div id="clockDiv"></div>
 
 <script type="text/javascript">
 
+	var remainingSeconds = -1;
 	$(function(){
 		updateTime();
-		setInterval('updateTime()', 1);
+		setInterval('updateTime()', 1000);
 	});
 
 	function updateTime(){
-		$.ajax({
-			url: "/scrimages/update_time",
-			type: "POST",
-			data: {id: $("#scrimageID").val()},
-			success: function(msg){
-				$("#clockDiv").html(msg);
-			}
-		});
+		// if this is the first time the function is called
+		if (remainingSeconds == -1) remainingSeconds = $("#initialRemainingSeconds").val();
+		else remainingSeconds--;
+
+		var tempRemainingSeconds = remainingSeconds;
+
+		var daysRemaining = Math.floor(tempRemainingSeconds/(60*60*24));
+
+		tempRemainingSeconds = tempRemainingSeconds - daysRemaining*60*60*24;
+		var hoursRemaining = Math.floor(tempRemainingSeconds/(60*60));
+
+		tempRemainingSeconds = tempRemainingSeconds - hoursRemaining*60*60;
+		var minutesRemaining = Math.floor(tempRemainingSeconds/60);
+
+		var secondsRemaining = Math.floor(tempRemainingSeconds - (minutesRemaining*60));
+
+
+		var daysString = "Days: "+daysRemaining+"<br>";
+		var hoursString = "Hours: "+hoursRemaining+"<br>";
+		var minutesString = "Minutes: "+minutesRemaining+"<br>";
+		var secondsString = "Seconds: "+secondsRemaining;
+
+		$("#clockDiv").html(daysString+hoursString+minutesString+secondsString);
 	}
 
 </script>

@@ -18,7 +18,6 @@ Rails.application.routes.draw do
   resource :scrimages do
     get 'new_scrimage'
     post 'create'
-    post 'update_time'
   end
   resources :scrimages
 
