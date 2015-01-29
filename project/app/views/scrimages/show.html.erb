@@ -1,18 +1,36 @@
 <input id="initialRemainingSeconds" type=hidden value=<%= @remainingSeconds %> >
+<input id="isTimed" type=hidden value=<%= @scrimage.timed %> >
 
 <input id='scrimageID' type=hidden value=<%= @scrimage.id %> >
 
 <h1>Scrimage: <%= @scrimage.name %></h1>
 Start Time: <%= @scrimage.start_time.to_formatted_s(:long)  %><br>
-End Time: <%= @scrimage.end_time.to_formatted_s(:long)  %><br>
+<% if(@scrimage.timed == 1) %>End Time: <%= @scrimage.end_time.to_formatted_s(:long)  %><% end %>
+
+<br><br>
+
 <div id="clockDiv"></div>
+<br><br>
+
+<center><img src="<%= @original_photo.filename %>"></center>
+<br>
+Description: <%= @scrimage.description %>
+<br><br>
+
+<% @photos.each do |photo| %>
+<%= photo %>
+<% end %>
 
 <script type="text/javascript">
 
 	var remainingSeconds = -1;
 	$(function(){
-		updateTime();
-		setInterval('updateTime()', 1000);
+
+		if ( $("#isTimed").val() == 1 ){
+			updateTime();
+			setInterval('updateTime()', 1000);
+		}
+
 	});
 
 	function updateTime(){
