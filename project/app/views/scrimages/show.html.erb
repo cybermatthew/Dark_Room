@@ -12,7 +12,7 @@ Start Time: <%= @scrimage.start_time.to_formatted_s(:long)  %><br>
 <div id="clockDiv"></div>
 <br><br>
 
-<center><img src="<%= @original_photo.filename %>"></center>
+<center><div class="editableImage"><img src="<%= @original_photo.filename %>"></div></center>
 <br>
 Description: <%= @scrimage.description %>
 <br><br>
@@ -25,6 +25,8 @@ Description: <%= @scrimage.description %>
 
 	var remainingSeconds = -1;
 	$(function(){
+
+		$(".editableImage").prepend("<span class='hoverText' hidden>Hi</span>");
 
 		if ( $("#isTimed").val() == 1 ){
 			updateTime();
@@ -59,4 +61,15 @@ Description: <%= @scrimage.description %>
 		$("#clockDiv").html(daysString+hoursString+minutesString+secondsString);
 	}
 
+
+	$(".editableImage").hover(
+		function(){
+			$(".hoverText", this).show();
+			$(".hoverText", this).css("display", "inline");
+			console.log("hello");
+		},
+		function(){
+			$(".hoverText", this).hide();
+			console.log("goodbye");
+		});
 </script>

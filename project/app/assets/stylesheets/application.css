@@ -112,3 +112,14 @@ h1 a:link, h1 a:active, h1 a:visited {
 	background-color: #343642;
 	font-size: 12pt;
 }
+
+.editableImage{
+	position: relative;
+}
+
+.hoverText{
+	position: absolute;
+	top: 0;
+	z-index: 1;
+	display: inline;
+}
