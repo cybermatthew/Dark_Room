@@ -12,7 +12,7 @@ Start Time: <%= @scrimage.start_time.to_formatted_s(:long)  %><br>
 <div id="clockDiv"></div>
 <br><br>
 
-<center><div class="editableImage"><img src="<%= @original_photo.filename %>"></div></center>
+<center><span class="editableImage"><img src="<%= @original_photo.filename %>"></span></center>
 <br>
 Description: <%= @scrimage.description %>
 <br><br>
@@ -26,9 +26,7 @@ Description: <%= @scrimage.description %>
 	var remainingSeconds = -1;
 	$(function(){
 
-		// $(".editableImage").prepend("<span class='hoverText' style='display:none'><img class=hoverEditIcon src='/images/edit_symbol.png'></span>");
-
-		$(".editableImage").prepend("<span class='hoverText' style='display:none'><span class=hoverEditIcon style='display:inline-flex'><img src='/images/edit_symbol.png'></span></span>");
+		$(".editableImage").prepend("<span class='hoverIcons' style='display:none'><span class='hoverIcon hoverIconLeft' style='display:inline-flex'><img src='/images/edit_symbol.png'></span>&nbsp;&nbsp;<span class='hoverIcon hoverIconRight'style='display:inline-flex'><img src='/images/upload_symbol.png'></span></span>");
 
 		if ( $("#isTimed").val() == 1 ){
 			updateTime();
@@ -65,11 +63,11 @@ Description: <%= @scrimage.description %>
 
 	$(".editableImage").hover(
 		function(){
-			$(".hoverText", $(this).parent()).show();
-			$(".hoverText", $(this).parent()).css("display", "inline");
+			$(".hoverIcons", $(this).parent()).show();
+			$(".hoverIcons", $(this).parent()).css("display", "inline");
 		},
 		function(){
-			$(".hoverText", $(this).parent()).hide();
+			$(".hoverIcons", $(this).parent()).hide();
 		});
 
 </script>

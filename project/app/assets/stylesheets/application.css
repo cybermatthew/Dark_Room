@@ -118,18 +118,27 @@ h1 a:link, h1 a:active, h1 a:visited {
 	display: inline-flex;
 }
 
-.hoverText{
+.hoverIcons{
 	position: absolute;
 	top: 0;
 	/*z-index: 1;*/
 	display: inline;
+	padding: 5px;
 }
 
-.hoverEditIcon{
+.hoverIcon{
 	width: 50px;
 	height: 50px;
 }
 
-.hoverEditIcon:hover{
+.hoverIcon:hover{
 	background-color: #ee7163;
+}
+
+.hoverIconLeft{
+	float: left;
+}
+
+.hoverIconRight{
+	float: right;
 }
