@@ -12,7 +12,7 @@ Start Time: <%= @scrimage.start_time.to_formatted_s(:long)  %><br>
 <div id="clockDiv"></div>
 <br><br>
 
-<center><span class="editableImage"><img src="<%= @original_photo.filename %>"></span></center>
+<center><%= render :partial => "layouts/editableImage", :locals => {:image => @original_photo, :imageClass => "originalImage"} %></center>
 <br>
 Description: <%= @scrimage.description %>
 <br><br>
@@ -20,6 +20,19 @@ Description: <%= @scrimage.description %>
 <% @photos.each do |photo| %>
 <%= photo %>
 <% end %>
+
+<!-- Creates a modal that is hidden until the js open/close functions are called -->
+<input type=hidden id="selectedImageToEdit">
+<div id="editModal" class="modalDialog">
+	<div>
+		<span onclick=closeModal('editModal') title="Close" class="close">X</span>
+		<h2>Editing Options</h2>
+		<center>
+			<button class='btn'>Edit in Browser</button>
+			<button class='btn'>Download to Edit Offline</button>
+		</center>
+	</div>
+</div>
 
 <script type="text/javascript">
 
@@ -58,5 +71,4 @@ Description: <%= @scrimage.description %>
 
 		$("#clockDiv").html(daysString+hoursString+minutesString+secondsString);
 	}
-
 </script>

@@ -16,7 +16,7 @@ test_scrimage.save(:validate => true)
 
 
 # load photos #
-test_photo = Photo.new(:filename => "http://photography.naturestocklibrary.com/orca-stock-photo.jpg", :description => "text", :votes => "1", :user_id => admin_user.id, :scrimage_id => test_scrimage.id)
+test_photo = Photo.new(:filename => "https://media.licdn.com/mpr/mpr/shrink_200_200/p/8/005/086/046/208a6eb.jpg", :description => "text", :votes => "1", :user_id => admin_user.id, :scrimage_id => test_scrimage.id)
 test_photo.save(:validate => false)
 
 # load comments #
