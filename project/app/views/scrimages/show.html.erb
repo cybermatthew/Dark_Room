@@ -26,8 +26,6 @@ Description: <%= @scrimage.description %>
 	var remainingSeconds = -1;
 	$(function(){
 
-		$(".editableImage").prepend("<span class='hoverIcons' style='display:none'><span class='hoverIcon hoverIconLeft' style='display:inline-flex'><img src='/images/edit_symbol.png'></span>&nbsp;&nbsp;<span class='hoverIcon hoverIconRight'style='display:inline-flex'><img src='/images/upload_symbol.png'></span></span>");
-
 		if ( $("#isTimed").val() == 1 ){
 			updateTime();
 			setInterval('updateTime()', 1000);
@@ -60,14 +58,5 @@ Description: <%= @scrimage.description %>
 
 		$("#clockDiv").html(daysString+hoursString+minutesString+secondsString);
 	}
-
-	$(".editableImage").hover(
-		function(){
-			$(".hoverIcons", $(this).parent()).show();
-			$(".hoverIcons", $(this).parent()).css("display", "inline");
-		},
-		function(){
-			$(".hoverIcons", $(this).parent()).hide();
-		});
 
 </script>
