@@ -43,7 +43,7 @@
 			},
 	        onSave: function(imageID, newURL) {
 	            $.ajax({
-        			url : "photo/save_edited_photo",
+        			url : "photos/save_edited_photo",
         			type : "POST",
         			data : { editedPhotoLink: newURL },
 				    success: function(data){

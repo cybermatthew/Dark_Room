@@ -7,15 +7,19 @@ Rails.application.routes.draw do
   delete 'logout'  => 'sessions#destroy'
   resources :users
 
-  post 'photo/create_comment'
-  resources :photo
+
+  resource :photos do
+    post 'create_comment' => 'photos#create_comment'
+    post 'save_edited_photo' => 'photos#save_edited_photo'
+  end
+  resources :photos
 
   # must put custom routes first
-  get 'scrimage/start'
-  resources :scrimage
-
-  post 'photo/save_edited_photo'
-  resources :photo
+  resource :scrimages do
+    get 'new_scrimage'
+    post 'create'
+  end
+  resources :scrimages
 
 
   # The priority is based upon order of creation: first created -> highest priority.

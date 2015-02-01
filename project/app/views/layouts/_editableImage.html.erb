@@ -1,0 +1,20 @@
+<div class="editableImage">
+	<span class='hoverIcons' style='display:none'>
+		<span onclick="showModal('editModal');setSelectedImage('<%= image.id %>');" class='hoverIcon hoverIconLeft' style='display:inline-flex'>
+			<img src='/images/edit_symbol.png'>
+		</span>
+		&nbsp;&nbsp;
+		<span class='hoverIcon hoverIconRight'style='display:inline-flex'>
+			<img src='/images/upload_symbol.png'>
+		</span>
+	</span>
+
+	<img class='<%= imageClass %>' src="<%= image.filename %>" >
+</div>
+
+
+<script type="text/javascript">
+	function setSelectedImage(imageID){
+		$("#selectedImageToEdit").val(imageID);
+	}
+</script>

@@ -112,3 +112,116 @@ h1 a:link, h1 a:active, h1 a:visited {
 	background-color: #343642;
 	font-size: 12pt;
 }
+
+.editableImage{
+	position: relative;
+	display: inline-block;
+}
+
+.hoverIcons{
+	position: absolute;
+	top: 0;
+	/*z-index: 1;*/
+	display: inline;
+	padding: 5px;
+}
+
+.hoverIcon{
+	width: 50px;
+	height: 50px;
+}
+
+.hoverIcon:hover{
+	background-color: #ee7163;
+}
+
+.hoverIconLeft{
+	float: left;
+}
+
+.hoverIconRight{
+	float: right;
+}
+
+
+/* MODAL CODE */
+.modalDialog {
+	position: fixed;
+	font-family: Arial, Helvetica, sans-serif;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: rgba(0,0,0,0.8);
+	z-index: 99999;
+	opacity:0;
+	pointer-events: none;
+	-webkit-transition: opacity 400ms ease-in;
+	-moz-transition: opacity 400ms ease-in;
+	transition: opacity 400ms ease-in;
+}
+
+.modalDialog > div {
+	width: 400px;
+	position: relative;
+	margin: 10% auto;
+	padding: 5px 20px 13px 20px;
+	border-radius: 10px;
+	background: #fff;
+	background: -moz-linear-gradient(#fff, #999);
+	background: -webkit-linear-gradient(#fff, #999);
+	background: -o-linear-gradient(#fff, #999);
+}
+
+.close {
+	background: #606061;
+	color: #FFFFFF;
+	line-height: 25px;
+	position: absolute;
+	right: -12px;
+	text-align: center;
+	top: -10px;
+	width: 24px;
+	text-decoration: none;
+	font-weight: bold;
+	cursor: pointer;
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	border-radius: 12px;
+	-moz-box-shadow: 1px 1px 3px #000;
+	-webkit-box-shadow: 1px 1px 3px #000;
+	box-shadow: 1px 1px 3px #000;
+}
+
+.close:hover { background: #ee7163; }
+
+
+/* Button Styling */
+.btn {
+  background: #d4d4d4;
+  background-image: -webkit-linear-gradient(top, #d4d4d4, #474747);
+  background-image: -moz-linear-gradient(top, #d4d4d4, #474747);
+  background-image: -ms-linear-gradient(top, #d4d4d4, #474747);
+  background-image: -o-linear-gradient(top, #d4d4d4, #474747);
+  background-image: linear-gradient(to bottom, #d4d4d4, #474747);
+  -webkit-border-radius: 11;
+  -moz-border-radius: 11;
+  border-radius: 11px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 20px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+
+  margin: 7px;
+}
+
+.btn:hover {
+  background: #c2c0c2;
+  background-image: -webkit-linear-gradient(top, #c2c0c2, #ababab);
+  background-image: -moz-linear-gradient(top, #c2c0c2, #ababab);
+  background-image: -ms-linear-gradient(top, #c2c0c2, #ababab);
+  background-image: -o-linear-gradient(top, #c2c0c2, #ababab);
+  background-image: linear-gradient(to bottom, #c2c0c2, #ababab);
+  text-decoration: none;
+}
