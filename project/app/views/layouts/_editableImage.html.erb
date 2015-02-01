@@ -1,10 +1,10 @@
 <div class="editableImage">
 	<span class='hoverIcons' style='display:none'>
-		<span onclick="showModal('editModal<%= image.id %>');setSelectedImage('<%= image.id %>');" class='hoverIcon hoverIconLeft' style='display:inline-flex'>
+		<span onclick="showModal('editModal<%= image.id %>')" class='hoverIcon hoverIconLeft' style='display:inline-flex'>
 			<img src='/images/edit_symbol.png'>
 		</span>
 		&nbsp;&nbsp;
-		<span class='hoverIcon hoverIconRight'style='display:inline-flex'>
+		<span onclick="showModal('uploadModal<%= image.id %>')" class='hoverIcon hoverIconRight'style='display:inline-flex'>
 			<img src='/images/upload_symbol.png'>
 		</span>
 	</span>
@@ -14,7 +14,6 @@
 
 
 <!-- Creates a modal that is hidden until the js open/close functions are called -->
-<input type=hidden id="selectedImageToEdit">
 <div id="editModal<%= image.id %>" class="modalDialog">
 	<div>
 		<span onclick=closeModal('editModal<%= image.id %>') title="Close" class="close">X</span>
@@ -28,9 +27,14 @@
 	</div>
 </div>
 
-
-<script type="text/javascript">
-	function setSelectedImage(imageID){
-		$("#selectedImageToEdit").val(imageID);
-	}
-</script>
+<div id="uploadModal<%= image.id %>" class="modalDialog">
+	<div>
+		<span onclick=closeModal('uploadModal<%= image.id %>') title="Close" class="close">X</span>
+		<h2>Upload Edited Version</h2>
+		<center>
+			<%= file_field_tag("editedPhoto"+image.id.to_s) %>
+			<br><br>
+			<button class='btn' onclick="uploadEditedImage('editedPhoto<%= image.id %>')">Create Scrimage</button>
+		</center>
+	</div>
+</div>
