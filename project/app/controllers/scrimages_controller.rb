@@ -31,11 +31,20 @@ class ScrimagesController < ApplicationController
 		scrimage = Scrimage.new(:name => params[:name], :timed=> isTimed, :start_time => Date.today, :end_time => end_time, :description => params[:description])
 		scrimage.save()
 
+		if scrimage.id
+			originalPhoto = Photo.new(:filename => params[:original_photo], :description => params[:description], :user_id => 1, :scrimage_id => scrimage.id)
 
-		originalPhoto = Photo.new(:filename => params[:original_photo], :description => params[:description], :user_id => params[:user_id], :scrimage_id => scrimage.id)
+			originalPhoto.save()
 
-		originalPhoto.save()
+			if originalPhoto.id
 
-		redirect_to action: "index", id: scrimage.id
+				redirect_to :action => "show", :id => scrimage.id
+			else
+				render :action => "new_scrimage"
+			end
+
+		else
+			render :action => "new_scrimage"
+		end
 	end
 end
