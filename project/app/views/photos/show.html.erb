@@ -2,7 +2,10 @@
 	<input type=hidden id="userID" value='1' >
 	<input type=hidden id="photoID" value='<%= @photo.id %>' >
 	<center><h1><%= @photo.description %></h1></center>
-	<p>Click <a href="/scrimages/<%=@photo.scrimage_id%>">here</a> to see the scrImage this photo is a part of</p>
+	<p>
+	Uploaded by <a href="/users/<%=@user.id%>"><%= @user.username %></a>
+	<br/>
+	Click <a href="/scrimages/<%=@photo.scrimage_id%>">here</a> to see the scrImage this photo is a part of</p>
 	<table>
 		<tr>
 			<td>
@@ -11,7 +14,8 @@
 			<td>
 				<div id="commentsDiv">
 					<% @comments.each do |comment| %>
-						<%= comment.text %><br><br>
+						<% commenter = User.find(comment.user_id) %>
+						<%= commenter.username %>: <%= comment.text %><br/><br/>
 					<% end %>
 				</div>
 			</td>

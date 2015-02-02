@@ -21,6 +21,7 @@ test_photo.save(:validate => false)
 
 # load comments #
 comment = Comment.new()
+comment.user_id = admin_user.id
 comment.photo_id = test_photo.id
 comment.text = "text"
 comment.save(:validate => false)

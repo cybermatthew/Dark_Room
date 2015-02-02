@@ -20,6 +20,7 @@ class PhotosController < ApplicationController
 			@error = true
 		else
 			@photo = Photo.find(params[:id])
+			@user = User.find(@photo.user_id)
 			@comments = Comment.where(:photo_id => params[:id])
 		end
 		# @photos = Photo.all

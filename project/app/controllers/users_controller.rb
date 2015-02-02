@@ -42,6 +42,13 @@ class UsersController < ApplicationController
 	def update
 		@user = User.find_by_id(params[:id])
 		if @user.update_attributes(user_params)
+			if params[:user][:profile_image]
+				uploaded_io = params[:user][:profile_image]
+				File.open(Rails.root.join('public', 'images', uploaded_io.original_filename), 'wb') do |file|
+	  			file.write(uploaded_io.read)
+	  			@user.update(profile_image: params[:user][:profile_image].original_filename)
+	  			end
+			end
 			flash[:success] = "Profile updated"
       		redirect_to @user
     	else
@@ -53,7 +60,7 @@ class UsersController < ApplicationController
 
 	# Strong Parameters, prevent mass assignment
 	def user_params
-		params.require(:user).permit(:username, :password, :password_confirmation, :bio)
+		params.require(:user).permit(:username, :password, :password_confirmation, :bio, :profile_image)
 	end
 
 	# Before filters
