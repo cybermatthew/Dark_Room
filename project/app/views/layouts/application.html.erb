@@ -13,6 +13,8 @@
 		<a href="/"><img src="/scrimage_logo2.png" class="logo"></a>
 		<% if logged_in? %>
 			<h1>Hi <a href="/users/<%= current_user.id %>"><%= current_user.username %></a>! [<%= link_to "Logout", logout_path, method: "delete" %>]</h1>
+
+		<center><img src="/images/<%= current_user.profile_image %>" class="thumbnail"></center>
 			
 		<% else %>
 			<h1><a href="/login">Login</a> | <a href="/signup">Sign up</a></h1>

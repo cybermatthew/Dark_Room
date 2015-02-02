@@ -3,8 +3,11 @@
 <% else %>
 	<h1><%= @user.username %>'s Profile <% if current_user?(@user) %><a href="/users/<%= @user.id %>/edit">[edit]</a><% end %></h1>
 
+	<center>
+	<img src="/images/<%= @user.profile_image %>" class="profileimg">
 	<p>Points: <%= @user.points %><br/>
 	Bio: <%= @user.bio %></p>
+	</center>
 
 	<h1><%= @user.username %>'s Photos</h1>
 	<% Photo.where(user_id: @user.id).find_each do |p| %>

@@ -67,8 +67,16 @@ body, html {
 }
 
 .thumbnail {
-	height:150px;
+	max-height:150px;
+	max-width: 200px;
 	margin:5px;
+	border: 10px solid #ED7263;
+}
+
+.profileimg {
+	width:300px;
+	margin-top: 20px;
+	border: 15px solid #ED7263;
 }
 
 img.homepage {

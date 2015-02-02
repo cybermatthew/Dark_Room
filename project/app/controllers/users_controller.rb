@@ -23,6 +23,11 @@ class UsersController < ApplicationController
 
 	def create
 		@user = User.new(user_params)
+		uploaded_io = params[:user][:profile_image]
+		File.open(Rails.root.join('public', 'images', uploaded_io.original_filename), 'wb') do |file|
+	  			file.write(uploaded_io.read)
+	  	end
+	  	@user.profile_image = params[:user][:profile_image].original_filename
 		@user.points = 0;
 		@user.bio = "Generic new user bio. Boo."
 		if @user.save

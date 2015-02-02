@@ -2,6 +2,7 @@
 	<input type=hidden id="userID" value='1' >
 	<input type=hidden id="photoID" value='<%= @photo.id %>' >
 	<center><h1><%= @photo.description %></h1></center>
+	<p>Click <a href="/scrimages/<%=@photo.scrimage_id%>">here</a> to see the scrImage this photo is a part of</p>
 	<table>
 		<tr>
 			<td>
