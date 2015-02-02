@@ -13,6 +13,8 @@
 		<a href="/"><img src="/scrimage_logo2.png" class="logo"></a>
 		<% if logged_in? %>
 			<h1>Hi <a href="/users/<%= current_user.id %>"><%= current_user.username %></a>! [<%= link_to "Logout", logout_path, method: "delete" %>]</h1>
+
+		<center><a href="/users/<%= current_user.id %>"><img src="/images/<%= current_user.profile_image %>" class="thumbnail"></a></center>
 			
 		<% else %>
 			<h1><a href="/login">Login</a> | <a href="/signup">Sign up</a></h1>
@@ -20,6 +22,15 @@
 
 		<p>Welcome to scrIMAGE! Description of website, what you can do, blah blah blah, fill up some space before the next header, somebody write something here pls. Kthxbai.</p>
 
+<<<<<<< HEAD
+=======
+		<div class="links">
+			<a href="/photos">Browse</a>
+			<a href="/scrimages/new_scrimage">Create</a>
+		</div>
+
+		
+>>>>>>> 7a48fe6d667d212f97182f5aabb194239c6af420
 		<div id = "coolOrMeh"> 
 			<h1>Cool or Meh?</h1> 
 			<br>

@@ -1,0 +1,6 @@
+<h1>Browse Photos</h1>
+<p>
+<% @photos.each do |p| %>
+	<a href="/photos/<%=p.id%>"><img src="<%= p.filename %>" class="thumbnail"></a>
+<% end %>
+</p>

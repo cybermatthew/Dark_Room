@@ -33,6 +33,26 @@ body, html {
 	background-image: url('/bg.png');
 }
 
+.links {
+	text-align: center;
+}
+
+.links a, .links a:visited, .links a:active {
+	width:60px;
+	height:40px;
+	background-color: #ED7263;
+	color:#FDF2DE;
+	padding:10px;
+	text-transform: uppercase;
+	margin:auto;
+	margin-top: 20px;
+}
+
+.links a:hover {
+	background-color: #3B96A9;
+	color: #FDF2DE;
+}
+
 .logo {
 	max-width:100%;
 	max-height:100%;
@@ -44,6 +64,19 @@ body, html {
 	overflow:hidden;
 	background-image: url('/bg.png');
 	flex: 1;
+}
+
+.thumbnail {
+	max-height:150px;
+	max-width: 200px;
+	margin:5px;
+	border: 10px solid #ED7263;
+}
+
+.profileimg {
+	width:300px;
+	margin-top: 20px;
+	border: 10px solid #ED7263;
 }
 
 img.homepage {

@@ -6,7 +6,10 @@
 <%= form_for(@user) do |form| %>
   New Password: <br/><%= form.password_field(:password) %><br/>
   New Password (again): <br/><%= form.password_field(:password_confirmation) %><br/>
+
   Bio: <br/><%= form.text_area(:bio, size: '50x10') %><br/>
   <br/>
+  Profile picture: <%= form.file_field :profile_image %>
+  <br/><br/>
   <%= form.submit "Edit Profile" %>
 <% end %>

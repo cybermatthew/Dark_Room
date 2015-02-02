@@ -1,5 +1,9 @@
 class PhotosController < ApplicationController
 
+	def index
+		@photos = Photo.all
+	end
+
 	def show
 		@user_id = session[:id]
 		@loggedIn = true
@@ -12,15 +16,15 @@ class PhotosController < ApplicationController
 
 		# checks if photo id is given and photo exists in db
 		if !params.has_key?(:id) || !Photo.exists?(params[:id])
-			flash[:notice] = "The selected photo does not exist on the site"
+			flash.now[:notice] = "The selected photo does not exist on the site"
 			@error = true
 		else
 			@photo = Photo.find(params[:id])
+			@user = User.find(@photo.user_id)
 			@comments = Comment.where(:photo_id => params[:id])
 		end
 		# @photos = Photo.all
 	end
-
 
 	def create_comment
 		@comment = Comment.new(:photo_id => params[:photo_id], :user_id => params[:user_id], :text => params[:text])

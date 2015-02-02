@@ -12,7 +12,8 @@
 	  Username: <br/><%= form.text_field(:username) %><br/>
 	  Password: <br/><%= form.password_field(:password) %><br/>
 	  Password (again): <br/><%= form.password_field(:password_confirmation) %><br/>
-	  <br/>
+	  Profile Picture: <%= form.file_field :profile_image %>
+	  <br/><br/>
 	  <%= form.submit "Sign up" %>
 	<% end %>
 <% end %>
