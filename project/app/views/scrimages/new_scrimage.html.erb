@@ -1,7 +1,7 @@
 <% if !@error %>
 	<h1>Create Scrimage</h1>
 	<br>
-	<%= form_tag("/scrimages/create", method: "post") do %>
+	<%= form_tag("/scrimages/create", method: "post") do %> 
 		<center>
 			<%= radio_button_tag(:type, :timed, :selected) %>Timed (5 days)
 			<%= radio_button_tag(:type, :untimed) %>Untimed
@@ -11,8 +11,45 @@
 		<br>
 		Description (optional): <%= text_area_tag(:description) %>
 		<br>
-		Original Photo: <%= file_field_tag(:original_photo) %>	
+		<br> 
+		Original Photo: <%= file_field :image, required: true %>	
+						<br>
+						<%= submit_tag("Create Scrimage", class: "createScrimage") %>
 		<br><br>
-		<center><%= submit_tag("Create Scrimage") %></center>
-	<% end %>
+	<% end %> 
 <% end %>
+
+<script type="text/javascript">
+
+	//Boilerplate for uploading image data
+	var photoPreview = document.getElementById("originalPhotoPreview");
+	var imgUploader = document.getElementById("imgUploader");
+
+	function readURL(input){
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+            reader.onload = function (e) {
+                $(photoPreview).attr('src', e.target.result);
+            }
+    
+            reader.readAsDataURL(input.files[0]);
+        }
+	}
+
+	//Displays whatever image is loaded into the input tab
+	$(imgUploader).change(function(){
+        readURL(this);
+    });
+
+    /*$('.createScrimage').bind('click', function () {
+    	var imgURL = document.getElementById("originalPhotoPreview").src;
+
+	    $.ajax({
+	        url: "/scrimages/create",
+	        type: "POST",
+	        data: {imgFile: imgURL},
+	    });
+	});*/
+
+</script>
+

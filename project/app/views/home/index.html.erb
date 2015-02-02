@@ -22,61 +22,17 @@
 
 <h1>Edit Photo (temporarily here)</h1>
 
-<div id = "editorDiv"></div>
+<!-- Load widget code -->
+<script type="text/javascript" src="http://feather.aviary.com/js/feather.js"></script>
 
-<!-- START PHOTO EDITING API --> 
-	<!-- Load widget code -->
-	<script type="text/javascript" src="http://feather.aviary.com/js/feather.js"></script>
+<%= render partial: "layouts/apiCode" %>          
 
-	<!-- Instantiate the widget -->
-	<script type="text/javascript">
+<!-- Add an edit button, passing the HTML id of the image and the public URL to the image -->
+<a href="#" onclick="return launchEditor('catImg', 'http://scienceblogs.com/gregladen/files/2012/12/Beautifull-cat-cats-14749885-1600-1200.jpg');" id = "editButton">
+    Edit Image (for testing purposes only. Can become a place for people to view their uploaded photos.)
+</a>
 
-	    var featherEditor = new Aviary.Feather({
-	        apiKey: '5ee2fa12a60942b4a817edb17bfae759',
-	        apiVersion: 3,
-	        theme: 'light', // Check out our new 'light' and 'dark' themes!
-       		tools: 'all',
-       		appendTo: '',
-	        enableCORS: true,
-	        onLoad: function() {
-				document.getElementById('editButton').style.display = 'block';
-			},
-	        onSave: function(imageID, newURL) {
-	            $.ajax({
-        			url : "photos/save_edited_photo",
-        			type : "POST",
-        			data : { editedPhotoLink: newURL },
-				    success: function(data){
-				        alert('Saved Successfully');
-				      },
-			      	error:function(data){
-			       		alert('Error');
-			      	}
-   				 });
-	        },
-	        onError: function(errorObj) {
-           		alert(errorObj.message);
-       		}
-	    });
+<img src = "http://scienceblogs.com/gregladen/files/2012/12/Beautifull-cat-cats-14749885-1600-1200.jpg" alt = "Uploaded User Image" class = "section2Img" id = "catImg"/>
 
-	    function launchEditor(id, src) {
-	        featherEditor.launch({
-	            image: id,
-	            url: src
-	        });
-	        return false;
-	    }
-	</script>              
-
-	<!-- Add an edit button, passing the HTML id of the image
-	    and the public URL to the image -->
-	<a href="#" onclick="return launchEditor('catImg', 'http://scienceblogs.com/gregladen/files/2012/12/Beautifull-cat-cats-14749885-1600-1200.jpg');" id = "editButton">
-	    Edit Image (for testing purposes only)
-	</a>
-
-	<img src = "http://scienceblogs.com/gregladen/files/2012/12/Beautifull-cat-cats-14749885-1600-1200.jpg" alt = "Uploaded User Image" class = "section2Img" id = "catImg"/>
-
-	<br>
-	<br>
-
-<!-- END PHOTO EDITING API -->
+<br>
+<br>
