@@ -34,6 +34,10 @@ class PhotosController < ApplicationController
 	end
 
 	def save_edited_photo
+
+		originalPhoto = Photo.new(:filename => "/images/" + params[:original_photo_filename], :user_id => 1, :scrimage_id => params[:scrimage_id], :parent_photo_id => params[:parent_photo_id])
+		originalPhoto.save()
+
 		require "open-uri"
 		respond_to do |format|
 			format.json{

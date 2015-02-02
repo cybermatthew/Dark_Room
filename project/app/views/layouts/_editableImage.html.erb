@@ -9,18 +9,7 @@
 		</span>
 	</span>
 
-<<<<<<< HEAD
-	<img class='<%= imageClass %>' src='/images/<%= image.filename %>' >
-</div>
-
-
-<script type="text/javascript">
-	function setSelectedImage(imageID){
-		$("#selectedImageToEdit").val(imageID);
-	}	
-</script>
-=======
-	<a href="/photos/<%=image.id%>"><img class='<%= imageClass %>' src="<%= image.filename %>" ></a>
+	<a href="/photos/<%=image.id%>"><img class='<%= imageClass %>' src="<%= image.filename %>" id = "curImg" ></a>
 </div>
 
 
@@ -30,12 +19,15 @@
 		<span onclick=closeModal('editModal<%= image.id %>') title="Close" class="close">X</span>
 		<h2>Editing Options</h2>
 		<center>
-			<button class='btn'>Edit in Browser</button>
+			<button class='btn' id = "browserEditButton">Edit in Browser</button>
 			<form method="get" action="<%= image.filename %>">
 				<button class='btn'>Download to Edit Offline</button>
 			</form>
 		</center>
 	</div>
+	<%= hidden_field "original_photo_filename", image.filename %>
+	<%= hidden_field "scrimage_id", @scrimage.id %>
+	<%= hidden_field "parent_photo_id", image.id %>
 </div>
 
 <div id="uploadModal<%= image.id %>" class="modalDialog">
@@ -49,4 +41,15 @@
 		</center>
 	</div>
 </div>
->>>>>>> 7a48fe6d667d212f97182f5aabb194239c6af420
+
+<script type="text/javascript" src="http://feather.aviary.com/js/feather.js"></script>
+
+<%= render partial: "layouts/apiCode" %>   
+
+<script type="text/javascript">
+	document.getElementById("browserEditButton").onclick = function(){
+		closeModal('editModal<%= image.id %>')
+		var fileName = document.getElementById("curImg").src;
+		launchEditor(curImg, fileName);
+	};
+</script>
