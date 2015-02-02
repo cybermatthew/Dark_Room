@@ -32,7 +32,12 @@ class ScrimagesController < ApplicationController
 		scrimage.save()
 
 		if scrimage.id
-			originalPhoto = Photo.new(:filename => params[:original_photo], :description => params[:description], :user_id => 1, :scrimage_id => scrimage.id)
+			uploaded_io = params[:original_photo]
+			File.open(Rails.root.join('public', 'images', uploaded_io.original_filename), 'wb') do |file|
+	    			file.write(uploaded_io.read)
+	  		end
+
+			originalPhoto = Photo.new(:filename => "/images/" + params[:original_photo].original_filename, :description => params[:description], :user_id => 1, :scrimage_id => scrimage.id)
 
 			originalPhoto.save()
 
