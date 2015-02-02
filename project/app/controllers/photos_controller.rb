@@ -11,7 +11,7 @@ class PhotosController < ApplicationController
 
 		# checks if photo id is given and photo exists in db
 		if !params.has_key?(:id) || !Photo.exists?(params[:id])
-			flash[:notice] = "The selected photo does not exist on the site"
+			flash.now[:notice] = "The selected photo does not exist on the site"
 			@error = true
 		else
 			@photo = Photo.find(params[:id])
