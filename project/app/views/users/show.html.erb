@@ -1,4 +1,13 @@
-<h1><%= @user.username %>'s Profile <% if current_user?(@user) %><a href="/users/<%= @user.id %>/edit">[edit]</a><% end %></h1>
+<% if flash[:error] %>
+	<p>That user does not exist</p>
+<% else %>
+	<h1><%= @user.username %>'s Profile <% if current_user?(@user) %><a href="/users/<%= @user.id %>/edit">[edit]</a><% end %></h1>
 
-<p>Points: <%= @user.points %><br/>
-Bio: <%= @user.bio %></p>
+	<p>Points: <%= @user.points %><br/>
+	Bio: <%= @user.bio %></p>
+
+	<h1><%= @user.username %>'s Photos</h1>
+	<% Photo.where(user_id: @user.id).find_each do |p| %>
+		<a href="/photos/<%=p.id%>"><img src="<%= p.filename %>" class="thumbnail"></a>
+	<% end %>
+<% end %>

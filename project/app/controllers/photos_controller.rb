@@ -1,4 +1,9 @@
 class PhotosController < ApplicationController
+
+	def index
+		@photos = Photo.all
+	end
+
 	def show
 		@user_id = session[:id]
 		@loggedIn = true
@@ -19,7 +24,6 @@ class PhotosController < ApplicationController
 		end
 		# @photos = Photo.all
 	end
-
 
 	def create_comment
 		@comment = Comment.new(:photo_id => params[:photo_id], :user_id => params[:user_id], :text => params[:text])

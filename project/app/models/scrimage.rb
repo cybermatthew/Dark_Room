@@ -3,5 +3,5 @@ class Scrimage < ActiveRecord::Base
 	# validates :name, uniqueness: {case_sensitive: false}
 
 	has_many :photos
-	has_many :users
+	has_and_belongs_to_many :users
 end

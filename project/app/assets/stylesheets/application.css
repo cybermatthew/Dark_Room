@@ -66,6 +66,11 @@ body, html {
 	flex: 1;
 }
 
+.thumbnail {
+	height:150px;
+	margin:5px;
+}
+
 img.homepage {
 	width:150px;
 	margin-right:10px;

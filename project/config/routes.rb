@@ -6,14 +6,13 @@ Rails.application.routes.draw do
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
   resources :users
-
+  resources :photos
 
   resource :photos do
     post 'create_comment' => 'photos#create_comment'
     post 'save_edited_photo' => 'photos#save_edited_photo'
   end
-  resources :photos
-
+  
   # must put custom routes first
   resource :scrimages do
     get 'new_scrimage'
