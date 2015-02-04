@@ -27,15 +27,17 @@ class PhotosController < ApplicationController
 	end
 
 	def create_comment
-		@comment = Comment.new(:photo_id => params[:photo_id], :user_id => params[:user_id], :text => params[:text])
-		@comment.save()
+		comment = Comment.new(:photo_id => params[:photo_id], :user_id => params[:user_id], :text => params[:text])
+		comment.save()
 
-		render :partial => "create_comment"
+		user = User.find(comment.user_id)
+
+		render :partial => "create_comment", :locals => {:comment => comment, :user => user}
 	end
 
 	def save_edited_photo
 
-		originalPhoto = Photo.new(:filename => "/images/" + params[:original_photo_filename], :user_id => 1, :scrimage_id => params[:scrimage_id], :parent_photo_id => params[:parent_photo_id])
+		originalPhoto = Photo.new(:filename => params[:original_photo_filename], :user_id => 1, :scrimage_id => params[:scrimage_id], :parent_photo_id => params[:parent_photo_id])
 		originalPhoto.save()
 
 		require "open-uri"

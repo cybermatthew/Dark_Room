@@ -33,6 +33,7 @@
 			data: {photo_id: $("#photoID").val(), user_id: $("#userID").val(), text: $("#new_comment_input").val()},
 			success: function(msg){
 				$("#commentsDiv").append(msg);
+				$("#new_comment_input").val("");
 			}
 		});
 	}

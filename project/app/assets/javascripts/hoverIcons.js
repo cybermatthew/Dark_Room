@@ -1,5 +1,5 @@
 $(function(){
-
+	console.log("I'm Here!!!");
 	$(".editableImage").hover(
 		function(){
 			$(this).find(".hoverIcons").show();
