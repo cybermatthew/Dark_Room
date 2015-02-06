@@ -20,9 +20,7 @@
 		<h2>Editing Options</h2>
 		<center>
 			<button class='btn' id = "browserEditButton">Edit in Browser</button>
-			<!-- <form method="get" action="<%= image.filename %>"> -->
-			<button class='btn' onclick="downloadImage('<%= image.filename %>');">Download to Edit Offline</button>
-			<!-- </form> -->
+			<a href="/images/<%= image.filename %>" download="<%= image.filename %>"><button class='btn'>Download to Edit Offline</button></a>
 		</center>
 	</div>
 	<%= hidden_field "original_photo_filename", image.filename %>
@@ -56,10 +54,4 @@
 		var fileName = document.getElementById("curImg").src;
 		launchEditor(curImg, fileName);
 	};
-</script>
-
-<script type="text/javascript">
-	function downloadImage(filename){
-		window.location.href= '/images/'+filename;
-	}
 </script>
