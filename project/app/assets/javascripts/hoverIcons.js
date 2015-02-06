@@ -11,15 +11,20 @@ $(function(){
 });
 
 function uploadEditedImage(imageID){
-	$("#uploadPhoto"+imageID).submit(function(){
-		var url = "/scrimages/uploadPhoto";
+	$("#uploadPhoto"+imageID).submit(function(e){
+		// var url = "/scrimages/uploadPhoto";
+		var form = $("#uploadPhoto"+imageID);
+		e.preventDefault();
 
-		$.ajax({
-			type: "POST",
-			data: $("#uploadPhoto"+imageID).serialize(),
-			success: function(msg){
-				// alert(msg);
-			}
+		$.post( form.attr("action"), form.serialize(), function(msg){
+			console.log(msg);
 		});
+		// $.ajax({
+		// 	type: "POST",
+		// 	data: $("#uploadPhoto"+imageID).serialize(),
+		// 	success: function(msg){
+		// 		// alert(msg);
+		// 	}
+		// });
 	});
 }
