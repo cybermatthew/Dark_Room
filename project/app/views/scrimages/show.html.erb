@@ -12,14 +12,29 @@ Start Time: <%= @scrimage.start_time.to_formatted_s(:long)  %><br>
 <div id="clockDiv"></div>
 <br><br>
 
-<center><%= render :partial => "layouts/editableImage", :locals => {:image => @original_photo, :imageClass => "originalImage"} %></center>
+<center><%= render :partial => "layouts/editableImage", :locals => {:scrimage_id => @scrimage.id, :image => @original_photo, :imageClass => "originalImage"} %></center>
 <br>
 Description: <%= @scrimage.description %>
-<br><br>
+<br><br><br>
 
+<% count = 0 %>
+<table>
 <% @photos.each do |photo| %>
-<a href="/photos/<%=photo.id%>"><%= photo %></a>
+<% count = count+1 %>
+	<tr>
+		<td><%= count %>.</td>
+		<td><%= render :partial => "layouts/editableImage", :locals => {:scrimage_id => @scrimage.id, :image => photo, :imageClass => "responseImage"} %>
+		<td><% if photo.description %>
+			<b><%= photo.description %></b><br>
+			<% end %>
+			By <a href="/users/<%= photo.user.id %>"><%= photo.user.username %></a><br><br>
+			Votes: <%= photo.votes %><br>
+			Comments: <%= photo.comments.count %><br>
+		</td>
+	</tr>
+<!-- <a href="/photos/<%=photo.id%>"><%= photo %></a> -->
 <% end %>
+</table>
 
 
 

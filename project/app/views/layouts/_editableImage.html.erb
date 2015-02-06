@@ -9,7 +9,7 @@
 		</span>
 	</span>
 
-	<a href="/photos/<%=image.id%>"><img class='<%= imageClass %>' src="<%= image.filename %>" id = "curImg" ></a>
+	<a href="/photos/<%=image.id%>"><img class='<%= imageClass %>' src="/images/<%= image.filename %>" id = "curImg" ></a>
 </div>
 
 
@@ -20,9 +20,9 @@
 		<h2>Editing Options</h2>
 		<center>
 			<button class='btn' id = "browserEditButton">Edit in Browser</button>
-			<form method="get" action="<%= image.filename %>">
-				<button class='btn'>Download to Edit Offline</button>
-			</form>
+			<!-- <form method="get" action="<%= image.filename %>"> -->
+			<button class='btn' onclick="downloadImage('<%= image.filename %>');">Download to Edit Offline</button>
+			<!-- </form> -->
 		</center>
 	</div>
 	<%= hidden_field "original_photo_filename", image.filename %>
@@ -35,9 +35,13 @@
 		<span onclick=closeModal('uploadModal<%= image.id %>') title="Close" class="close">X</span>
 		<h2>Upload Edited Version</h2>
 		<center>
-			<%= file_field_tag("editedPhoto"+image.id.to_s) %>
+			<%= form_tag("/scrimages/uploadEditedImage", method: "post", id: "uploadPhoto"+image.id.to_s, multipart: true) do %>
+			<%= hidden_field_tag(:parent_photo_id, image.id) %>
+			<%= file_field_tag(:editedPhoto) %><br><br>
+			Description: <%= text_area_tag("editedPhotoText") %>
 			<br><br>
-			<button class='btn' onclick="uploadEditedImage('editedPhoto<%= image.id %>')">Create Scrimage</button>
+			<button class='btn' onclick="uploadEditedImage(<%= image.id.to_s %>)">Upload Edited Photo</button>
+			<% end %>
 		</center>
 	</div>
 </div>
@@ -52,4 +56,10 @@
 		var fileName = document.getElementById("curImg").src;
 		launchEditor(curImg, fileName);
 	};
+</script>
+
+<script type="text/javascript">
+	function downloadImage(filename){
+		window.location.href= '/images/'+filename;
+	}
 </script>

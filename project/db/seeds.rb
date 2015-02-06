@@ -11,13 +11,16 @@ admin_user = User.new(:username => "admin", :password => "password", :bio => "I 
 admin_user.save(:validate => true)
 
 
-test_scrimage = Scrimage.new(:name => "Test Scrimage", :timed => 1, :start_time => DateTime.now, :end_time => DateTime.now+5, :description => "scrimage description")
+test_scrimage = Scrimage.new(:name => "Test Scrimage", :timed => 0, :start_time => DateTime.now, :end_time => DateTime.now+5, :description => "scrimage description")
 test_scrimage.save(:validate => true)
 
 
 # load photos #
-test_photo = Photo.new(:filename => "https://media.licdn.com/mpr/mpr/shrink_200_200/p/8/005/086/046/208a6eb.jpg", :description => "text", :votes => 1, :user_id => admin_user.id, :scrimage_id => test_scrimage.id)
+test_photo = Photo.new(:filename => "Chrysanthemum.jpg", :description => "text", :votes => 1, :user_id => admin_user.id, :scrimage_id => test_scrimage.id)
 test_photo.save(:validate => false)
+
+child_photo = Photo.new(:filename => "Chrysanthemum.jpg", :description => "child", :votes => 1, :user_id => admin_user.id, :scrimage_id => test_scrimage.id, :parent_photo_id => test_photo.id)
+child_photo.save(:validate => false)
 
 # load comments #
 comment = Comment.new()

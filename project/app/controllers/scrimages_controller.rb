@@ -52,4 +52,18 @@ class ScrimagesController < ApplicationController
 			render :action => "new_scrimage"
 		end
 	end
+
+
+	def uploadEditedImage
+
+		uploaded_io = params[:editedPhoto]
+		File.open(Rails.root.join('public', 'images', uploaded_io.original_filename), 'wb') do |file|
+    			file.write(uploaded_io.read)
+  		end
+
+	  	newPhoto = Photo.new(:filename => "/images/"+params[:editedPhoto].original_filename, :description => params[:editedPhotoText], :user_id => 1, :scrimage_id => params[:scrimage_id], :parent_photo_id => params[:parent_photo_id])
+	  	# newPhoto.save()
+
+		render :partial => "addedPhoto"
+	end
 end

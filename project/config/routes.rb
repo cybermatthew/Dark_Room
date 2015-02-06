@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resource :scrimages do
     get 'new_scrimage'
     post 'create'
+    post 'uploadEditedImage'
   end
   resources :scrimages
 

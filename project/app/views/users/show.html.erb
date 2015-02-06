@@ -11,6 +11,6 @@
 
 	<h1><%= @user.username %>'s Photos</h1>
 	<% Photo.where(user_id: @user.id).find_each do |p| %>
-		<a href="/photos/<%=p.id%>"><img src="<%= p.filename %>" class="thumbnail"></a>
+		<a href="/photos/<%=p.id%>"><img src="/images/<%= p.filename %>" class="thumbnail"></a>
 	<% end %>
 <% end %>

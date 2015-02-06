@@ -9,3 +9,17 @@ $(function(){
 			$(this).find(".hoverIcons").hide();
 	});
 });
+
+function uploadEditedImage(imageID){
+	$("#uploadPhoto"+imageID).submit(function(){
+		var url = "/scrimages/uploadPhoto";
+
+		$.ajax({
+			type: "POST",
+			data: $("#uploadPhoto"+imageID).serialize(),
+			success: function(msg){
+				// alert(msg);
+			}
+		});
+	});
+}
