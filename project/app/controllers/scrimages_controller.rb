@@ -61,9 +61,11 @@ class ScrimagesController < ApplicationController
   #   			file.write(uploaded_io.read)
   # 		end
 
-	 #  	newPhoto = Photo.new(:filename => "/images/"+params[:editedPhoto].original_filename, :description => params[:editedPhotoText], :user_id => 1, :scrimage_id => params[:scrimage_id], :parent_photo_id => params[:parent_photo_id])
+  		scrimage = Srimage.find(params[:scrimage_id])
+
+	  	newPhoto = Photo.new(:filename => "/images/", :description => params[:editedPhotoText], :user_id => 1, :scrimage_id => params[:scrimage_id], :parent_photo_id => params[:parent_photo_id])
 	  	# newPhoto.save()
 
-		render :partial => "addedPhoto"
+		render :partial => "displayChildPhotos", :locals => {:scrimage => scrimage}
 	end
 end
