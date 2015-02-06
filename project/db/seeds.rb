@@ -16,10 +16,10 @@ test_scrimage.save(:validate => true)
 
 
 # load photos #
-test_photo = Photo.new(:filename => "Chrysanthemum.jpg", :description => "text", :votes => 1, :user_id => admin_user.id, :scrimage_id => test_scrimage.id)
+test_photo = Photo.new(:filename => "/images/Chrysanthemum.jpg", :description => "text", :votes => 1, :user_id => admin_user.id, :scrimage_id => test_scrimage.id)
 test_photo.save(:validate => false)
 
-child_photo = Photo.new(:filename => "Chrysanthemum.jpg", :description => "child", :votes => 1, :user_id => admin_user.id, :scrimage_id => test_scrimage.id, :parent_photo_id => test_photo.id)
+child_photo = Photo.new(:filename => "/images/Chrysanthemum.jpg", :description => "child", :votes => 1, :user_id => admin_user.id, :scrimage_id => test_scrimage.id, :parent_photo_id => test_photo.id)
 child_photo.save(:validate => false)
 
 # load comments #

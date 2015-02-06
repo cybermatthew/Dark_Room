@@ -4,7 +4,7 @@ class ScrimagesController < ApplicationController
 		@remainingSeconds = (@scrimage.end_time.to_time - DateTime.now.to_time).to_i
 
 		@original_photo = Photo.where("scrimage_id = ? AND parent_photo_id = ?", @scrimage.id, -1).first
-		@photos = Photo.where("scrimage_id = ? AND parent_photo_id != ?", @scrimage.id, -1)
+		# @photos = Photo.where("scrimage_id = ? AND parent_photo_id != ?", @scrimage.id, -1)
 	end
 
 	def new_scrimage
@@ -56,15 +56,18 @@ class ScrimagesController < ApplicationController
 
 	def uploadEditedImage
 
-		# uploaded_io = params[:editedPhoto]
-		# File.open(Rails.root.join('public', 'images', uploaded_io.original_filename), 'wb') do |file|
-  #   			file.write(uploaded_io.read)
-  # 		end
+		puts params[:editedPhoto]
+  		puts "------------------------------"
 
-  		scrimage = Srimage.find(params[:scrimage_id])
+		uploaded_io = params[:editedPhoto]
+		File.open(Rails.root.join('public', 'images', uploaded_io.original_filename), 'wb') do |file|
+    			file.write(uploaded_io.read)
+  		end
 
-	  	newPhoto = Photo.new(:filename => "/images/", :description => params[:editedPhotoText], :user_id => 1, :scrimage_id => params[:scrimage_id], :parent_photo_id => params[:parent_photo_id])
-	  	# newPhoto.save()
+	  	newPhoto = Photo.new(:filename => "/images/" + uploaded_io.original_filename, :description => params[:editedPhotoText], :user_id => 1, :scrimage_id => params[:scrimage_id], :parent_photo_id => params[:parent_photo_id])
+	  	newPhoto.save()
+
+	  	scrimage = Scrimage.find(params[:scrimage_id])
 
 		render :partial => "displayChildPhotos", :locals => {:scrimage => scrimage}
 	end

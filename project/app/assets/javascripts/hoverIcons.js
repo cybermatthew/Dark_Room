@@ -15,8 +15,23 @@ function uploadEditedImage(imageID){
 		var form = $("#uploadPhoto"+imageID);
 		e.preventDefault();
 
-		$.post( form.attr("action"), form.serialize(), function(msg){
-			console.log(msg);
+		// $.post( form.attr("action"), new FormData($(this)[0]), function(msg){
+		// 	$("#childrenPhotos").html(msg);
+		// 	closeModal("uploadModal"+imageID);
+		// });
+		var formData = new FormData($(this)[0]);
+
+		$.ajax({
+			url: '/scrimages/uploadEditedImage',
+			type: 'POST',
+			data: formData,
+			cache: false,
+		    contentType: false,
+		    processData: false,
+			success: function (msg) {
+			  	$("#childrenPhotos").html(msg);
+				closeModal("uploadModal"+imageID);
+			}
 		});
 	});
 }

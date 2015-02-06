@@ -17,8 +17,9 @@ Start Time: <%= @scrimage.start_time.to_formatted_s(:long)  %><br>
 Description: <%= @scrimage.description %>
 <br><br><br>
 
-<%= render :partial => "scrimages/displayChildPhotos", :locals => {:scrimage => @scrimage} %>
-
+<div id='childrenPhotos'>
+	<%= render :partial => "scrimages/displayChildPhotos", :locals => {:scrimage => @scrimage} %>
+</div>
 
 
 <script type="text/javascript">
