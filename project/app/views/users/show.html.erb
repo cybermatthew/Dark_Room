@@ -4,7 +4,7 @@
 	<h1><%= @user.username %>'s Profile <% if current_user?(@user) %><a href="/users/<%= @user.id %>/edit">[edit]</a><% end %></h1>
 
 	<center>
-	<img src="/images/<%= @user.profile_image %>" class="profileimg">
+	<img src="<%= @user.profile_image %>" class="profileimg">
 	<p>Points: <%= @user.points %><br/>
 	Bio: <%= @user.bio %></p>
 	</center>

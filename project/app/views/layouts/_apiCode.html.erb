@@ -1,0 +1,46 @@
+<!-- Instantiate the widget -->
+<script type="text/javascript">
+
+    var filename = $("input[type='hidden']")[3].id.split("_")[3];
+    var scrimageID = $("input[type='hidden']")[4].id.split("_")[2];
+    var parentPhotoID = $("input[type='hidden']")[5].id.split("_")[3];
+
+    var featherEditor = new Aviary.Feather({
+        apiKey: '5ee2fa12a60942b4a817edb17bfae759',
+        apiVersion: 3,
+        theme: 'light', // Check out our new 'light' and 'dark' themes!
+   		tools: 'all',
+   		appendTo: '',
+        enableCORS: true,
+        onLoad: function() {
+			document.getElementById('editButton').style.display = 'block';
+		},
+        onSave: function(imageID, newURL) {
+            $.ajax({
+    			url : "/photos/save_edited_photo",
+    			type : "POST",
+    			data : { editedPhotoLink: newURL, 
+                         original_photo_filename: filename,
+                         scrimage_id: scrimageID,
+                         parent_photo_id: parentPhotoID },
+			    success: function(data){
+			        alert('Saved Successfully');
+			      },
+		      	error:function(data){
+		       		alert('Error');
+		      	}
+		    });
+        },
+        onError: function(errorObj) {
+       		alert(errorObj.message);
+   		}
+    });
+
+    function launchEditor(id, src) {
+        featherEditor.launch({
+            image: id,
+            url: src
+        });
+        return false;
+    }
+</script>    

@@ -11,12 +11,14 @@ Rails.application.routes.draw do
   resource :photos do
     post 'create_comment' => 'photos#create_comment'
     post 'save_edited_photo' => 'photos#save_edited_photo'
+    post 'upload_new_photo' => 'photos#upload_new_photo'
   end
   
   # must put custom routes first
   resource :scrimages do
     get 'new_scrimage'
     post 'create'
+    post 'uploadEditedImage'
   end
   resources :scrimages
 
