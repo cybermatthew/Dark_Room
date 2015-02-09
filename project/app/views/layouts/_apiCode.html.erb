@@ -9,7 +9,24 @@
         apiKey: '5ee2fa12a60942b4a817edb17bfae759',
         apiVersion: 3,
         theme: 'light', // Check out our new 'light' and 'dark' themes!
-   		tools: 'all',
+
+        //Omitted tools: enhance, focus, sharpness, red eye, whiten, blemish
+   		tools: [
+                    'draw',
+                    'text',
+                    'stickers',
+                    'resize',
+                    'crop',
+                    'orientation',
+                    'brightness',
+                    'contrast',
+                    'saturation',
+                    'warmth',
+                    'colorsplash',
+                    'frames',
+                    'effects'
+               ],
+
    		appendTo: '',
         enableCORS: true,
         onLoad: function() {
@@ -20,11 +37,12 @@
     			url : "/photos/save_edited_photo",
     			type : "POST",
     			data : { editedPhotoLink: newURL, 
-                         original_photo_filename: filename,
-                         scrimage_id: scrimageID,
-                         parent_photo_id: parentPhotoID },
+                         original_photo_filename: "<%= filename %>",
+                         scrimage_id: "<%= scrimage_id %>",
+                         parent_photo_id: "<%= parent_photo_id %>"},
 			    success: function(data){
 			        alert('Saved Successfully');
+ 
 			      },
 		      	error:function(data){
 		       		alert('Error');
@@ -42,5 +60,10 @@
             url: src
         });
         return false;
+    }
+
+    function closePostSaveModal(button){
+        $(this).css("opacity", "0");
+        $(this).css("pointer-events", "none");
     }
 </script>    

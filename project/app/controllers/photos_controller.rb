@@ -37,9 +37,6 @@ class PhotosController < ApplicationController
 
 	def save_edited_photo
 
-		originalPhoto = Photo.new(:filename => params[:original_photo_filename], :user_id => 1, :scrimage_id => params[:scrimage_id], :parent_photo_id => params[:parent_photo_id])
-		originalPhoto.save()
-
 		require "open-uri"
 		respond_to do |format|
 			format.json{
@@ -50,6 +47,10 @@ class PhotosController < ApplicationController
 				File.open(rootDir, 'wb') do |f| 
 					f.write(image_from_web) 
 				end
+		
+				photo = Photo.new(:filename => "/images/" + file_name, :user_id => 1, :scrimage_id => params[:scrimage_id], :parent_photo_id => params[:parent_photo_id])
+				photo.save()
+
 				render :json => {:file_name => photoName} #Sends the photo link back as a response.
 			}
   		end

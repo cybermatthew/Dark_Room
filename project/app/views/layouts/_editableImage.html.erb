@@ -9,7 +9,7 @@
 		</span>
 	</span>
 
-	<a href="/photos/<%=image.id%>"><img class='<%= imageClass %>' src="<%= image.filename %>" id = "curImg" ></a>
+	<a href="/photos/<%=image.id%>"><img class='<%= imageClass %>' src="<%= image.filename %>" id = "img<%= image.id %>" ></a>
 </div>
 
 
@@ -19,7 +19,7 @@
 		<span onclick=closeModal('editModal<%= image.id %>') title="Close" class="close">X</span>
 		<h2>Editing Options</h2>
 		<center>
-			<button class='btn' id = "browserEditButton">Edit in Browser</button>
+			<button class='btn' id = "browserEditButton" onclick = 'openAPI("<%= image.id %>", "img<%= image.id %>", "<%= image.filename %>")'>Edit in Browser</button>
 			<a href="/images/<%= image.filename %>" download="<%= image.filename %>"><button class='btn'>Download to Edit Offline</button></a>
 		</center>
 	</div>
@@ -46,12 +46,12 @@
 
 <script type="text/javascript" src="http://feather.aviary.com/js/feather.js"></script>
 
-<%= render partial: "layouts/apiCode" %>   
+<%= render partial: "layouts/apiCode", :locals => {:filename => image.filename, :scrimage_id => scrimage_id, :parent_photo_id => image.id} %>   
 
 <script type="text/javascript">
-	document.getElementById("browserEditButton").onclick = function(){
-		closeModal('editModal<%= image.id %>')
-		var fileName = document.getElementById("curImg").src;
-		launchEditor(curImg, fileName);
+	function openAPI(modalID, imageID, filename){
+		closeModal('editModal' + modalID);
+		var fileName = filename;
+		launchEditor(imageID, fileName);
 	};
 </script>
