@@ -1,15 +1,28 @@
 <!-- Instantiate the widget -->
 <script type="text/javascript">
 
-    var filename = $("input[type='hidden']")[3].id.split("_")[3];
-    var scrimageID = $("input[type='hidden']")[4].id.split("_")[2];
-    var parentPhotoID = $("input[type='hidden']")[5].id.split("_")[3];
-
     var featherEditor = new Aviary.Feather({
         apiKey: '5ee2fa12a60942b4a817edb17bfae759',
         apiVersion: 3,
         theme: 'light', // Check out our new 'light' and 'dark' themes!
-   		tools: 'all',
+
+        //Omitted tools: enhance, focus, sharpness, red eye, whiten, blemish
+   		tools: [
+                    'draw',
+                    'text',
+                    'stickers',
+                    'resize',
+                    'crop',
+                    'orientation',
+                    'brightness',
+                    'contrast',
+                    'saturation',
+                    'warmth',
+                    'colorsplash',
+                    'frames',
+                    'effects'
+               ],
+
    		appendTo: '',
         enableCORS: true,
         onLoad: function() {
@@ -20,14 +33,14 @@
     			url : "/photos/save_edited_photo",
     			type : "POST",
     			data : { editedPhotoLink: newURL, 
-                         original_photo_filename: filename,
-                         scrimage_id: scrimageID,
-                         parent_photo_id: parentPhotoID },
+                         original_photo_filename: "<%= filename %>",
+                         scrimage_id: "<%= scrimage_id %>",
+                         parent_photo_id: "<%= parent_photo_id %>"},
 			    success: function(data){
-			        alert('Saved Successfully');
+                    showPostSaveSuccessModal();
 			      },
 		      	error:function(data){
-		       		alert('Error');
+		       		showPostSaveErrorModal();
 		      	}
 		    });
         },
@@ -42,5 +55,9 @@
             url: src
         });
         return false;
+    }
+
+    function closePostSaveModal(button){
+        $(this).remove();
     }
 </script>    
