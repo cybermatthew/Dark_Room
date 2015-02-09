@@ -20,14 +20,10 @@
 		<h2>Editing Options</h2>
 		<center>
 			<button class='btn' id = "browserEditButton">Edit in Browser</button>
-			<form method="get" action="<%= image.filename %>">
-				<button class='btn'>Download to Edit Offline</button>
-			</form>
+			<a href="/images/<%= image.filename %>" download="<%= image.filename %>"><button class='btn'>Download to Edit Offline</button></a>
 		</center>
 	</div>
-	<%= hidden_field "original_photo_filename", image.filename %>
-	<%= hidden_field "scrimage_id", @scrimage.id %>
-	<%= hidden_field "parent_photo_id", image.id %>
+
 </div>
 
 <div id="uploadModal<%= image.id %>" class="modalDialog">
@@ -35,9 +31,15 @@
 		<span onclick=closeModal('uploadModal<%= image.id %>') title="Close" class="close">X</span>
 		<h2>Upload Edited Version</h2>
 		<center>
-			<%= file_field_tag("editedPhoto"+image.id.to_s) %>
-			<br><br>
-			<button class='btn' onclick="uploadEditedImage('editedPhoto<%= image.id %>')">Create Scrimage</button>
+			<%= form_tag("/scrimages/uploadEditedImage", method: "post", id: "uploadPhoto"+image.id.to_s, multipart: true) do %>
+				<%= hidden_field_tag(:scrimage_id, scrimage_id) %>
+				<%= hidden_field_tag(:parent_photo_id, image.id) %>
+				<%= file_field_tag("editedPhoto") %>
+				<br><br>
+				Description: <%= text_area_tag("editedPhotoText") %>
+				<br><br>
+				<button class='btn' onclick="uploadEditedImage(<%= image.id.to_s %>)">Upload Edited Photo</button>
+			<% end %>
 		</center>
 	</div>
 </div>

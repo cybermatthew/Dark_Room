@@ -12,15 +12,14 @@ Start Time: <%= @scrimage.start_time.to_formatted_s(:long)  %><br>
 <div id="clockDiv"></div>
 <br><br>
 
-<center><%= render :partial => "layouts/editableImage", :locals => {:image => @original_photo, :imageClass => "originalImage"} %></center>
+<center><%= render :partial => "layouts/editableImage", :locals => {:scrimage_id => @scrimage.id, :image => @original_photo, :imageClass => "originalImage"} %></center>
 <br>
 Description: <%= @scrimage.description %>
-<br><br>
+<br><br><br>
 
-<% @photos.each do |photo| %>
-<a href="/photos/<%=photo.id%>"><%= photo %></a>
-<% end %>
-
+<div id='childrenPhotos'>
+	<%= render :partial => "scrimages/displayChildPhotos", :locals => {:scrimage => @scrimage} %>
+</div>
 
 
 <script type="text/javascript">
@@ -33,6 +32,7 @@ Description: <%= @scrimage.description %>
 			setInterval('updateTime()', 1000);
 		}
 
+		initHoverIcons();
 	});
 
 	function updateTime(){
