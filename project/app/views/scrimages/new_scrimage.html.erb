@@ -1,18 +1,20 @@
 <% if !@error %>
 	<h1>Create Scrimage</h1>
-	<br>
+	<center>
 	<%= form_tag("/scrimages/create", multipart: true) do %>
-		<center>
-			<%= radio_button_tag(:type, :timed, :selected) %>Timed (5 days)
-			<%= radio_button_tag(:type, :untimed) %>Untimed
-		</center>
-		<br>
-		Name: <%= text_field_tag(:name) %>
-		<br>
-		Description (optional): <%= text_area_tag(:description) %>
-		<br>
-		Original Photo: <%= file_field_tag(:original_photo) %>	
-		<br><br>
-		<center><%= submit_tag("Create Scrimage") %></center>
+		<%= radio_button_tag(:type, :timed, :selected) %>Timed (5 days)
+		<br/>
+		<%= radio_button_tag(:type, :untimed) %>Untimed
+		<br/><br/>
+		<%= text_field_tag :name, nil, :placeholder => "ScrImage Name", :size => 42, :class => "formField textField" %>
+		<br/><br/>
+		<%= text_area_tag :description, nil, :placeholder => "Description", :size => "30x10", :class => "formField" %>
+		<br/><br/>
+		Original Photo:
+		<br/><br/>
+		<%= file_field_tag(:original_photo) %>	
+		<br/><br/>
+		<%= submit_tag("Create Scrimage", :class => "submit") %>
 	<% end %>
+</center>
 <% end %>

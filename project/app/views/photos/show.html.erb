@@ -1,28 +1,33 @@
 <% if !@error %>
 	<input type=hidden id="userID" value='1' >
 	<input type=hidden id="photoID" value='<%= @photo.id %>' >
-	<center><h1><%= @photo.description %></h1></center>
-	<p>
-	Uploaded by <a href="/users/<%=@user.id%>"><%= @user.username %></a>
-	<br/>
-	Click <a href="/scrimages/<%=@photo.scrimage_id%>">here</a> to see the scrImage this photo is a part of</p>
-	<table>
+	<h1><%= @photo.description %></h1>
+	<h2>Uploaded by <a href="/users/<%=@user.id%>"><%= @user.username %></a></h2>
+	
+	<div class="pageText">Click <a href="/scrimages/<%=@photo.scrimage_id%>">here</a> to see the scrImage this photo is a part of</div>
+
+	<table class="showPhoto">
 		<tr>
 			<td>
-				<img class=mainPhoto src="<%= @photo.filename %>">
+				<img class="mainPhoto" src="<%= @photo.filename %>">
 			</td>
 			<td>
-				<div id="commentsDiv">
+				<div class="commentsDiv">
+					<span>Comments</span>
+					<br/>
 					<% @comments.each do |comment| %>
 						<% commenter = User.find(comment.user_id) %>
-						<%= commenter.username %>: <%= comment.text %><br/><br/>
+						<a href="/users/<%=commenter.id%>"><b><%= commenter.username %></b></a>: <%= comment.text %>
+						<br/><br/>
 					<% end %>
 				</div>
 			</td>
 		</tr>
 	</table>
-	<input id="new_comment_input" name="new_comment_input">
-	<button onClick=addComment()>Add Comment</button>
+	<textarea id="new_comment_input" name="new_comment_input"></textarea>
+	<div class="addComment">
+		<button class="submit" onClick=addComment()>Add Comment</button>
+	</div>
 <% end %>
 
 <script type="text/javascript">

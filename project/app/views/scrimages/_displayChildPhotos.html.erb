@@ -4,14 +4,14 @@
 <% photos.each do |photo| %>
 	<% count = count+1 %>
 	<tr>
-		<td><%= count %>.</td>
+		<td class="childCount"><%= count %></td>
 		<td><%= render :partial => "layouts/editableImage", :locals => {:scrimage_id => scrimage.id, :image => photo, :imageClass => "responseImage"} %>
 		<td><% if photo.description %>
-			<b><%= photo.description %></b><br>
+			<b><%= photo.description %></b><br/>
 			<% end %>
 			By <a href="/users/<%= photo.user.id %>"><%= photo.user.username %></a><br><br>
 			Votes: <%= photo.votes %><br>
-			Comments: <%= photo.comments.count %><br>
+			Comments: <%= photo.comments.count %><br/>
 		</td>
 	</tr>
 <% end %>

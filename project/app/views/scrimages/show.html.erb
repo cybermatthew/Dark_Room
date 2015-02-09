@@ -4,20 +4,19 @@
 <input id='scrimageID' type=hidden value=<%= @scrimage.id %> >
 
 <h1>Scrimage: <%= @scrimage.name %></h1>
-Start Time: <%= @scrimage.start_time.to_formatted_s(:long)  %><br>
-<% if(@scrimage.timed == 1) %>End Time: <%= @scrimage.end_time.to_formatted_s(:long)  %><% end %>
 
-<br><br>
+<h2>Start Time: <%= @scrimage.start_time.to_formatted_s(:long) %></h2>
+
+<% if(@scrimage.timed == 1) %>End Time: <%= @scrimage.end_time.to_formatted_s(:long) %><% end %>
 
 <div id="clockDiv"></div>
-<br><br>
 
-<center><%= render :partial => "layouts/editableImage", :locals => {:scrimage_id => @scrimage.id, :image => @original_photo, :imageClass => "originalImage"} %></center>
-<br>
-Description: <%= @scrimage.description %>
-<br><br><br>
+<center>
+	<%= render :partial => "layouts/editableImage", :locals => {:scrimage_id => @scrimage.id, :image => @original_photo, :imageClass => "originalImage"} %>
+</center>
+<div class="pageText">Description: <%= @scrimage.description %></div>
 
-<div id='childrenPhotos'>
+<div class='childrenPhotos'>
 	<%= render :partial => "scrimages/displayChildPhotos", :locals => {:scrimage => @scrimage} %>
 </div>
 

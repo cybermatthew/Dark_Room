@@ -2,12 +2,30 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+table {
+	border-collapse: separate;
+	border-spacing: 10px;	
+}
+
 .originalImage{
 	width: 300px;
 	height: auto;
+	border: 3px solid #ED7263;
 }
 
-.responseImage{
-	width: 200px;
-	height: auto;
+.responseImage {
+	border: 20px solid #ED7263;
+	margin:0px;
+	width:200px;
+}
+
+.childrenPhotos {
+	background-color:#fff;
+	margin:10px;
+}
+
+.childCount {
+	color:#FDF2DE;
+	background-color:#3B96A9;
+	padding:10px;
 }
