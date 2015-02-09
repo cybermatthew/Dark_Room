@@ -1,10 +1,6 @@
 <!-- Instantiate the widget -->
 <script type="text/javascript">
 
-    var filename = $("input[type='hidden']")[3].id.split("_")[3];
-    var scrimageID = $("input[type='hidden']")[4].id.split("_")[2];
-    var parentPhotoID = $("input[type='hidden']")[5].id.split("_")[3];
-
     var featherEditor = new Aviary.Feather({
         apiKey: '5ee2fa12a60942b4a817edb17bfae759',
         apiVersion: 3,
@@ -41,11 +37,10 @@
                          scrimage_id: "<%= scrimage_id %>",
                          parent_photo_id: "<%= parent_photo_id %>"},
 			    success: function(data){
-			        alert('Saved Successfully');
- 
+                    showPostSaveSuccessModal();
 			      },
 		      	error:function(data){
-		       		alert('Error');
+		       		showPostSaveErrorModal();
 		      	}
 		    });
         },
@@ -63,7 +58,6 @@
     }
 
     function closePostSaveModal(button){
-        $(this).css("opacity", "0");
-        $(this).css("pointer-events", "none");
+        $(this).remove();
     }
 </script>    

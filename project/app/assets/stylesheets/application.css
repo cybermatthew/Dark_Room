@@ -228,6 +228,14 @@ h1 a:link, h1 a:active, h1 a:visited {
 
 .close:hover { background: #ee7163; }
 
+#postSaveSuccessModal{
+	opacity: 0;
+}
+
+#postSaveErrorModal{
+	opacity: 0;
+}
+
 
 /* Button Styling */
 .btn {

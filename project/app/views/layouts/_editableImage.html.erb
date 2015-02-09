@@ -44,6 +44,28 @@
 	</div>
 </div>
 
+<div id="postSaveSuccessModal" class="modalDialog">
+	<div>
+		<center>
+			<h2> Image Saved Successfully </h2>
+			<button class='btn' onclick="closePostSaveSuccessModal();"> Continue Editing </button>
+			<button class='btn' onclick="featherEditor.close(); closePostSaveSuccessModal();"> Close Editor </button>
+		</center>
+	</div>
+</div>
+
+<div id="postSaveErrorModal" class="modalDialog">
+	<div>
+		<center>
+			<h2> Error on Image Save </h2>
+			<button class='btn' onclick="closePostSaveErrorModal();"> Continue Editing </button>
+			<button class='btn' onclick="featherEditor.close(); closePostSaveErrorModal();"> Close Editor </button>
+		</center>
+	</div>
+</div>
+
+
+
 <script type="text/javascript" src="http://feather.aviary.com/js/feather.js"></script>
 
 <%= render partial: "layouts/apiCode", :locals => {:filename => image.filename, :scrimage_id => scrimage_id, :parent_photo_id => image.id} %>   
