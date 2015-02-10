@@ -12,7 +12,7 @@
 				<img class="mainPhoto" src="<%= @photo.filename %>">
 			</td>
 			<td>
-				<div class="commentsDiv">
+				<div id="commentsDiv" class="commentsDiv">
 					<span>Comments</span>
 					<br/>
 					<% @comments.each do |comment| %>
@@ -37,6 +37,7 @@
 			type: "POST",
 			data: {photo_id: $("#photoID").val(), user_id: $("#userID").val(), text: $("#new_comment_input").val()},
 			success: function(msg){
+				console.log(msg);
 				$("#commentsDiv").append(msg);
 				$("#new_comment_input").val("");
 			}
