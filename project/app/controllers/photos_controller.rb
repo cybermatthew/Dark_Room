@@ -52,6 +52,8 @@ class PhotosController < ApplicationController
 				photo.save()
 
 				render :json => {:file_name => photoName} #Sends the photo link back as a response.
+
+				# render :partial => "displayChildPhotos", :locals => {:scrimage => params[:scrimage_id]}
 			}
   		end
 	end
