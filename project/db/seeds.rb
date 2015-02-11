@@ -7,7 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 # load users #
-admin_user = User.new(:username => "admin", :password => "password", :bio => "I am the admin", :profile_image => "file.jpg", :points => 100)
+admin_user = User.new(:username => "admin", :password => "password", :bio => "I am the admin", :profile_image => "happy-smiling-cute-corgi-dog.jpg", :points => 100)
 admin_user.save(:validate => true)
 
 
