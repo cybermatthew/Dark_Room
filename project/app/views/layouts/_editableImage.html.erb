@@ -23,7 +23,6 @@
 			<a href="/images/<%= image.filename %>" download="<%= image.filename %>"><button class='btn'>Download to Edit Offline</button></a>
 		</center>
 	</div>
-
 </div>
 
 <div id="uploadModal<%= image.id %>" class="modalDialog">
@@ -44,29 +43,35 @@
 	</div>
 </div>
 
-<div id="postSaveSuccessModal" class="modalDialog">
-	<div>
-		<center>
-			<h2> Image Saved Successfully </h2>
-			<button class='btn' onclick="closePostSaveSuccessModal();"> Continue Editing </button>
-			<button class='btn' onclick="featherEditor.close(); closePostSaveSuccessModal();"> Close Editor </button>
+<div id="postSaveModal" class="modalDialog">
+	<div id = "postSaveModalBox">
+		<center id = "postSaveModalText">
+
+			<span id = "saveSpinnerText">
+				<h2> Saving Image </h2>
+				Please Wait
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+			</span>
+			
+			<span id = "saveSuccessText">
+				<h2> Image Saved Successfully </h2>
+				<button class='btn' onclick="closePostSaveModal();"> Continue Editing </button>
+				<button class='btn' onclick="featherEditor.close(); closePostSaveModal();"> Close Editor </button> 
+			</span>
+
+			<span id = "saveErrorText">
+				<h2 style = "background:red"> Error on Image Save </h2>
+				<button class='btn' onclick="closePostSaveModal();"> Continue Editing </button>
+				<button class='btn' onclick="featherEditor.close(); closePostSaveModal();"> Close Editor </button> 
+			</span>			
+			
 		</center>
 	</div>
 </div>
-
-<div id="postSaveErrorModal" class="modalDialog">
-	<div>
-		<center>
-			<h2> Error on Image Save </h2>
-			<button class='btn' onclick="closePostSaveErrorModal();"> Continue Editing </button>
-			<button class='btn' onclick="featherEditor.close(); closePostSaveErrorModal();"> Close Editor </button>
-		</center>
-	</div>
-</div>
-
-
-
-
 
 <%= render partial: "layouts/apiCode", :locals => {:filename => image.filename, :scrimage_id => scrimage_id, :parent_photo_id => image.id} %>   
 

@@ -265,14 +265,27 @@ h2 a:link, h2 a:active, h2 a:visited, h2 a:hover {
 
 .close:hover { background: #ee7163; }
 
-#postSaveSuccessModal{
+#postSaveModal{
 	opacity: 0;
 }
 
-#postSaveErrorModal{
-	opacity: 0;
+#postSaveModalBox{
+	position: fixed;
+	top: 30%;
+	left: 33%;
 }
 
+#postSaveModalText{
+	position: relative;
+}
+
+#saveSuccessText{
+	display: none;
+}
+
+#saveErrorText{
+	display: none;
+}
 
 /* Button Styling */
 .btn {

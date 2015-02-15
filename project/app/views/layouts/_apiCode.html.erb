@@ -28,6 +28,9 @@
         onLoad: function() {
 			document.getElementById('browserEditButton').style.display = 'block';
 		},
+        onSaveButtonClicked: function(imageID){
+           showPostSaveModal();
+        },
         onSave: function(imageID, newURL) {
             $.ajax({
     			url : "/photos/save_edited_photo",
@@ -37,10 +40,13 @@
                          scrimage_id: "<%= scrimage_id %>",
                          parent_photo_id: "<%= parent_photo_id %>"},
 			    success: function(data){
-                    showPostSaveSuccessModal();
-			      },
+                    showSaveSuccessText();
+                    var childPhotos = document.getElementById("childrenPhotos");
+                    childPhotos.innerHTML = data.html;
+                    initHoverIcons(); //Reinitializes the hover icons for each image
+			    },
 		      	error:function(data){
-		       		showPostSaveErrorModal();
+		       		showSaveErrorText();
 		      	}
 		    });
         },
@@ -55,9 +61,5 @@
             url: src
         });
         return false;
-    }
-
-    function closePostSaveModal(button){
-        $(this).remove();
     }
 </script>    

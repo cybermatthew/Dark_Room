@@ -38,6 +38,7 @@ class PhotosController < ApplicationController
 	def save_edited_photo
 
 		require "open-uri"
+
 		respond_to do |format|
 			format.json{
 				photoName = params[:editedPhotoLink]
@@ -50,11 +51,9 @@ class PhotosController < ApplicationController
 		
 				photo = Photo.new(:filename => "/images/" + file_name, :user_id => 1, :scrimage_id => params[:scrimage_id], :parent_photo_id => params[:parent_photo_id])
 				photo.save()
-
-				render :json => {:file_name => photoName} #Sends the photo link back as a response.
-
-				# render :partial => "displayChildPhotos", :locals => {:scrimage => params[:scrimage_id]}
-			}
+ 				@scrimage = Scrimage.find(params[:scrimage_id])
+				render :json => {:html => render_to_string({:partial => "scrimages/displayChildPhotos", :formats => [:html, :js], :locals => {:scrimage => @scrimage}, :layout => false})}  
+  			}			
   		end
 	end
 
