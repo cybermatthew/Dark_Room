@@ -18,3 +18,16 @@
 		<br><br>
 	<% end %>
 </div>
+
+<script type="text/javascript">
+	$(function(){
+
+		if ( $("#isTimed").val() == 1 ){
+			updateTime();
+			setInterval('updateTime()', 1000);
+		}
+
+		initHoverIcons();
+	});
+
+</script>
