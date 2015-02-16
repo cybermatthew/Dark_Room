@@ -2,7 +2,7 @@
 <center><input id="searchInput" class="searchInput" placeholder="Search scrimages and photos"></center>
 
 <div class="dataWrapper">
-	<%= render :partial => "fill_data", :locals => {:found_scrimages_by_photos => @all_original_photos, :found_photos => nil} %>
+	<%= render :partial => "fill_data", :locals => {:show_all_scrimages => 1,:found_scrimages_by_photos => @all_original_photos, :found_photos => nil} %>
 </div>
 
 <script type="text/javascript">

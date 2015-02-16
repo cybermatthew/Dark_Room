@@ -13,11 +13,14 @@ class SearchesController < ApplicationController
 		if searchString == ""
 			# if there is an empty search string, we just find all scrimages
 			scrimage_photos = Photo.where("parent_photo_id = ?", -1).order("updated_at desc")
+
+			render :partial => "fill_data", :locals => {:show_all_scrimages => 1, :found_scrimages_by_photos => scrimage_photos, :found_photos => individual_photos}
 		else
+			scrimage_photos = Photo.joins(:scrimage).where("parent_photo_id = ? AND (scrimages.name like ? OR scrimages.description like ?)", -1, "%"+searchString+"%", "%"+searchString+"%")
 
+			individual_photos = Photo.where("parent_photo_id = ? AND description like ?", -1, "%"+searchString+"%")
+
+			render :partial => "fill_data", :locals => {:show_all_scrimages => 0, :found_scrimages_by_photos => scrimage_photos, :found_photos => individual_photos}
 		end
-		
-
-		render :partial => "fill_data", :locals => {:found_scrimages_by_photos => scrimage_photos, :found_photos => individual_photos}
 	end
 end

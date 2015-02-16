@@ -1,16 +1,23 @@
-<div class="foundScrimages">
-	<% if !found_scrimages_by_photos.nil? && found_scrimages_by_photos.size() > 0 %>
-		<center><b><u>Scrimages</u></b></center>
-		<br><br>
-		<% found_scrimages_by_photos.each do |photo| %>
-			<span class="browse_image"><b><%= photo.scrimage.name %></b><br><a href="/scrimages/<%= photo.scrimage_id %>" ><img class="thumbnail" src="<%= photo.filename %>"></a></span>
+<% if (found_scrimages_by_photos.nil? || found_scrimages_by_photos.size() == 0) && (found_photos.nil? || found_photos.size() == 0) %>
+<i>No scrimages or photos match your search query</i>
+<% else %>
+	<div class="foundScrimages">
+		<% if !found_scrimages_by_photos.nil? && found_scrimages_by_photos.size() > 0 %>
+			<center><b><u><% if show_all_scrimages == 1 %>All Scrimages<% else %>Found Scrimages<% end %></u></b></center>
+			<br><br>
+			<% found_scrimages_by_photos.each do |photo| %>
+				<span class="browse_image"><b><%= photo.scrimage.name %></b><br><a href="/scrimages/<%= photo.scrimage_id %>" ><img class="thumbnail" src="<%= photo.filename %>"></a></span>
+			<% end %>
 		<% end %>
-	<% end %>
-</div>
+	</div>
 
-<div class="foundPhotos">
-	<% if !found_photos.nil? && found_photos.size() > 0 %>
-		<center><b><u>Photos</u></b></center>
-		<br><br>
-	<% end %>
-</div>
+	<div class="foundPhotos">
+		<% if !found_photos.nil? && found_photos.size() > 0 %>
+			<center><b><u>Found Photos</u></b></center>
+			<br><br>
+			<% found_photos.each do |photo| %>
+				<span class="browse_image"><a href="/photos/<%= photo.id %>" ><img class="thumbnail" src="<%= photo.filename %>"></a></span>
+			<% end %>
+		<% end %>
+	</div>
+<% end %>
