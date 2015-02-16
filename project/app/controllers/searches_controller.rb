@@ -16,9 +16,9 @@ class SearchesController < ApplicationController
 
 			render :partial => "fill_data", :locals => {:show_all_scrimages => 1, :found_scrimages_by_photos => scrimage_photos, :found_photos => individual_photos}
 		else
-			scrimage_photos = Photo.joins(:scrimage).where("parent_photo_id = ? AND (scrimages.name like ? OR scrimages.description like ?)", -1, "%"+searchString+"%", "%"+searchString+"%")
+			scrimage_photos = Photo.joins(:scrimage).where("parent_photo_id = ? AND (scrimages.name like ? OR scrimages.description like ?)", -1, "%"+searchString+"%", "%"+searchString+"%").order("updated_at desc")
 
-			individual_photos = Photo.where("parent_photo_id = ? AND description like ?", -1, "%"+searchString+"%")
+			individual_photos = Photo.where("parent_photo_id = ? AND description like ?", -1, "%"+searchString+"%").order("updated_at desc")
 
 			render :partial => "fill_data", :locals => {:show_all_scrimages => 0, :found_scrimages_by_photos => scrimage_photos, :found_photos => individual_photos}
 		end
