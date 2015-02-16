@@ -6,7 +6,7 @@ class ScrimagesController < ApplicationController
 
 			@original_photo = Photo.where("scrimage_id = ? AND parent_photo_id = ?", @scrimage.id, -1).first
 		else
-			@photos = Photo.where("parent_photo_id = ?", -1).order("updated_at desc")
+			@all_original_photos = Photo.where("parent_photo_id = ?", -1).order("updated_at desc")
 			render :action => "show_all"
 		end
 		# @photos = Photo.where("scrimage_id = ? AND parent_photo_id != ?", @scrimage.id, -1)

@@ -1,4 +1,20 @@
-<h1>Scrimages</h1>
-<% @photos.each do |photo| %>
-	<span class="all_scrimages_image"><%= photo.scrimage.name %><br><a href="/scrimages/<%= photo.scrimage_id %>" ><img class="thumbnail" src="<%= photo.filename %>"></a></span>
-<% end %>
+<h1>Browse Scrimages and Photos</h1>
+<center><input class="searchInput" placeholder="Search scrimages and photos"></center>
+
+<div id="foundScrimages">
+	<% if @all_original_photos.size() > 0 %>
+		<center><b><u>Scrimages</u></b></center>
+		<br><br>
+		<% @all_original_photos.each do |photo| %>
+			<span class="browse_image"><b><%= photo.scrimage.name %></b><br><a href="/scrimages/<%= photo.scrimage_id %>" ><img class="thumbnail" src="<%= photo.filename %>"></a></span>
+		<% end %>
+	<% elsif !@foundScrimages.nil? && @foundScrimages.size() > 0 %>
+	<% end %>
+</div>
+
+<div id="foundPhotos">
+	<% if !@foundPhotos.nil? && @foundPhotos.size() > 0 %>
+		<center><b><u>Photos</u></b></center>
+		<br><br>
+	<% end %>
+</div>
