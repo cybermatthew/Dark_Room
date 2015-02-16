@@ -1,0 +1,20 @@
+<h1>Browse Scrimages and Photos</h1>
+<center><input id="searchInput" class="searchInput" placeholder="Search scrimages and photos"></center>
+
+<div class="dataWrapper">
+	<%= render :partial => "fill_data", :locals => {:found_scrimages_by_photos => @all_original_photos, :found_photos => nil} %>
+</div>
+
+<script type="text/javascript">
+	$(".searchInput").keyup(function(){
+		$.ajax({
+			url: '/searches/searchData',
+			type: 'POST',
+			data: {search_string: $("#searchInput").val()},
+			success: function (msg) {
+			  	$(".dataWrapper").html(msg);
+			}
+		});
+	});
+
+</script>

@@ -22,7 +22,10 @@ Rails.application.routes.draw do
   end
   resources :scrimages
 
-  resources :search
+  resource :searches do
+    post 'searchData'
+  end
+  resources :searches
 
 
 
