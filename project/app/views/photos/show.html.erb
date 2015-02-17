@@ -1,5 +1,4 @@
 <% if !@error %>
-	<input type=hidden id="userID" value='<%= session[:user_id] %>' >
 	<input type=hidden id="photoID" value='<%= @photo.id %>' >
 	<h1><%= @photo.description %></h1>
 	<h2>Uploaded by <a href="/users/<%=@user.id%>"><%= @user.username %></a></h2>
@@ -37,7 +36,7 @@
 		$.ajax({
 			url: "/photos/create_comment",
 			type: "POST",
-			data: {photo_id: $("#photoID").val(), user_id: $("#userID").val(), text: $("#new_comment_input").val()},
+			data: {photo_id: $("#photoID").val(), text: $("#new_comment_input").val()},
 			success: function(msg){
 				console.log(msg);
 				$("#commentsDiv").append(msg);

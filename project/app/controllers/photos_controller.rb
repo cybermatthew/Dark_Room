@@ -27,7 +27,7 @@ class PhotosController < ApplicationController
 	end
 
 	def create_comment
-		comment = Comment.new(:photo_id => params[:photo_id], :user_id => params[:user_id], :text => params[:text])
+		comment = Comment.new(:photo_id => params[:photo_id], :user_id => current_user.id, :text => params[:text])
 		comment.save()
 
 		user = User.find(comment.user_id)
@@ -36,7 +36,6 @@ class PhotosController < ApplicationController
 	end
 
 	def save_edited_photo
-
 		require "open-uri"
 
 		respond_to do |format|
@@ -49,7 +48,7 @@ class PhotosController < ApplicationController
 					f.write(image_from_web) 
 				end
 		
-				photo = Photo.new(:filename => "/images/" + file_name, :user_id => 1, :scrimage_id => params[:scrimage_id], :parent_photo_id => params[:parent_photo_id])
+				photo = Photo.new(:filename => "/images/" + file_name, :user_id => current_user.id, :scrimage_id => params[:scrimage_id], :parent_photo_id => params[:parent_photo_id])
 				photo.save()
  				@scrimage = Scrimage.find(params[:scrimage_id])
 				render :json => {:html => render_to_string({:partial => "scrimages/displayChildPhotos", :formats => [:html, :js], :locals => {:scrimage => @scrimage}, :layout => false})}  

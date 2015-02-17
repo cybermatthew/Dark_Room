@@ -13,7 +13,6 @@ class ScrimagesController < ApplicationController
 	end
 
 	def create
-
 		isTimed = 0
 		end_time = DateTime.now
 
@@ -31,7 +30,7 @@ class ScrimagesController < ApplicationController
 	    			file.write(uploaded_io.read)
 	  		end
 
-			originalPhoto = Photo.new(:filename => "/images/" + params[:original_photo].original_filename, :description => params[:description], :user_id => session[:user_id], :scrimage_id => scrimage.id)
+			originalPhoto = Photo.new(:filename => "/images/" + params[:original_photo].original_filename, :description => params[:description], :user_id => current_user.id, :scrimage_id => scrimage.id)
 
 			originalPhoto.save()
 
@@ -56,7 +55,7 @@ class ScrimagesController < ApplicationController
     			file.write(uploaded_io.read)
   		end
 
-	  	newPhoto = Photo.new(:filename => "/images/" + uploaded_io.original_filename, :description => params[:editedPhotoText], :user_id => 1, :scrimage_id => params[:scrimage_id], :parent_photo_id => params[:parent_photo_id])
+	  	newPhoto = Photo.new(:filename => "/images/" + uploaded_io.original_filename, :description => params[:editedPhotoText], :user_id => current_user.id, :scrimage_id => params[:scrimage_id], :parent_photo_id => params[:parent_photo_id])
 	  	newPhoto.save()
 
 	  	scrimage = Scrimage.find(params[:scrimage_id])
