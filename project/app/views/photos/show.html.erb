@@ -1,5 +1,5 @@
 <% if !@error %>
-	<input type=hidden id="userID" value='1' >
+	<input type=hidden id="userID" value='<%= session[:user_id] %>' >
 	<input type=hidden id="photoID" value='<%= @photo.id %>' >
 	<h1><%= @photo.description %></h1>
 	<h2>Uploaded by <a href="/users/<%=@user.id%>"><%= @user.username %></a></h2>
@@ -24,10 +24,12 @@
 			</td>
 		</tr>
 	</table>
-	<textarea id="new_comment_input" name="new_comment_input"></textarea>
-	<div class="addComment">
-		<button class="submit" onClick=addComment()>Add Comment</button>
-	</div>
+	<% if logged_in? %>
+		<textarea id="new_comment_input" name="new_comment_input"></textarea>
+		<div class="addComment">
+			<button class="submit" onClick=addComment()>Add Comment</button>
+		</div>
+	<% end %>
 <% end %>
 
 <script type="text/javascript">

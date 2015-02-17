@@ -1,6 +1,5 @@
-<% if !@error %>
-	<h1>Create Scrimage</h1>
-	<center>
+<h1>Create Scrimage</h1>
+<center>
 	<%= form_tag("/scrimages/create", multipart: true) do %>
 		<%= radio_button_tag(:type, :timed, :selected) %>Timed (5 days)
 		<br/>
@@ -17,4 +16,3 @@
 		<%= submit_tag("Create Scrimage", :class => "submit") %>
 	<% end %>
 </center>
-<% end %>

@@ -1,4 +1,6 @@
 class ScrimagesController < ApplicationController
+	before_action :logged_in_user, only: [:new_scrimage, :update]
+
 	def show
 		@scrimage = Scrimage.find(params[:id])
 		@remainingSeconds = (@scrimage.end_time.to_time - DateTime.now.to_time).to_i
@@ -8,14 +10,6 @@ class ScrimagesController < ApplicationController
 	end
 
 	def new_scrimage
-		@user_id = session[:id]
-		@loggedIn = true
-
-		if @user_id.nil?
-			@loggedIn = false
-		end
-
-		@error = false
 	end
 
 	def create
@@ -37,7 +31,7 @@ class ScrimagesController < ApplicationController
 	    			file.write(uploaded_io.read)
 	  		end
 
-			originalPhoto = Photo.new(:filename => "/images/" + params[:original_photo].original_filename, :description => params[:description], :user_id => 1, :scrimage_id => scrimage.id)
+			originalPhoto = Photo.new(:filename => "/images/" + params[:original_photo].original_filename, :description => params[:description], :user_id => session[:user_id], :scrimage_id => scrimage.id)
 
 			originalPhoto.save()
 
@@ -54,7 +48,6 @@ class ScrimagesController < ApplicationController
 
 
 	def uploadEditedImage
-
 		puts params[:editedPhoto]
   		puts "------------------------------"
 
@@ -70,4 +63,13 @@ class ScrimagesController < ApplicationController
 
 		render :partial => "displayChildPhotos", :locals => {:scrimage => scrimage}
 	end
+
+	# Before filters
+
+    def logged_in_user # Confirms user is logged in
+      unless logged_in?
+        flash[:error] = "Please log in"
+        redirect_to login_url
+      end
+    end
 end

@@ -1,13 +1,15 @@
 <div class="editableImage">
-	<span class='hoverIcons' style='display:none'>
-		<span onclick="showModal('editModal<%= image.id %>')" class='hoverIcon hoverIconLeft' style='display:inline-flex'>
-			<img src='/images/edit_symbol.png'>
+	<% if logged_in? %>
+		<span class='hoverIcons' style='display:none'>
+			<span onclick="showModal('editModal<%= image.id %>')" class='hoverIcon hoverIconLeft' style='display:inline-flex'>
+				<img src='/images/edit_symbol.png'>
+			</span>
+			&nbsp;&nbsp;
+			<span onclick="showModal('uploadModal<%= image.id %>')" class='hoverIcon hoverIconRight'style='display:inline-flex'>
+				<img src='/images/upload_symbol.png'>
+			</span>
 		</span>
-		&nbsp;&nbsp;
-		<span onclick="showModal('uploadModal<%= image.id %>')" class='hoverIcon hoverIconRight'style='display:inline-flex'>
-			<img src='/images/upload_symbol.png'>
-		</span>
-	</span>
+	<% end %>
 
 	<a href="/photos/<%=image.id%>"><img class='<%= imageClass %>' src="<%= image.filename %>" id = "img<%= image.id %>" ></a>
 </div>
