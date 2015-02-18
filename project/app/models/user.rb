@@ -5,4 +5,7 @@ class User < ActiveRecord::Base
 	has_many :comments
 	has_many :photos
 	has_and_belongs_to_many :scrimages
+	
+	has_many :favorites
+	has_many :favorite_photos, through: :favorites, source: :favorited, source_type: 'Photo'
 end

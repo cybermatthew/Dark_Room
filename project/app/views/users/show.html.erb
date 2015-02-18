@@ -13,4 +13,9 @@
 	<% Photo.where(user_id: @user.id).find_each do |p| %>
 		<a href="/photos/<%=p.id%>"><img src="<%= p.filename %>" class="thumbnail"></a>
 	<% end %>
+	<br/><br/>
+	<h1><%= @user.username %>'s Favorites</h1>
+	<% @user.favorite_photos.each do |p| %>
+		<a href="/photos/<%=p.id%>"><img src="<%= p.filename %>" class="thumbnail"></a>
+	<% end %>
 <% end %>
