@@ -2,10 +2,29 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.photoTreeTableCell{
+	width: 100%;
+}
+
+#photoTree{
+
+}
+
 .mainPhoto{
-	width: 500px;
+	width: 400px;
 	height: auto;
 	border: 18px solid #ED7263;
+}
+
+.treePhoto {
+	max-height:100px;
+	/*max-width: 200px;*/
+	margin:5px;
+	border: 3px solid #ED7263;
+}
+
+.curTreePhoto{
+	border: 15px solid #ED7263;
 }
 
 .commentsDiv {

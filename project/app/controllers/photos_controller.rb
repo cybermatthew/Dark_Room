@@ -56,6 +56,18 @@ class PhotosController < ApplicationController
   		end
 	end
 
+	def draw_tree
+		photo = Photo.find(params["photo_id"])
+
+		if photo.parent_photo_id != -1
+			parentPhoto = Photo.find(photo.parent_photo_id)
+		end
+		originalPhoto = Photo.where("parent_photo_id = ? AND scrimage_id = ?", -1, photo.scrimage_id).first
+		childPhotos = Photo.where("parent_photo_id = ?", photo.id)
+
+		render :partial => "draw_tree", :locals => {:originalPhoto => originalPhoto, :curPhoto => photo, :parentPhoto => parentPhoto, :childPhotos => childPhotos}
+	end
+
 	private
 	## Strong Parameters
 	def photo_params

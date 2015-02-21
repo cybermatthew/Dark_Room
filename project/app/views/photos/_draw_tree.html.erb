@@ -1,0 +1,33 @@
+<center>
+	<% if curPhoto.parent_photo_id != -1 %>
+	<!-- current photo is not the parent photo -->
+		<a href="/photos/<%= originalPhoto.id %>"><img class="treePhoto" src="<%= originalPhoto.filename %>"></a><br>
+
+		<% if curPhoto.parent_photo_id != originalPhoto.id %>
+		<!-- draw in between layer -->
+			<a href="/photos/<%= parentPhoto.id %>"><img class="treePhoto" src="<%= parentPhoto.filename %>"></a><br>
+		<% end %>
+
+		<!-- draw current photo -->
+		<a href="/photos/<%= curPhoto.id %>"><img class="treePhoto curTreePhoto" src="<%= curPhoto.filename %>"></a><br>
+
+		<% if childPhotos.size() > 0 %>
+			<!-- draw child photos -->
+			<% childPhotos.each do |child| %>
+				<a href="/photos/<%= child.id %>"><img class="treePhoto" src="<%= child.filename %>"></a><br>
+			<% end %>
+		<% end %>
+
+	<% else %>
+	<!-- current photo is the original photo so we will only draw tree if it has children -->
+
+		<a href="/photos/<%= curPhoto.id %>"><img class="treePhoto currentPhoto" src="<%= curPhoto.filename %>"></a><br>
+
+		<% if childPhotos.size() > 0 %>
+			<!-- draw child photos -->
+			<% childPhotos.each do |child| %>
+				<a href="/photos/<%= child.id %>"><img class="treePhoto" src="<%= child.filename %>"></a><br>
+			<% end %>
+		<% end %>
+	<% end %>
+</center>

@@ -20,6 +20,11 @@
 			<td>
 				<img class="mainPhoto" src="<%= @photo.filename %>">
 			</td>
+			<td class='photoTreeTableCell'>
+				<center><div id="photoTree"></div></center>
+			</td>
+		</tr>
+		<tr>
 			<td>
 				<div id="commentsDiv" class="commentsDiv">
 					<span>Comments</span>
@@ -42,6 +47,19 @@
 <% end %>
 
 <script type="text/javascript">
+
+	$(function(){
+		$.ajax({
+			url: "/photos/draw_tree",
+			type: "POST",
+			data: {photo_id: <%= @photo.id %>},
+			success: function(msg){
+				console.log(msg);
+				$("#photoTree").html(msg);
+			}
+		});
+	});
+
 	function addComment(){
 		$.ajax({
 			url: "/photos/create_comment",

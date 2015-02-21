@@ -9,9 +9,10 @@ Rails.application.routes.draw do
   resources :photos
 
   resource :photos do
-    post 'create_comment' => 'photos#create_comment'
-    post 'save_edited_photo' => 'photos#save_edited_photo'
-    post 'upload_new_photo' => 'photos#upload_new_photo'
+    post 'create_comment'
+    post 'save_edited_photo'
+    post 'upload_new_photo'
+    post 'draw_tree'
   end
   
   # must put custom routes first
