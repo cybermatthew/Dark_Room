@@ -8,4 +8,20 @@
 	<% end %>
 </div>
 
+<h1>Vote</h1>
+
+<p align="center">This scrImage is currently open for voting. Cast a vote for your favorite image. Click <a href="/scrimages/<%=@scrimage.id%>">here</a> to see all images in this scrImage.</p>
+
+<center><a href="/photos/<%=@originalPhoto.id%>"><img src="<%=@originalPhoto.filename%>" class="votingOrig"></a></center>
+
+<div class="images">
+	<% @childPhotos.each do |p| %>
+	<div class="votingImage">
+		<a href="/photos/<%=p.id%>"><img src="<%=p.filename%>"></a>
+		<br/>
+		<a href="#" class="submit">Vote</a>
+	</div>
+	<% end %>
+</div>
+
 
