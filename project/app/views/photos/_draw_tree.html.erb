@@ -35,8 +35,12 @@
 
 			<img class="treeArrow" src="/site_images/treeArrow.png"><br>
 
-			<% childPhotos.each do |child| %>
-				<a href="/photos/<%= child.id %>"><img class="treePhoto" src="<%= child.filename %>"></a><br>
+			<% if childPhotos.size() == 1 %>
+				<% childPhotos.each do |child| %>
+					<a href="/photos/<%= child.id %>"><img class="treePhoto" src="<%= child.filename %>"></a><br>
+				<% end %>
+			<% else %>
+				<%= render :partial => "photos/carousel", :locals => {:childPhotos => childPhotos} %>
 			<% end %>
 		<% end %>
 
@@ -49,8 +53,12 @@
 			<img class="treeArrow" src="/site_images/treeArrow.png"><br>
 
 			<!-- draw child photos -->
-			<% childPhotos.each do |child| %>
-				<a href="/photos/<%= child.id %>"><img class="treePhoto" src="<%= child.filename %>"></a><br>
+			<% if childPhotos.size() == 1 %>
+				<% childPhotos.each do |child| %>
+					<a href="/photos/<%= child.id %>"><img class="treePhoto" src="<%= child.filename %>"></a><br>
+				<% end %>
+			<% else %>
+				<%= render :partial => "photos/carousel", :locals => {:childPhotos => childPhotos} %>
 			<% end %>
 		<% end %>
 	<% end %>

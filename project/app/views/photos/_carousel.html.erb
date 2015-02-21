@@ -1,0 +1,35 @@
+<div id="childPhotosCarousel" class="carousel slide" data-ride="carousel">
+	<ol class="carousel-indicators">
+		<% for i in 0..childPhotos.count-1 %>
+			<li data-target="#childPhotosCarousel" data-slide-to="<%= i %>" <% if i == 0 %>class="active"<% end %>></li>
+		<% end %>
+	</ol>
+
+	<div class="carousel-inner" role="listbox">
+	    <% for i in 0..childPhotos.count-1 %>
+		    <% photo = childPhotos[i] %>
+	    	<div class="<% if i==0 %>active <% end %>item">
+	            <a href="/photos/<%= photo.id %>" ><img class="treePhoto" src="<%= photo.filename %>" ></a>
+	        </div>
+	    <% end %>
+	</div>
+	<!-- Carousel nav -->
+	<% if childPhotos.count > 1 %>
+	    <a class="carousel-control left" href="#childPhotosCarousel" data-slide="prev">
+	        <span class="glyphicon glyphicon-chevron-left"></span>
+	    </a>
+	    <a class="carousel-control right" href="#childPhotosCarousel" data-slide="next">
+	        <span class="glyphicon glyphicon-chevron-right"></span>
+	    </a>
+	<% end %>
+</div>
+
+<script type="text/javascript">
+
+	$('.carousel').carousel({
+        interval: 3000
+    });
+
+    $('.carousel').carousel('cycle');
+
+</script>
