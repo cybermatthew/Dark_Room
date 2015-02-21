@@ -2,11 +2,11 @@
 	<% if logged_in? %>
 		<span class='hoverIcons' style='display:none'>
 			<span onclick="showModal('editModal<%= image.id %>')" class='hoverIcon hoverIconLeft' style='display:inline-flex'>
-				<img src='/images/edit_symbol.png'>
+				<img src='/site_images/edit_symbol.png'>
 			</span>
 			&nbsp;&nbsp;
 			<span onclick="showModal('uploadModal<%= image.id %>')" class='hoverIcon hoverIconRight'style='display:inline-flex'>
-				<img src='/images/upload_symbol.png'>
+				<img src='/site_images/upload_symbol.png'>
 			</span>
 		</span>
 	<% end %>
@@ -22,7 +22,7 @@
 		<h2>Editing Options</h2>
 		<center>
 			<button class='btn' id = "browserEditButton" onclick = 'openAPI("<%= image.id %>", "img<%= image.id %>", "<%= image.filename %>")'>Edit in Browser</button>
-			<a href="/images/<%= image.filename %>" download="<%= image.filename %>"><button class='btn'>Download to Edit Offline</button></a>
+			<a href="/site_images/<%= image.filename %>" download="<%= image.filename %>"><button class='btn'>Download to Edit Offline</button></a>
 		</center>
 	</div>
 </div>

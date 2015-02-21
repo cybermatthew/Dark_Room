@@ -22,6 +22,15 @@ test_photo.save(:validate => false)
 child_photo = Photo.new(:filename => "/images/Chrysanthemum.jpg", :description => "child", :votes => 1, :user_id => admin_user.id, :scrimage_id => test_scrimage.id, :parent_photo_id => test_photo.id)
 child_photo.save(:validate => false)
 
+child_photo2 = Photo.new(:filename => "/images/Chrysanthemum.jpg", :description => "child2", :votes => 0, :user_id => admin_user.id, :scrimage_id => test_scrimage.id, :parent_photo_id => child_photo.id)
+child_photo2.save(:validate => false)
+
+child_photo3 = Photo.new(:filename => "/images/Chrysanthemum.jpg", :description => "child2", :votes => 0, :user_id => admin_user.id, :scrimage_id => test_scrimage.id, :parent_photo_id => child_photo2.id)
+child_photo3.save(:validate => false)
+
+child_photo4 = Photo.new(:filename => "/images/Chrysanthemum.jpg", :description => "child2", :votes => 0, :user_id => admin_user.id, :scrimage_id => test_scrimage.id, :parent_photo_id => child_photo3.id)
+child_photo4.save(:validate => false)
+
 # load comments #
 comment = Comment.new()
 comment.user_id = admin_user.id

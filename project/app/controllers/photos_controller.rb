@@ -62,10 +62,17 @@ class PhotosController < ApplicationController
 		if photo.parent_photo_id != -1
 			parentPhoto = Photo.find(photo.parent_photo_id)
 		end
+
 		originalPhoto = Photo.where("parent_photo_id = ? AND scrimage_id = ?", -1, photo.scrimage_id).first
 		childPhotos = Photo.where("parent_photo_id = ?", photo.id)
 
 		render :partial => "draw_tree", :locals => {:originalPhoto => originalPhoto, :curPhoto => photo, :parentPhoto => parentPhoto, :childPhotos => childPhotos}
+	end
+
+	def getPhotoForTree
+		nextPhoto = Photo.find(params[:photo_id])
+
+		render :partial => "addPhotoToTree", :locals => {:addedPhoto => nextPhoto, :original_photo_id => params[:original_photo_id]}
 	end
 
 	private

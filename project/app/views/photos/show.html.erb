@@ -18,14 +18,7 @@
 	<table class="showPhoto">
 		<tr>
 			<td>
-				<img class="mainPhoto" src="<%= @photo.filename %>">
-			</td>
-			<td class='photoTreeTableCell'>
-				<center><div id="photoTree"></div></center>
-			</td>
-		</tr>
-		<tr>
-			<td>
+				<img class="mainPhoto" src="<%= @photo.filename %>"><br><br>
 				<div id="commentsDiv" class="commentsDiv">
 					<span>Comments</span>
 					<br/>
@@ -35,16 +28,25 @@
 						<br/><br/>
 					<% end %>
 				</div>
+				<% if logged_in? %>
+					<br><br>
+					<textarea id="new_comment_input" name="new_comment_input"></textarea>
+					<div class="addComment">
+						<button class="submit" style="margin-top:5px" onClick=addComment()>Add Comment</button>
+				<% end %>
+		</div>
+	<% end %>
+			</td>
+			<td class='photoTreeTableCell'>
+				<center><div id="photoTree"></div></center>
+			</td>
+		</tr>
+		<tr>
+			<td>
 			</td>
 		</tr>
 	</table>
-	<% if logged_in? %>
-		<textarea id="new_comment_input" name="new_comment_input"></textarea>
-		<div class="addComment">
-			<button class="submit" onClick=addComment()>Add Comment</button>
-		</div>
-	<% end %>
-<% end %>
+	
 
 <script type="text/javascript">
 
@@ -52,9 +54,9 @@
 		$.ajax({
 			url: "/photos/draw_tree",
 			type: "POST",
-			data: {photo_id: <%= @photo.id %>},
+			data: {photo_id: $("#photoID").val()},
 			success: function(msg){
-				console.log(msg);
+				// console.log(msg);
 				$("#photoTree").html(msg);
 			}
 		});
@@ -66,7 +68,7 @@
 			type: "POST",
 			data: {photo_id: $("#photoID").val(), text: $("#new_comment_input").val()},
 			success: function(msg){
-				console.log(msg);
+				// console.log(msg);
 				$("#commentsDiv").append(msg);
 				$("#new_comment_input").val("");
 			}

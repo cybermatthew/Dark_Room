@@ -1,18 +1,40 @@
 <center>
 	<% if curPhoto.parent_photo_id != -1 %>
-	<!-- current photo is not the parent photo -->
+	<!-- current photo is not the original photo -->
+
+		<input id="nextParentID" type=hidden value=<%= parentPhoto.parent_photo_id %>>
+
 		<a href="/photos/<%= originalPhoto.id %>"><img class="treePhoto" src="<%= originalPhoto.filename %>"></a><br>
 
 		<% if curPhoto.parent_photo_id != originalPhoto.id %>
 		<!-- draw in between layer -->
+
+			<% if parentPhoto.parent_photo_id != originalPhoto.id %>
+			<!-- more layers in between so draw disjoint arrow -->
+				<a id="unfoldTreeButton" href="">
+					<br><span id="hoverText">Click to Unfold</span><br>
+					<img id="disjointArrow" class="treeArrow" src="/site_images/disjointTreeArrow.png"><br><br>
+				</a>
+				<div id="treeUnfoldWrapper"></div>
+
+			<% else %>
+			<!-- no layers in between so draw solid arrow -->
+				<img class="treeArrow" src="/site_images/treeArrow.png"><br>
+			<% end %>
+
 			<a href="/photos/<%= parentPhoto.id %>"><img class="treePhoto" src="<%= parentPhoto.filename %>"></a><br>
 		<% end %>
+
+		<img class="treeArrow" src="/site_images/treeArrow.png"><br>
 
 		<!-- draw current photo -->
 		<a href="/photos/<%= curPhoto.id %>"><img class="treePhoto curTreePhoto" src="<%= curPhoto.filename %>"></a><br>
 
 		<% if childPhotos.size() > 0 %>
 			<!-- draw child photos -->
+
+			<img class="treeArrow" src="/site_images/treeArrow.png"><br>
+
 			<% childPhotos.each do |child| %>
 				<a href="/photos/<%= child.id %>"><img class="treePhoto" src="<%= child.filename %>"></a><br>
 			<% end %>
@@ -21,9 +43,11 @@
 	<% else %>
 	<!-- current photo is the original photo so we will only draw tree if it has children -->
 
-		<a href="/photos/<%= curPhoto.id %>"><img class="treePhoto currentPhoto" src="<%= curPhoto.filename %>"></a><br>
-
 		<% if childPhotos.size() > 0 %>
+			<a href="/photos/<%= curPhoto.id %>"><img class="treePhoto curTreePhoto" src="<%= curPhoto.filename %>"></a><br>
+
+			<img class="treeArrow" src="/site_images/treeArrow.png"><br>
+
 			<!-- draw child photos -->
 			<% childPhotos.each do |child| %>
 				<a href="/photos/<%= child.id %>"><img class="treePhoto" src="<%= child.filename %>"></a><br>
@@ -31,3 +55,38 @@
 		<% end %>
 	<% end %>
 </center>
+
+
+<script type="text/javascript">
+
+	$("#unfoldTreeButton").click(function(e){
+		e.preventDefault();
+
+		$.ajax({
+			url: "/photos/getPhotoForTree",
+			type: "POST",
+			data: {photo_id: $("#nextParentID").val(), original_photo_id: <%= originalPhoto.id %>},
+			success: function(msg){
+				$(msg).hide().prependTo("#treeUnfoldWrapper").slideDown('slow');
+				// $("#treeUnfoldWrapper").prepend(msg);
+			}
+		});
+	});
+
+	$("#hoverText").hover(
+		function(){
+			$("#disjointArrow").attr("src", "/site_images/hoveringDisjointTreeArrow.png");
+		}, function(){
+			$("#disjointArrow").attr("src", "/site_images/disjointTreeArrow.png");
+		}
+	);
+
+	$("#disjointArrow").hover(
+		function(){
+			$("#disjointArrow").attr("src", "/site_images/hoveringDisjointTreeArrow.png");
+		}, function(){
+			$("#disjointArrow").attr("src", "/site_images/disjointTreeArrow.png");
+		}
+		);
+
+</script>

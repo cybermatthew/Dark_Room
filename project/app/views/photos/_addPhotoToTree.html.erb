@@ -1,0 +1,15 @@
+<% if addedPhoto.parent_photo_id.to_s == original_photo_id %>
+	<script type="text/javascript">
+		$("#unfoldTreeButton").remove();
+	</script>
+	<img class="treeArrow" src="/site_images/treeArrow.png"><br>
+<% end %>
+
+<a href="/photos/<%= addedPhoto.id %>"><img class="treePhoto" src="<%= addedPhoto.filename %>"></a><br>
+<img class="treeArrow" src="/site_images/treeArrow.png"><br>
+
+<script type="text/javascript">
+
+	$("#nextParentID").val(<%= addedPhoto.parent_photo_id %>);
+
+</script>
