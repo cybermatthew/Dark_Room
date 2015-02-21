@@ -38,7 +38,8 @@ body, html {
 	text-align: center;
 }
 
-.links a, .links a:visited, .links a:active, .submit {
+.links a, .links a:active, .links a:visited,
+.submit, a:active .submit {
 	height:40px;
 	background-color: #ED7263;
 	color:#FDF2DE;
@@ -105,6 +106,10 @@ div.votingImage {
 
 div.votingImage img {
 	height:100px;
+}
+
+.votebutton {
+	line-height: 3;
 }
 
 div.images {

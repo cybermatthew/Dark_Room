@@ -10,7 +10,7 @@
 			<b><%= photo.description %></b><br/>
 			<% end %>
 			By <a href="/users/<%= photo.user.id %>"><%= photo.user.username %></a><br><br>
-			Votes: <%= photo.votes %><br>
+			<a href="#" class="submit votebutton">Vote</a> (<%= photo.votes %>)<br>
 			Comments: <%= photo.comments.count %><br/>
 		</td>
 	</tr>
