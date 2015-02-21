@@ -6,10 +6,6 @@
 	width: 100%;
 }
 
-#photoTree{
-
-}
-
 .mainPhoto{
 	width: 400px;
 	height: auto;
@@ -17,7 +13,7 @@
 }
 
 .treePhoto {
-	max-height:100px;
+	max-height:80px;
 	/*max-width: 200px;*/
 	margin:5px;
 	border: 3px solid #ED7263;
@@ -25,6 +21,10 @@
 
 .curTreePhoto{
 	border: 15px solid #ED7263;
+}
+
+.treeArrow{
+	height: 40px;
 }
 
 .commentsDiv {
@@ -54,11 +54,11 @@
 
 .addComment {
 	position:relative;
-	left:230px;
+	left:175px;
 }
 
 #new_comment_input {
-	width:532px;
+	width:436px;
 	height:100px;
 	border:0px;
 	margin:10px;
