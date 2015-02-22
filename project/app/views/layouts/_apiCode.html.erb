@@ -36,9 +36,9 @@
     			url : "/photos/save_edited_photo",
     			type : "POST",
     			data : { editedPhotoLink: newURL, 
-                         original_photo_filename: "<%= filename %>",
-                         scrimage_id: "<%= scrimage_id %>",
-                         parent_photo_id: "<%= parent_photo_id %>"},
+                         original_photo_filename: document.getElementById("filename").value,
+                         scrimage_id: document.getElementById("scrimageID").value,
+                         parent_photo_id: document.getElementById("parentPhotoID").value},
 			    success: function(data){
                     showSaveSuccessText();
                     var childPhotos = document.getElementById("childrenPhotos");

@@ -11,6 +11,44 @@
 
 <div id="clockDiv"></div>
 
+<!--POST SAVE MODAL CODE -->
+<div id="postSaveModal" class="modalDialog">
+	<div id = "postSaveModalBox">
+		<center id = "postSaveModalText">	
+			
+		</center>
+	</div>
+</div>
+
+<span id = "saveSpinnerText">
+	<h2> Saving Image </h2>
+	Please Wait
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+</span>
+
+<span id = "saveSuccessText">
+	<h2> Image Saved Successfully </h2>
+	<button class='btn' onclick="closePostSaveModal();"> Continue Editing </button>
+	<button class='btn' onclick="featherEditor.close(); closePostSaveModal();"> Close Editor </button> 
+</span>
+
+<span id = "saveErrorText">
+	<h2 style = "background:red"> Error on Image Save </h2>
+	<button class='btn' onclick="closePostSaveModal();"> Continue Editing </button>
+	<button class='btn' onclick="featherEditor.close(); closePostSaveModal();"> Close Editor </button> 
+</span>		
+<!--POST SAVE MODAL CODE -->
+
+<!--FIELDS USED FOR CURRENT IMAGE BEING EDITED BY THE API -->
+<span class = "hiddenInfoSpan" id = "scrimageID">
+<span class = "hiddenInfoSpan" id = "parentPhotoID">
+<span class = "hiddenInfoSpan" id = "filename">
+<!--FIELDS USED FOR CURRENT IMAGE BEING EDITED BY THE API -->
+
 <center>
 	<%= render :partial => "layouts/editableImage", :locals => {:scrimage_id => @scrimage.id, :image => @original_photo, :imageClass => "originalImage"} %>
 </center>
@@ -20,9 +58,9 @@
 	<%= render :partial => "scrimages/displayChildPhotos", :locals => {:scrimage => @scrimage} %>
 </div>
 
+<%= render partial: "layouts/apiCode" %>   
 
 <script type="text/javascript">
-
 	var remainingSeconds = -1;
 	$(function(){
 
@@ -59,4 +97,16 @@
 
 		$("#clockDiv").html(daysString+hoursString+minutesString+secondsString);
 	}
+
+	/*
+	  imageID in this case is the string name of the image file. modalID has the same value as the "parent_photo_id" attribute 
+	  for the Photo object
+	*/
+	function openAPI(modalID, imageID, filename, scrimageID){ 
+		document.getElementById("scrimageID").value = scrimageID;
+		document.getElementById("parentPhotoID").value = modalID;
+		document.getElementById("filename").value = filename;
+		closeModal('editModal' + modalID);
+		launchEditor(imageID, filename);
+	};
 </script>
