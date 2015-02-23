@@ -19,7 +19,7 @@
 	<div class="votingImage">
 		<a href="/photos/<%=p.id%>"><img src="<%=p.filename%>"></a>
 		<br/>
-		<a href="#" class="votebutton submit">Vote</a>
+		<%= link_to 'Vote', vote_photos_path(photo_id: p.id), :class => "submit votebutton", method: :post %>
 	</div>
 	<% end %>
 </div>

@@ -26,6 +26,13 @@ class PhotosController < ApplicationController
 		# @photos = Photo.all
 	end
 
+	def vote
+		@photo = Photo.find(params[:photo_id])
+		@photo.votes += 1
+		@photo.save
+		redirect_to request.referer
+	end
+
 	def create_comment
 		comment = Comment.new(:photo_id => params[:photo_id], :user_id => current_user.id, :text => params[:text])
 		comment.save()
