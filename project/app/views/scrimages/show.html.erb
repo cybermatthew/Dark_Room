@@ -20,24 +20,14 @@
 	</div>
 </div>
 
-<span id = "addBrowserImageDescription">
-	<h2> Add Image Description </h2>
+<span id = "browserImageDescription">
+	<h2> Image Description </h2>
 	Description (optional): 
 	<br>
 	<%= text_area_tag :addedImageDescription, nil, :placeholder => "Description", :size => "30x8", :class => "formField", :onkeyup => "updateDescriptionVal();" %>
 	<br><br>
 	<button class='btn' onclick = "saveEditedImage();"> Save </button>
 	<button class='btn' onclick="closePostSaveModal();"> Cancel </button> 
-</span>
-
-<span id = "editBrowserImageDescription">
-	<h2> Edit Image Description </h2>
-	Description (optional): 
-	<br>
-	<%= text_area_tag :editedImageDescription, :placeholder => "Description", :size => "30x8", :class => "formField" %>
-	<br><br>
-	<button class='btn' onclick="closePostSaveModal();"> Continue Editing </button>
-	<button class='btn' onclick="featherEditor.close(); closePostSaveModal();"> Close Editor </button> 
 </span>
 
 <span id = "saveSpinnerText">
@@ -52,14 +42,14 @@
 
 <span id = "saveSuccessText">
 	<h2> Image Saved Successfully </h2>
-	<button class='btn' onclick="closePostSaveModal();"> Continue Editing </button>
-	<button class='btn' onclick="featherEditor.close(); closePostSaveModal();"> Close Editor </button> 
+	<button class='btn' onclick="closePostSaveModal(); keepEditedImageFields();"> Continue Editing </button>
+	<button class='btn' onclick="featherEditor.close(); closePostSaveModal(); clearEditedImageFields();"> Close Editor </button> 
 </span>
 
 <span id = "saveErrorText">
 	<h2 style = "background:red"> Error on Image Save </h2>
 	<button class='btn' onclick="closePostSaveModal();"> Continue Editing </button>
-	<button class='btn' onclick="featherEditor.close(); closePostSaveModal();"> Close Editor </button> 
+	<button class='btn' onclick="featherEditor.close(); closePostSaveModal(); clearEditedImageFields();"> Close Editor </button> 
 </span>		
 <!--POST SAVE MODAL CODE -->
 
@@ -120,6 +110,8 @@
 	}
 
 	var editedImageDescription;
+	var imageAlreadyEdited = false;
+	var oldURL; //Used to access the old version of an edited image
 
 	function updateDescriptionVal(){
 		editedImageDescription = document.getElementById("addedImageDescription").value;
@@ -133,6 +125,7 @@
 		document.getElementById("scrimageID").value = scrimageID;
 		document.getElementById("parentPhotoID").value = modalID;
 		document.getElementById("filename").value = filename;
+
 		closeModal('editModal' + modalID);
 		launchEditor(imageID, filename);
 	};
@@ -160,7 +153,6 @@
 	var spinner; 
 
 	function saveEditedImage() {
-		console.log(editedImageDescription);
 
 		var postSaveModalText = document.getElementById("postSaveModalText");
 		var saveSpinnerText = document.getElementById("saveSpinnerText");
@@ -168,24 +160,64 @@
 		target = document.getElementById('postSaveModalText');
 		spinner = new Spinner(opts).spin(target);
 
-        $.ajax({
-			url : "/photos/save_edited_photo",
-			type : "POST",
-			data : { editedPhotoLink: document.getElementById("newURL").value, 
-                     original_photo_filename: document.getElementById("filename").value,
-                     scrimage_id: document.getElementById("scrimageID").value,
-                     description: "" + editedImageDescription,
-                     parent_photo_id: document.getElementById("parentPhotoID").value},
-		    success: function(data){
-                showSaveSuccessText();
-                var childPhotos = document.getElementById("childrenPhotos");
-                childPhotos.innerHTML = data.html;
-                initHoverIcons(); //Reinitializes the hover icons for each image
-		    },
-	      	error:function(data){
-	       		showSaveErrorText();
-	      	}
-	    });
+		if(imageAlreadyEdited){
+	        $.ajax({
+				url : "/photos/save_edited_photo",
+				type : "POST",
+				data : { oldPhotoLink: "" + oldURL, 
+						 newPhotoLink: document.getElementById("newURL").value, 
+	                     scrimage_id: document.getElementById("scrimageID").value,
+	                     description: "" + editedImageDescription,
+	                     parent_photo_id: document.getElementById("parentPhotoID").value,
+	                     hasBeenEdited: "" + imageAlreadyEdited},
+			    success: function(data){
+	                showSaveSuccessText();
+	                var childPhotos = document.getElementById("childrenPhotos");
+	                childPhotos.innerHTML = data.html;
+	                initHoverIcons(); //Reinitializes the hover icons for each image
+	                document.getElementById("addedImageDescription").defaultValue = editedImageDescription;
+			    },
+		      	error:function(data){
+		       		showSaveErrorText();
+		      	}
+		    });
+		}
+		else{
+	        $.ajax({
+				url : "/photos/save_edited_photo",
+				type : "POST",
+				data : { editedPhotoLink: document.getElementById("newURL").value, 
+	                     original_photo_filename: document.getElementById("filename").value,
+	                     scrimage_id: document.getElementById("scrimageID").value,
+	                     description: "" + editedImageDescription,
+	                     parent_photo_id: document.getElementById("parentPhotoID").value,
+	                     hasBeenEdited: "" + imageAlreadyEdited},
+			    success: function(data){
+	                showSaveSuccessText();
+	                var childPhotos = document.getElementById("childrenPhotos");
+	                childPhotos.innerHTML = data.html;
+	                initHoverIcons(); //Reinitializes the hover icons for each image
+	                document.getElementById("addedImageDescription").defaultValue = editedImageDescription;
+			    },
+		      	error:function(data){
+		       		showSaveErrorText();
+		      	}
+		    });
+		}
 
 	}
+
+	function clearEditedImageFields(){
+		imageAlreadyEdited = false;
+		editedImageDescription = "";
+		document.getElementById("addedImageDescription").defaultValue = "";
+		document.getElementById("addedImageDescription").value = "";
+		oldURL = "";
+	}
+
+	function keepEditedImageFields(){
+		imageAlreadyEdited = true;
+		oldURL = document.getElementById("newURL").value;
+	}
+
 </script>

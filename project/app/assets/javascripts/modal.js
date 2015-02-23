@@ -11,7 +11,7 @@ function closeModal(modalID){
 
 function showPostSaveModal(){
 	var postSaveModalText = document.getElementById("postSaveModalText");
-	var addBrowserImageDescription = document.getElementById("addBrowserImageDescription");
+	var addBrowserImageDescription = document.getElementById("browserImageDescription");
 	postSaveModalText.innerHTML = addBrowserImageDescription.innerHTML;
 	$("#postSaveModal").css("opacity", "1");
 	$("#postSaveModal").css("pointer-events", "auto");

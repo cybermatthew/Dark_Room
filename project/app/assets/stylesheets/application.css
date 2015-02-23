@@ -310,11 +310,7 @@ h2 a:link, h2 a:active, h2 a:visited, h2 a:hover {
 	display: none;
 }
 
-#addBrowserImageDescription{
-	display: none;
-}
-
-#editBrowserImageDescription{
+#browserImageDescription{
 	display: none;
 }
 

@@ -38,22 +38,46 @@ class PhotosController < ApplicationController
 	def save_edited_photo
 		require "open-uri"
 
-		respond_to do |format|
-			format.json{
-				photoName = params[:editedPhotoLink]
-				image_from_web  = open(photoName) {|f| f.read }
-				file_name = photoName.split("/").pop()
-				rootDir = Rails.root.join("public/images", file_name)
-				File.open(rootDir, 'wb') do |f| 
-					f.write(image_from_web) 
-				end
-		
-				photo = Photo.new(:filename => "/images/" + file_name, :description => params[:description], :user_id => current_user.id, :scrimage_id => params[:scrimage_id], :parent_photo_id => params[:parent_photo_id])
-				photo.save()
- 				@scrimage = Scrimage.find(params[:scrimage_id])
-				render :json => {:html => render_to_string({:partial => "scrimages/displayChildPhotos", :formats => [:html, :js], :locals => {:scrimage => @scrimage}, :layout => false})}  
-  			}			
-  		end
+		if(params[:hasBeenEdited] == "true")
+			oldPhotoLink = params[:oldPhotoLink]
+			newPhotoLink = params[:newPhotoLink]
+
+			old_photo_name = oldPhotoLink.split("/").pop()
+			new_photo_name = newPhotoLink.split("/").pop()
+			new_image_from_web  = open(newPhotoLink) {|f| f.read }
+
+			rootDir = Rails.root.join("public/images", new_photo_name)
+			File.open(rootDir, 'wb') do |f| 
+				f.write(new_image_from_web) 
+			end			
+
+			photo = Photo.where("filename = ?", "/images/" + old_photo_name).first
+			photo.description = params[:description]
+			photo.filename = "/images/" + new_photo_name
+			photo.save()
+
+			File.delete("public/images/" + old_photo_name);
+
+			@scrimage = Scrimage.find(params[:scrimage_id])
+			render :json => {:html => render_to_string({:partial => "scrimages/displayChildPhotos", :formats => [:html, :js], :locals => {:scrimage => @scrimage}, :layout => false})}  
+		else
+			respond_to do |format|
+				format.json{
+					photoName = params[:editedPhotoLink]
+					image_from_web  = open(photoName) {|f| f.read }
+					file_name = photoName.split("/").pop()
+					rootDir = Rails.root.join("public/images", file_name)
+					File.open(rootDir, 'wb') do |f| 
+						f.write(image_from_web) 
+					end
+			
+					photo = Photo.new(:filename => "/images/" + file_name, :description => params[:description], :user_id => current_user.id, :scrimage_id => params[:scrimage_id], :parent_photo_id => params[:parent_photo_id])
+					photo.save()
+	 				@scrimage = Scrimage.find(params[:scrimage_id])
+					render :json => {:html => render_to_string({:partial => "scrimages/displayChildPhotos", :formats => [:html, :js], :locals => {:scrimage => @scrimage}, :layout => false})}  
+	  			}			
+	  		end
+	  	end
 	end
 
 	def draw_tree
