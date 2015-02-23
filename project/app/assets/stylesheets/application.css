@@ -290,8 +290,8 @@ h2 a:link, h2 a:active, h2 a:visited, h2 a:hover {
 
 #postSaveModalBox{
 	position: fixed;
-	top: 30%;
-	left: 33%;
+	top: 10%;
+	left: 34%;
 }
 
 #postSaveModalText{
@@ -307,6 +307,14 @@ h2 a:link, h2 a:active, h2 a:visited, h2 a:hover {
 }
 
 #saveErrorText{
+	display: none;
+}
+
+#addBrowserImageDescription{
+	display: none;
+}
+
+#editBrowserImageDescription{
 	display: none;
 }
 
