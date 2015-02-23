@@ -29,26 +29,10 @@
 			document.getElementById('browserEditButton').style.display = 'block';
 		},
         onSaveButtonClicked: function(imageID){
-           showPostSaveModal();
+            showPostSaveModal();
         },
         onSave: function(imageID, newURL) {
-            $.ajax({
-    			url : "/photos/save_edited_photo",
-    			type : "POST",
-    			data : { editedPhotoLink: newURL, 
-                         original_photo_filename: "<%= filename %>",
-                         scrimage_id: "<%= scrimage_id %>",
-                         parent_photo_id: "<%= parent_photo_id %>"},
-			    success: function(data){
-                    showSaveSuccessText();
-                    var childPhotos = document.getElementById("childrenPhotos");
-                    childPhotos.innerHTML = data.html;
-                    initHoverIcons(); //Reinitializes the hover icons for each image
-			    },
-		      	error:function(data){
-		       		showSaveErrorText();
-		      	}
-		    });
+            document.getElementById("newURL").value = newURL;
         },
         onError: function(errorObj) {
        		alert(errorObj.message);
