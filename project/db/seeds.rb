@@ -31,6 +31,9 @@ child_photo3.save(:validate => false)
 child_photo4 = Photo.new(:filename => "/images/Chrysanthemum.jpg", :description => "child2", :votes => 0, :user_id => admin_user.id, :scrimage_id => test_scrimage.id, :parent_photo_id => child_photo3.id)
 child_photo4.save(:validate => false)
 
+child_photo5 = Photo.new(:filename => "/images/Chrysanthemum.jpg", :description => "child2", :votes => 0, :user_id => admin_user.id, :scrimage_id => test_scrimage.id, :parent_photo_id => child_photo4.id)
+child_photo5.save(:validate => false)
+
 # load comments #
 comment = Comment.new()
 comment.user_id = admin_user.id
