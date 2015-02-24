@@ -10,7 +10,8 @@
 			<b><%= photo.description %></b><br/>
 			<% end %>
 			By <a href="/users/<%= photo.user.id %>"><%= photo.user.username %></a><br><br>
-			Votes: <%= photo.votes %><br>
+			<%= link_to 'Vote', vote_photos_path(photo_id: photo.id), :class => "submit votebutton", method: :post %> (<%= photo.votes %>)
+			<br/>
 			Comments: <%= photo.comments.count %><br/>
 		</td>
 	</tr>

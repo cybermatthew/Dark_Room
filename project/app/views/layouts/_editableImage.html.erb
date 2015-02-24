@@ -21,7 +21,7 @@
 		<span onclick=closeModal('editModal<%= image.id %>') title="Close" class="close">X</span>
 		<h2>Editing Options</h2>
 		<center>
-			<button class='btn' id = "browserEditButton" onclick = 'openAPI("<%= image.id %>", "img<%= image.id %>", "<%= image.filename %>")'>Edit in Browser</button>
+			<button class='btn' id = "browserEditButton" onclick = 'openAPI("<%= image.id %>", "img<%= image.id %>", "<%= image.filename %>", "<%= scrimage_id %>")'>Edit in Browser</button>
 			<a href="/site_images/<%= image.filename %>" download="<%= image.filename %>"><button class='btn'>Download to Edit Offline</button></a>
 		</center>
 	</div>
@@ -35,6 +35,7 @@
 			<%= form_tag("/scrimages/uploadEditedImage", method: "post", id: "uploadPhoto"+image.id.to_s, multipart: true) do %>
 				<%= hidden_field_tag(:scrimage_id, scrimage_id) %>
 				<%= hidden_field_tag(:parent_photo_id, image.id) %>
+				<%= hidden_field_tag(:filename, image.filename) %>
 				<%= file_field_tag("editedPhoto") %>
 				<br><br>
 				Description: <%= text_area_tag("editedPhotoText") %>
@@ -45,42 +46,3 @@
 	</div>
 </div>
 
-<div id="postSaveModal" class="modalDialog">
-	<div id = "postSaveModalBox">
-		<center id = "postSaveModalText">
-
-			<span id = "saveSpinnerText">
-				<h2> Saving Image </h2>
-				Please Wait
-				<br>
-				<br>
-				<br>
-				<br>
-				<br>
-			</span>
-			
-			<span id = "saveSuccessText">
-				<h2> Image Saved Successfully </h2>
-				<button class='btn' onclick="closePostSaveModal();"> Continue Editing </button>
-				<button class='btn' onclick="featherEditor.close(); closePostSaveModal();"> Close Editor </button> 
-			</span>
-
-			<span id = "saveErrorText">
-				<h2 style = "background:red"> Error on Image Save </h2>
-				<button class='btn' onclick="closePostSaveModal();"> Continue Editing </button>
-				<button class='btn' onclick="featherEditor.close(); closePostSaveModal();"> Close Editor </button> 
-			</span>			
-			
-		</center>
-	</div>
-</div>
-
-<%= render partial: "layouts/apiCode", :locals => {:filename => image.filename, :scrimage_id => scrimage_id, :parent_photo_id => image.id} %>   
-
-<script type="text/javascript">
-	function openAPI(modalID, imageID, filename){
-		closeModal('editModal' + modalID);
-		var fileName = filename;
-		launchEditor(imageID, fileName);
-	};
-</script>

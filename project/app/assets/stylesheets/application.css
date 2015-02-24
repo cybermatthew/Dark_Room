@@ -38,7 +38,8 @@ body, html {
 	text-align: center;
 }
 
-.links a, .links a:visited, .links a:active, .submit {
+.links a, .links a:active, .links a:visited,
+.submit, a:active .submit {
 	height:40px;
 	background-color: #ED7263;
 	color:#FDF2DE;
@@ -91,6 +92,24 @@ body, html {
 img.homepage {
 	height:100px;
 	margin-right:10px;
+}
+
+img.votingOrig {
+	height:200px;
+	margin-bottom: 20px;
+}
+
+div.votingImage {
+	display:inline-block;
+	margin: 0px 5px;
+}
+
+div.votingImage img {
+	height:100px;
+}
+
+.votebutton {
+	line-height: 3;
 }
 
 div.images {
@@ -271,12 +290,16 @@ h2 a:link, h2 a:active, h2 a:visited, h2 a:hover {
 
 #postSaveModalBox{
 	position: fixed;
-	top: 30%;
-	left: 33%;
+	top: 10%;
+	left: 34%;
 }
 
 #postSaveModalText{
 	position: relative;
+}
+
+#saveSpinnerText{
+	display: none;
 }
 
 #saveSuccessText{
@@ -284,6 +307,14 @@ h2 a:link, h2 a:active, h2 a:visited, h2 a:hover {
 }
 
 #saveErrorText{
+	display: none;
+}
+
+#browserImageDescription{
+	display: none;
+}
+
+.hiddenSpan{
 	display: none;
 }
 

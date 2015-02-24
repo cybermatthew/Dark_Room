@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     post 'upload_new_photo'
     post 'draw_tree'
     post 'getPhotoForTree'
+    post 'vote'
   end
   
   # must put custom routes first

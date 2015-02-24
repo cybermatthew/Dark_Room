@@ -16,19 +16,19 @@ test_scrimage.save(:validate => true)
 
 
 # load photos #
-test_photo = Photo.new(:filename => "/images/Chrysanthemum.jpg", :description => "text", :votes => 1, :user_id => admin_user.id, :scrimage_id => test_scrimage.id)
+test_photo = Photo.new(:filename => "/images/Chrysanthemum.jpg", :description => "text", :votes => 0, :user_id => admin_user.id, :scrimage_id => test_scrimage.id)
 test_photo.save(:validate => false)
 
-child_photo = Photo.new(:filename => "/images/Chrysanthemum.jpg", :description => "child", :votes => 1, :user_id => admin_user.id, :scrimage_id => test_scrimage.id, :parent_photo_id => test_photo.id)
+child_photo = Photo.new(:filename => "/images/bees.jpg", :description => "child", :votes => 0, :user_id => admin_user.id, :scrimage_id => test_scrimage.id, :parent_photo_id => test_photo.id)
 child_photo.save(:validate => false)
 
-child_photo2 = Photo.new(:filename => "/images/Chrysanthemum.jpg", :description => "child2", :votes => 0, :user_id => admin_user.id, :scrimage_id => test_scrimage.id, :parent_photo_id => child_photo.id)
+child_photo2 = Photo.new(:filename => "/images/goodluck.jpg", :description => "child2", :votes => 0, :user_id => admin_user.id, :scrimage_id => test_scrimage.id, :parent_photo_id => child_photo.id)
 child_photo2.save(:validate => false)
 
-child_photo3 = Photo.new(:filename => "/images/Chrysanthemum.jpg", :description => "child2", :votes => 0, :user_id => admin_user.id, :scrimage_id => test_scrimage.id, :parent_photo_id => child_photo2.id)
+child_photo3 = Photo.new(:filename => "/images/logo_insta.png", :description => "child3", :votes => 0, :user_id => admin_user.id, :scrimage_id => test_scrimage.id, :parent_photo_id => child_photo2.id)
 child_photo3.save(:validate => false)
 
-child_photo4 = Photo.new(:filename => "/images/Chrysanthemum.jpg", :description => "child2", :votes => 0, :user_id => admin_user.id, :scrimage_id => test_scrimage.id, :parent_photo_id => child_photo3.id)
+child_photo4 = Photo.new(:filename => "/images/Chrysanthemum.jpg", :description => "child4", :votes => 0, :user_id => admin_user.id, :scrimage_id => test_scrimage.id, :parent_photo_id => child_photo3.id)
 child_photo4.save(:validate => false)
 
 child_photo5 = Photo.new(:filename => "/images/Chrysanthemum.jpg", :description => "child2", :votes => 0, :user_id => admin_user.id, :scrimage_id => test_scrimage.id, :parent_photo_id => child_photo4.id)

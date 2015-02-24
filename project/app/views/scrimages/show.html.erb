@@ -11,6 +11,55 @@
 
 <div id="clockDiv"></div>
 
+<!--POST SAVE MODAL CODE -->
+<div id="postSaveModal" class="modalDialog">
+	<div id = "postSaveModalBox">
+		<center id = "postSaveModalText">	
+			
+		</center>
+	</div>
+</div>
+
+<span id = "browserImageDescription">
+	<h2> Image Description </h2>
+	Description (optional): 
+	<br>
+	<%= text_area_tag :addedImageDescription, nil, :placeholder => "Description", :size => "30x8", :class => "formField", :onkeyup => "updateDescriptionVal();" %>
+	<br><br>
+	<button class='btn' onclick = "saveEditedImage();"> Save </button>
+	<button class='btn' onclick="closePostSaveModal();"> Cancel </button> 
+</span>
+
+<span id = "saveSpinnerText">
+	<h2> Saving Image </h2>
+	Please Wait
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+</span>
+
+<span id = "saveSuccessText">
+	<h2> Image Saved Successfully </h2>
+	<button class='btn' onclick="closePostSaveModal(); keepEditedImageFields();"> Continue Editing </button>
+	<button class='btn' onclick="featherEditor.close(); closePostSaveModal(); clearEditedImageFields();"> Close Editor </button> 
+</span>
+
+<span id = "saveErrorText">
+	<h2 style = "background:red"> Error on Image Save </h2>
+	<button class='btn' onclick="closePostSaveModal();"> Continue Editing </button>
+	<button class='btn' onclick="featherEditor.close(); closePostSaveModal(); clearEditedImageFields();"> Close Editor </button> 
+</span>		
+<!--POST SAVE MODAL CODE -->
+
+<!--FIELDS USED FOR CURRENT IMAGE BEING EDITED BY THE API -->
+<span class = "hiddenInfoSpan" id = "scrimageID">
+<span class = "hiddenInfoSpan" id = "parentPhotoID">
+<span class = "hiddenInfoSpan" id = "filename">
+<span class = "hiddenInfoSpan" id = "newURL">
+<!--FIELDS USED FOR CURRENT IMAGE BEING EDITED BY THE API -->
+
 <center>
 	<%= render :partial => "layouts/editableImage", :locals => {:scrimage_id => @scrimage.id, :image => @original_photo, :imageClass => "originalImage"} %>
 </center>
@@ -20,9 +69,9 @@
 	<%= render :partial => "scrimages/displayChildPhotos", :locals => {:scrimage => @scrimage} %>
 </div>
 
+<%= render partial: "layouts/apiCode" %>   
 
 <script type="text/javascript">
-
 	var remainingSeconds = -1;
 	$(function(){
 
@@ -59,4 +108,116 @@
 
 		$("#clockDiv").html(daysString+hoursString+minutesString+secondsString);
 	}
+
+	var editedImageDescription;
+	var imageAlreadyEdited = false;
+	var oldURL; //Used to access the old version of an edited image
+
+	function updateDescriptionVal(){
+		editedImageDescription = document.getElementById("addedImageDescription").value;
+	}
+
+	/*
+	  imageID in this case is the string name of the image file. modalID has the same value as the "parent_photo_id" attribute 
+	  for the Photo object
+	*/
+	function openAPI(modalID, imageID, filename, scrimageID){ 
+		document.getElementById("scrimageID").value = scrimageID;
+		document.getElementById("parentPhotoID").value = modalID;
+		document.getElementById("filename").value = filename;
+
+		closeModal('editModal' + modalID);
+		launchEditor(imageID, filename);
+	};
+
+	//Options for Spinner
+	var opts = {
+	lines: 13, // The number of lines to draw
+	length: 10, // The length of each line
+	width: 5, // The line thickness
+	radius: 15, // The radius of the inner circle
+	corners: 1, // Corner roundness (0..1)
+	rotate: 0, // The rotation offset
+	direction: 1, // 1: clockwise, -1: counterclockwise
+	color: '#000', // #rgb or #rrggbb or array of colors
+	speed: 1, // Rounds per second
+	trail: 60, // Afterglow percentage
+	shadow: false, // Whether to render a shadow
+	hwaccel: false, // Whether to use hardware acceleration
+	className: 'spinner', // The CSS class to assign to the spinner
+	zIndex: 2e9, // The z-index (defaults to 2000000000)
+	top: '80%', // Top position relative to parent
+	left: '50%' // Left position relative to parent
+	};
+	var target;
+	var spinner; 
+
+	function saveEditedImage() {
+
+		var postSaveModalText = document.getElementById("postSaveModalText");
+		var saveSpinnerText = document.getElementById("saveSpinnerText");
+		postSaveModalText.innerHTML = saveSpinnerText.innerHTML;
+		target = document.getElementById('postSaveModalText');
+		spinner = new Spinner(opts).spin(target);
+
+		if(imageAlreadyEdited){
+	        $.ajax({
+				url : "/photos/save_edited_photo",
+				type : "POST",
+				data : { oldPhotoLink: "" + oldURL, 
+						 newPhotoLink: document.getElementById("newURL").value, 
+	                     scrimage_id: document.getElementById("scrimageID").value,
+	                     description: "" + editedImageDescription,
+	                     parent_photo_id: document.getElementById("parentPhotoID").value,
+	                     hasBeenEdited: "" + imageAlreadyEdited},
+			    success: function(data){
+	                showSaveSuccessText();
+	                var childPhotos = document.getElementById("childrenPhotos");
+	                childPhotos.innerHTML = data.html;
+	                initHoverIcons(); //Reinitializes the hover icons for each image
+	                document.getElementById("addedImageDescription").defaultValue = editedImageDescription;
+			    },
+		      	error:function(data){
+		       		showSaveErrorText();
+		      	}
+		    });
+		}
+		else{
+	        $.ajax({
+				url : "/photos/save_edited_photo",
+				type : "POST",
+				data : { editedPhotoLink: document.getElementById("newURL").value, 
+	                     original_photo_filename: document.getElementById("filename").value,
+	                     scrimage_id: document.getElementById("scrimageID").value,
+	                     description: "" + editedImageDescription,
+	                     parent_photo_id: document.getElementById("parentPhotoID").value,
+	                     hasBeenEdited: "" + imageAlreadyEdited},
+			    success: function(data){
+	                showSaveSuccessText();
+	                var childPhotos = document.getElementById("childrenPhotos");
+	                childPhotos.innerHTML = data.html;
+	                initHoverIcons(); //Reinitializes the hover icons for each image
+	                document.getElementById("addedImageDescription").defaultValue = editedImageDescription;
+			    },
+		      	error:function(data){
+		       		showSaveErrorText();
+		      	}
+		    });
+		}
+
+	}
+
+	function clearEditedImageFields(){
+		imageAlreadyEdited = false;
+		editedImageDescription = "";
+		document.getElementById("addedImageDescription").defaultValue = "";
+		document.getElementById("addedImageDescription").value = "";
+		oldURL = "";
+	}
+
+	function keepEditedImageFields(){
+		imageAlreadyEdited = true;
+		oldURL = document.getElementById("newURL").value;
+	}
+
 </script>
