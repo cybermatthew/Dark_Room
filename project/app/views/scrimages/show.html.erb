@@ -1,10 +1,6 @@
-<!-- <input id="initialRemainingSeconds" type=hidden value=<%= @remainingSeconds %> >
+<input id="initialRemainingSeconds" type=hidden value=<%= @remainingSeconds %> >
 
-<input id="votingRemainingSeconds" type=hidden value=<%= @votingRemainingSeconds %> > -->
-
-<input id="initialRemainingSeconds" type=hidden value="10" >
-
-<input id="votingRemainingSeconds" type=hidden value="10" >
+<input id="votingRemainingSeconds" type=hidden value=<%= @votingRemainingSeconds %> >
 
 <input id="isTimed" type=hidden value=<%= @scrimage.timed %> >
 
@@ -107,7 +103,7 @@
 
 		initHoverIcons();
 	});
-	
+
 
 	function setScrimageWinner(){
 		$("#clockDiv").html("<br><center><b><i>This timed scrimage has ended</i></b></center><br><br>");
