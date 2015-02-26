@@ -11,7 +11,7 @@ admin_user = User.new(:username => "admin", :password => "password", :bio => "I 
 admin_user.save(:validate => true)
 
 
-test_scrimage = Scrimage.new(:name => "Test Scrimage", :timed => 0, :start_time => DateTime.now, :end_time => DateTime.now+5, :description => "scrimage description")
+test_scrimage = Scrimage.new(:name => "Test Scrimage", :timed => 1, :start_time => DateTime.now, :end_time => DateTime.now, :description => "scrimage description")
 test_scrimage.save(:validate => true)
 
 

@@ -1,5 +1,14 @@
-<input id="initialRemainingSeconds" type=hidden value=<%= @remainingSeconds %> >
+<!-- <input id="initialRemainingSeconds" type=hidden value=<%= @remainingSeconds %> >
+
+<input id="votingRemainingSeconds" type=hidden value=<%= @votingRemainingSeconds %> > -->
+
+<input id="initialRemainingSeconds" type=hidden value="10" >
+
+<input id="votingRemainingSeconds" type=hidden value="10" >
+
 <input id="isTimed" type=hidden value=<%= @scrimage.timed %> >
+
+<input id="scrimageWinner" type=hidden value=<%= @scrimage.winner_id %> >
 
 <input id='scrimageID' type=hidden value=<%= @scrimage.id %> >
 
@@ -73,20 +82,64 @@
 
 <script type="text/javascript">
 	var remainingSeconds = -1;
+
+	// -1 if unset, 0 if editing period, 1 if voting period, 2 if voting over
+	var scrimageTimePeriod = -1;
+
 	$(function(){
 
-		if ( $("#isTimed").val() == 1 ){
-			updateTime();
-			setInterval('updateTime()', 1000);
+		// set scrimage time period
+		if ( $("#initialRemainingSeconds").val() > 0 ){
+			scrimageTimePeriod = 0;
+			remainingSeconds = $("#initialRemainingSeconds").val();
 		}
+		else if ( $("#votingRemainingSeconds").val() > 0 ){
+			scrimageTimePeriod = 1;
+			remainingSeconds = $("#votingRemainingSeconds").val();
+		}
+		else{
+			scrimageTimePeriod = 2;
+			setScrimageWinner();
+		}
+
+		updateTime();
+		setInterval("updateTime()", 1000);
 
 		initHoverIcons();
 	});
+	
+
+	function setScrimageWinner(){
+		$("#clockDiv").html("<br><center><b><i>This timed scrimage has ended</i></b></center><br><br>");
+
+		if ( $("#scrimageWinner").val() == -1 ){
+			// scrimage winner has not yet been set so make ajax call to update scrimage model
+
+			// TO BE IMPLEMENTED!!!
+		}
+	}
+
 
 	function updateTime(){
-		// if this is the first time the function is called
-		if (remainingSeconds == -1) remainingSeconds = $("#initialRemainingSeconds").val();
-		else remainingSeconds--;
+		if (remainingSeconds <= 0 && scrimageTimePeriod != 2){
+			scrimageTimePeriod++;
+			remainingSeconds = $("#votingRemainingSeconds").val();
+
+			if (scrimageTimePeriod == 2) setScrimageWinner();
+		}
+
+		if ( scrimageTimePeriod != 2 ){
+
+			calculateAndUpdateTime();
+
+			if (scrimageTimePeriod == 0) $("#clockDiv").prepend("<br><b><i>Time Remaining to Submit Edits</i></b><br>");
+			else if (scrimageTimePeriod == 1) $("#clockDiv").prepend("<br><b><i>Time Remaining to Vote</i></b><br>");
+		}
+	}
+
+	function calculateAndUpdateTime(){
+
+		remainingSeconds--;
 
 		var tempRemainingSeconds = remainingSeconds;
 
