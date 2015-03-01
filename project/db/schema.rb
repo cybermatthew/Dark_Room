@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150218001156) do
+ActiveRecord::Schema.define(version: 20150301090039) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "photo_id"
@@ -31,6 +31,14 @@ ActiveRecord::Schema.define(version: 20150218001156) do
 
   add_index "favorites", ["favorited_type", "favorited_id"], name: "index_favorites_on_favorited_type_and_favorited_id"
   add_index "favorites", ["user_id"], name: "index_favorites_on_user_id"
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "message"
+    t.integer  "been_viewed", default: 0
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
 
   create_table "photos", force: :cascade do |t|
     t.string   "filename"
