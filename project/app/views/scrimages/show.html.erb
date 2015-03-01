@@ -108,6 +108,8 @@
 	function setScrimageWinner(){
 		$("#clockDiv").html("<br><center><b><i>This timed scrimage has ended</i></b></center><br><br>");
 
+		$(".hoverIcons").remove();
+
 		if ( $("#scrimageWinner").val() == -1 ){
 			// scrimage winner has not yet been set so make ajax call to update scrimage model
 
