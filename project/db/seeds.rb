@@ -34,7 +34,7 @@ child_photo4.save(:validate => false)
 child_photo5 = Photo.new(:filename => "/images/Chrysanthemum.jpg", :description => "child2", :votes => 0, :user_id => admin_user.id, :scrimage_id => test_scrimage.id, :parent_photo_id => child_photo4.id)
 child_photo5.save(:validate => false)
 
-notification = Notification.new(:user_id => admin_user.id, :message => "this is a test message")
+notification = Notification.new(:user_id => admin_user.id, :message => "100 Points Awarded - You won a scrimage!")
 notification.save()
 
 # load comments #
