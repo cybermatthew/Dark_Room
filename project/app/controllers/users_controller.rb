@@ -10,7 +10,9 @@ class UsersController < ApplicationController
 		@user = User.find_by_id(params[:id])
 		if !@user
 			flash.now[:error] = "Error"
-		end 
+		end
+
+		@notifications = Notification.where("user_id = ? AND been_viewed = ?", @user.id, 0)
 	end
 
 	def new
