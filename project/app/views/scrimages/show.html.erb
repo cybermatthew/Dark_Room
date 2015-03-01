@@ -27,9 +27,9 @@
 
 <span id = "browserImageDescription">
 	<h2> Image Description </h2>
-	Description (optional): 
-	<br>
-	<%= text_area_tag :addedImageDescription, nil, :placeholder => "Description", :size => "30x8", :class => "formField", :onkeyup => "updateDescriptionVal();" %>
+	Edited Photo Title (optional): 
+	<br><br>
+	<%= text_field_tag :addedImageDescription, nil, :placeholder => "Photo Title", :size => "30x8", :class => "formField", :onkeyup => "updateDescriptionVal();" %>
 	<br><br>
 	<button class='btn' onclick = "saveEditedImage();"> Save </button>
 	<button class='btn' onclick="closePostSaveModal();"> Cancel </button> 

@@ -36,9 +36,9 @@
 				<%= hidden_field_tag(:scrimage_id, scrimage_id) %>
 				<%= hidden_field_tag(:parent_photo_id, image.id) %>
 				<%= hidden_field_tag(:filename, image.filename) %>
-				<%= file_field_tag("editedPhoto") %>
+				Photo Title: <%= text_field_tag("editedPhotoText") %>
 				<br><br>
-				Description: <%= text_area_tag("editedPhotoText") %>
+				<%= file_field_tag("editedPhoto") %>
 				<br><br>
 				<button class='btn' onclick="uploadEditedImage(<%= image.id.to_s %>)">Upload Edited Photo</button>
 			<% end %>
