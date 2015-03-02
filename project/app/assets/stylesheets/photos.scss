@@ -2,6 +2,20 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.photoInfo{
+  font-size:20px;
+  font-weight:bold;
+  text-transform:uppercase;
+  font-style:normal !important;
+  vertical-align:bottom;
+  margin-left:30px;
+}
+
+.photoBar {
+  line-height:5;
+  margin-left:55px;
+}
+
 .photoTreeTableCell{
 	width: 100%;
 }
