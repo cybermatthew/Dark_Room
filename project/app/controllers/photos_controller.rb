@@ -28,8 +28,15 @@ class PhotosController < ApplicationController
 
 	def vote
 		@photo = Photo.find(params[:photo_id])
-		@photo.votes += 1
-		@photo.save
+		voted = Scrimages_User.where(user_id: current_user.id, scrimage_id: @photo.scrimage_id)
+		if (!voted.any?)
+			userscrimage = Scrimages_User.new(user_id: current_user.id, scrimage_id: @photo.scrimage_id)
+			userscrimage.save
+			@photo.votes += 1
+			@photo.save
+		else
+			flash[:notice] = "You've already voted in this scrImage"
+		end
 		redirect_to request.referer
 	end
 
