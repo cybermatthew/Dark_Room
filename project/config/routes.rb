@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     get 'new_scrimage'
     post 'create'
     post 'uploadEditedImage'
+    post 'set_winner'
   end
   resources :scrimages
 

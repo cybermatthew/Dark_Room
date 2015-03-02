@@ -5,7 +5,7 @@
 	<% count = count+1 %>
 	<tr>
 		<td class="childCount"><%= count %></td>
-		<td><%= render :partial => "layouts/editableImage", :locals => {:scrimage_id => scrimage.id, :image => photo, :imageClass => "responseImage"} %>
+		<td><%= render :partial => "layouts/editableImage", :locals => {:scrimage_id => scrimage.id, :image => photo, :imageClass => "responseImage", :curScrimage => scrimage} %>
 		<td><% if photo.description %>
 			<b><%= photo.description %></b><br/>
 			<% end %>

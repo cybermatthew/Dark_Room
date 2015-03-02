@@ -67,6 +67,23 @@
 
 <center>
 	<%= render :partial => "layouts/editableImage", :locals => {:scrimage_id => @scrimage.id, :image => @original_photo, :imageClass => "originalImage"} %>
+
+	<% if @scrimage.winner_id != -1 %>
+		<br>
+		<br>
+
+		<div>
+			<div>Winning Image(s): </div>
+			<% if @winningPhotos.size() > 1 %>
+				<%= render :partial => "photos/carousel", :locals => {:childPhotos => @winningPhotos} %>
+			<% else %>
+				<div>
+				 	<img class = "treePhoto" src = "<%= @winningPhotos.first.filename %>"/> 
+				</div>
+			<% end %>
+		</div>
+	<% end %>
+
 </center>
 <div class="pageText">Description: <%= @scrimage.description %></div>
 
@@ -77,6 +94,9 @@
 <%= render partial: "layouts/apiCode" %>   
 
 <script type="text/javascript">
+
+	determineScrimageWinner();
+
 	var remainingSeconds = -1;
 
 	// -1 if unset, 0 if editing period, 1 if voting period, 2 if voting over
@@ -111,10 +131,24 @@
 		$(".hoverIcons").remove();
 
 		if ( $("#scrimageWinner").val() == -1 ){
-			// scrimage winner has not yet been set so make ajax call to update scrimage model
-
-			// TO BE IMPLEMENTED!!!
+			//determineScrimageWinner();
 		}
+	}
+
+	function determineScrimageWinner(){
+        $.ajax({
+			url : "/scrimages/set_winner",
+			type : "POST",
+			data : { 
+				scrimage_id: <%= @scrimage.id %>,
+			},
+		    success: function(data){
+
+		    },
+	      	error:function(data){
+	      		alert("An unexpected error occurred.")
+	      	}
+	    });	
 	}
 
 

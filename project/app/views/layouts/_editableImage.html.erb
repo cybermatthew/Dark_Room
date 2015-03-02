@@ -9,6 +9,13 @@
 				<img src='/site_images/upload_symbol.png'>
 			</span>
 		</span>
+
+		<% if @scrimage.winner_id != -1 && image.votes == Scrimage.find(@scrimage.winner_id).votes %>
+			<span >
+				<img class = "trophyIcon" src='/site_images/trophy.png'>
+			</span>
+		<% end %>
+
 	<% end %>
 
 	<a href="/photos/<%=image.id%>"><img class='<%= imageClass %>' src="<%= image.filename %>" id = "img<%= image.id %>" ></a>

@@ -5,8 +5,10 @@
 
 	<center>
 	<img src="/images/<%= @user.profile_image %>" class="profileimg">
-	<p>Points: <%= @user.points %><br/>
-	Bio: <%= @user.bio %></p>
+	<p> 
+		Points: <span id = "points"> <%= @user.points %> </span> <br/>
+		Bio: <%= @user.bio %>
+	</p>
 	</center>
 
 	<h1><%= @user.username %>'s Photos</h1>
@@ -23,12 +25,17 @@
 <% if @notifications.count() > 0 %>
 	<div id='notificationsModal' class="modalDialog">
 		<div>
-			<span onclick=closeModal('notificationsModal') title="Close" class="close">X</span>
+			<span onclick="closeModal('notificationsModal'); awardPoints();" title="Close" class="close">X</span>
 			<h2><%= @user.username %>'s Notifications</h2>
 
 			<ul>
 				<% @notifications.each do |notification| %>
 					<li><%= notification.message %></li>
+
+					<% if notification.message.include? "Points" %>
+						<% @user.update(points: @user.points + 100) %>
+					<% end %>
+
 					<% notification.update(been_viewed: 1) %>
 				<% end %>
 			</ul>
@@ -37,5 +44,10 @@
 
 	<script type="text/javascript">
 		showModal('notificationsModal');
+
+		function awardPoints(){
+			document.getElementById("points").innerHTML = "<%= @user.points %>";
+		}
+
 	</script>
 <% end %>
