@@ -3,7 +3,7 @@ before_action :set_project
   
   def create
     if Favorite.create(favorited: @photo, user: current_user)
-      redirect_to @photo, notice: 'Photo has been favorited'
+      redirect_to @photo
     else
       redirect_to @photo, alert: 'Oops. Something went wrong.'
     end
@@ -11,7 +11,7 @@ before_action :set_project
   
   def destroy
     Favorite.where(favorited_id: @photo.id, user_id: current_user.id).first.destroy
-    redirect_to @photo, notice: 'Photo is no longer in favorites'
+    redirect_to @photo
   end
   
   private

@@ -8,9 +8,9 @@
 		<% if logged_in? %>
 			| 
 			<% unless current_user.favorite_photos.exists?(id: @photo.id) %>
-			<%= link_to 'Favorite', favorite_photos_path(photo_id: @photo), method: :post %>
+			<%= link_to image_tag('/images/fav_grey.png'), favorite_photos_path(photo_id: @photo), method: :post %>
 			<% else %>
-			<%= link_to 'Unfavorite', favorite_photo_path(@photo), method: :delete %>
+			<%= link_to image_tag('/images/fav_orange.png'), favorite_photo_path(@photo), method: :delete %>
 			<% end %>
 		<% end %>
 	</div>
