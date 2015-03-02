@@ -65,6 +65,18 @@ class ScrimagesController < ApplicationController
 		render :partial => "displayChildPhotos", :locals => {:scrimage => scrimage}
 	end
 
+	def set_winner
+		respond_to do |format|
+			format.json{
+				scrimage = Scrimage.find(params[:scrimage_id])
+				winningPhotoID = scrimage.photos.order("votes DESC").first.id
+				scrimage.winner_id = winningPhotoID
+				render :json => {:winningPhotoID => winningPhotoID} #Passes winningPhotoID back to the scrimages/show page after setting the winner
+  			}			
+  		end
+	end
+
+
 	# Before filters
 
     def logged_in_user # Confirms user is logged in
