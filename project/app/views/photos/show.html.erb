@@ -3,16 +3,24 @@
 	<h1><%= @photo.description %></h1>
 	<h2>Uploaded by <a href="/users/<%=@user.id%>"><%= @user.username %></a></h2>
 	
-	<div class="pageText">
-		Click <a href="/scrimages/<%=@photo.scrimage_id%>">here</a> to see the scrImage this photo is a part of
+	<div class="photoBar">
+		
 		<% if logged_in? %>
-			| 
 			<% unless current_user.favorite_photos.exists?(id: @photo.id) %>
-			<%= link_to 'Favorite', favorite_photos_path(photo_id: @photo), method: :post %>
+			<%= link_to image_tag('/images/fav_grey.png'), favorite_photos_path(photo_id: @photo), method: :post %>
 			<% else %>
-			<%= link_to 'Unfavorite', favorite_photo_path(@photo), method: :delete %>
+			<%= link_to image_tag('/images/fav_orange.png'), favorite_photo_path(@photo), method: :delete %>
 			<% end %>
 		<% end %>
+		<span class="photoInfo"><%= @photo.votes %> 
+			<% if @photo.votes == 1 %>
+				Vote
+			<% else %>
+				Votes
+			<% end %>
+		</span>
+
+		<a href="/scrimages/<%=@photo.scrimage_id%>" class="photoInfo">See ScrImage</a>
 	</div>
 
 	<table class="showPhoto">
