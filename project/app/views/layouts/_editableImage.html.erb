@@ -9,6 +9,13 @@
 				<img src='/site_images/upload_symbol.png'>
 			</span>
 		</span>
+
+		<% if image.id == params[:winning_photo_id] %>
+			<span class = "trophyIcon">
+				<img src='/site_images/trophy.png'>
+			</span>
+		<% end %>
+
 	<% end %>
 
 	<a href="/photos/<%=image.id%>"><img class='<%= imageClass %>' src="<%= image.filename %>" id = "img<%= image.id %>" ></a>

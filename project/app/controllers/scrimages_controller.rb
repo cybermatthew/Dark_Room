@@ -8,6 +8,11 @@ class ScrimagesController < ApplicationController
 		@votingRemainingSeconds = ( (@scrimage.end_time.to_time+(5*60*60*24)) - DateTime.now.to_time ).to_i
 
 		@original_photo = Photo.where("scrimage_id = ? AND parent_photo_id = ?", @scrimage.id, -1).first
+
+		@numWinnerVotes = @scrimage.photos.order("votes DESC").first.votes
+
+		@winningPhotos =  @scrimage.photos.where("votes == ? AND parent_photo_id != ?", @numWinnerVotes, -1)
+
 		# @photos = Photo.where("scrimage_id = ? AND parent_photo_id != ?", @scrimage.id, -1)
 	end
 
@@ -71,7 +76,7 @@ class ScrimagesController < ApplicationController
 				scrimage = Scrimage.find(params[:scrimage_id])
 				winningPhotoID = scrimage.photos.order("votes DESC").first.id
 				scrimage.winner_id = winningPhotoID
-				render :json => {:winningPhotoID => winningPhotoID} #Passes winningPhotoID back to the scrimages/show page after setting the winner
+				render :json => {:winningPhotoID => winningPhotoID}  
   			}			
   		end
 	end

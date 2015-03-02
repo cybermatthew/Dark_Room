@@ -67,6 +67,23 @@
 
 <center>
 	<%= render :partial => "layouts/editableImage", :locals => {:scrimage_id => @scrimage.id, :image => @original_photo, :imageClass => "originalImage"} %>
+
+	<% if @scrimage.winner_id != -1 %>
+		<br>
+		<br>
+
+		<div>
+			<div>Winning Image(s): </div>
+			<% if @winningPhotos.size() > 1 %>
+				<%= render :partial => "photos/carousel", :locals => {:childPhotos => @winningPhotos} %>
+			<% else %>
+				<div>
+				 	<img class = "treePhoto" src = "<%= @winningPhotos.first.filename %>"/> <!-- Temporary placeholder -->
+				</div>
+			<% end %>
+		</div>
+	<% end %>
+
 </center>
 <div class="pageText">Description: <%= @scrimage.description %></div>
 
@@ -114,7 +131,7 @@
 		$(".hoverIcons").remove();
 
 		if ( $("#scrimageWinner").val() == -1 ){
-			determineScrimageWinner();
+			//determineScrimageWinner();
 		}
 	}
 
@@ -126,10 +143,10 @@
 				scrimage_id: <%= @scrimage.id %>,
 			},
 		    success: function(data){
-		    	console.log ("Data:" + data.winningPhotoID);
+
 		    },
 	      	error:function(data){
-
+	      		alert("An unexpected error occurred.")
 	      	}
 	    });	
 	}
