@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150301090039) do
+ActiveRecord::Schema.define(version: 20150302092049) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "photo_id"
@@ -61,6 +61,14 @@ ActiveRecord::Schema.define(version: 20150301090039) do
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
   end
+
+  create_table "scrimages_users", id: false, force: :cascade do |t|
+    t.integer "scrimage_id", null: false
+    t.integer "user_id",     null: false
+  end
+
+  add_index "scrimages_users", ["scrimage_id"], name: "index_scrimages_users_on_scrimage_id"
+  add_index "scrimages_users", ["user_id"], name: "index_scrimages_users_on_user_id"
 
   create_table "sessions", force: :cascade do |t|
     t.string   "session_id", null: false
