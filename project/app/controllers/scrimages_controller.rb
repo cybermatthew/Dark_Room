@@ -76,6 +76,7 @@ class ScrimagesController < ApplicationController
 				scrimage = Scrimage.find(params[:scrimage_id])
 				winningPhotoID = scrimage.photos.order("votes DESC").first.id
 				scrimage.winner_id = winningPhotoID
+				scrimage.save()
 				render :json => {:winningPhotoID => winningPhotoID}  
   			}			
   		end
