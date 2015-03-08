@@ -1,7 +1,11 @@
-<input id="initialRemainingSeconds" type=hidden value=<%= @remainingSeconds %> >
+<!-- <input id="initialRemainingSeconds" type=hidden value=<%= @remainingSeconds %> >
 
 <input id="votingRemainingSeconds" type=hidden value=<%= @votingRemainingSeconds %> >
+ -->
 
+ <input id="initialRemainingSeconds" type=hidden value=5 >
+
+<input id="votingRemainingSeconds" type=hidden value=5 >
 <input id="isTimed" type=hidden value=<%= @scrimage.timed %> >
 
 <input id="scrimageWinner" type=hidden value=<%= @scrimage.winner_id %> >
@@ -97,31 +101,31 @@
 
 <script type="text/javascript">
 
-	determineScrimageWinner();
-
 	var remainingSeconds = -1;
 
 	// -1 if unset, 0 if editing period, 1 if voting period, 2 if voting over
 	var scrimageTimePeriod = -1;
 
 	$(function(){
+		if ($("#isTimed").val() == 1){
+			
+			// set scrimage time period
+			if ( $("#initialRemainingSeconds").val() > 0 ){
+				scrimageTimePeriod = 0;
+				remainingSeconds = $("#initialRemainingSeconds").val();
+			}
+			else if ( $("#votingRemainingSeconds").val() > 0 ){
+				scrimageTimePeriod = 1;
+				remainingSeconds = $("#votingRemainingSeconds").val();
+			}
+			else{
+				scrimageTimePeriod = 2;
+				setScrimageWinner();
+			}
 
-		// set scrimage time period
-		if ( $("#initialRemainingSeconds").val() > 0 ){
-			scrimageTimePeriod = 0;
-			remainingSeconds = $("#initialRemainingSeconds").val();
+			updateTime();
+			setInterval("updateTime()", 1000);
 		}
-		else if ( $("#votingRemainingSeconds").val() > 0 ){
-			scrimageTimePeriod = 1;
-			remainingSeconds = $("#votingRemainingSeconds").val();
-		}
-		else{
-			scrimageTimePeriod = 2;
-			setScrimageWinner();
-		}
-
-		updateTime();
-		setInterval("updateTime()", 1000);
 
 		initHoverIcons();
 	});
@@ -133,7 +137,7 @@
 		$(".hoverIcons").remove();
 
 		if ( $("#scrimageWinner").val() == -1 ){
-			//determineScrimageWinner();
+			determineScrimageWinner();
 		}
 	}
 
