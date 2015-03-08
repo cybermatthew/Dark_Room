@@ -25,7 +25,7 @@ class ScrimagesController < ApplicationController
 
 		if params[:type] == "timed"
 			isTimed = 1
-			end_time = DateTime.now + 5
+			end_time = end_time + 5
 		end
 
 		scrimage = Scrimage.new(:name => params[:name], :timed=> isTimed, :start_time => Date.today, :end_time => end_time, :description => params[:description])
