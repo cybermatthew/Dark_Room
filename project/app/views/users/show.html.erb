@@ -24,52 +24,50 @@
 
 <script type="text/javascript">
 
-		// showModal('notificationsModal');
-
-		$(function(){
-			if ( <%= @scrimagesToSet.size() %> > 0 ){
-				set_winners();
-			}
-
-			getNotifications();
-		});
-
-		function getNotifications(){
-			$.ajax({
-				url : "/users/getNotifications",
-				type : "POST",
-				data : { 
-					user_id: <%= @user.id %>
-				},
-			    success: function(html){
-			    	$("body").append(html);
-			    	showModal('notificationsModal');
-			    },
-		      	error:function(data){
-		      		alert("An unexpected error occurred.")
-		      	}
-		    });	
+	$(function(){
+		if ( <%= @scrimagesToSet.size() %> > 0 ){
+			set_winners();
 		}
 
-		function set_winners(){
-			$.ajax({
-				url : "/users/set_scrimage_winners",
-				type : "POST",
-				data : { 
-					user_id: <%= @user.id %>
-				},
-			    success: function(data){	
-			    	$("#userPhotos").html(data);
-			    },
-		      	error:function(data){
-		      		alert("An unexpected error occurred.")
-		      	}
-		    });	
-		}
+		getNotifications();
+	});
+
+	function getNotifications(){
+		$.ajax({
+			url : "/users/getNotifications",
+			type : "POST",
+			data : { 
+				user_id: <%= @user.id %>
+			},
+		    success: function(html){
+		    	$("body").append(html);
+		    	showModal('notificationsModal');
+		    },
+	      	error:function(data){
+	      		alert("An unexpected error occurred.")
+	      	}
+	    });	
+	}
+
+	function set_winners(){
+		$.ajax({
+			url : "/users/set_scrimage_winners",
+			type : "POST",
+			data : { 
+				user_id: <%= @user.id %>
+			},
+		    success: function(data){	
+		    	$("#userPhotos").html(data);
+		    },
+	      	error:function(data){
+	      		alert("An unexpected error occurred.")
+	      	}
+	    });	
+	}
 
 
-		function awardPoints(){
-			document.getElementById("points").innerHTML = "<%= @user.points %>";
-		}
+	function awardPoints(){
+		document.getElementById("points").innerHTML = "<%= @user.points %>";
+	}
 
-	</script>
+</script>
