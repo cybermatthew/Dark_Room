@@ -10,16 +10,20 @@
 
 <h1>Vote</h1>
 
-<p align="center">This scrImage is currently open for voting. Cast a vote for your favorite image. Click <a href="/scrimages/<%=@scrimage.id%>">here</a> to see all images in this scrImage.</p>
+<% if @noscrimage %>
+	<p align="center">There are currently no scrImages open for voting. Please check back later.</p>
+<% else %>
+	<p align="center">This scrImage is currently open for voting. Cast a vote for your favorite image. Click <a href="/scrimages/<%=@scrimage.id%>">here</a> to see all images in this scrImage.</p>
 
-<center><a href="/photos/<%=@originalPhoto.id%>"><img src="<%=@originalPhoto.filename%>" class="votingOrig"></a></center>
+	<center><a href="/photos/<%=@originalPhoto.id%>"><img src="<%=@originalPhoto.filename%>" class="votingOrig"></a></center>
 
-<div class="images">
-	<% @childPhotos.each do |p| %>
-	<div class="votingImage">
-		<a href="/photos/<%=p.id%>"><img src="<%=p.filename%>"></a>
-		<br/>
-		<%= link_to 'Vote', vote_photos_path(photo_id: p.id), :class => "submit votebutton", method: :post %>
+	<div class="images">
+		<% @childPhotos.each do |p| %>
+		<div class="votingImage">
+			<a href="/photos/<%=p.id%>"><img src="<%=p.filename%>"></a>
+			<br/>
+			<%= link_to 'Vote', vote_photos_path(photo_id: p.id), :class => "submit votebutton", method: :post %>
+		</div>
+		<% end %>
 	</div>
-	<% end %>
-</div>
+<% end %>

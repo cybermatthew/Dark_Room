@@ -56,10 +56,11 @@ ActiveRecord::Schema.define(version: 20150302092049) do
     t.integer  "timed"
     t.datetime "start_time"
     t.datetime "end_time"
+    t.boolean  "open_for_voting", default: false
     t.string   "description"
-    t.integer  "winner_id",   default: -1
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.integer  "winner_id",       default: -1
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
 
   create_table "scrimages_users", id: false, force: :cascade do |t|

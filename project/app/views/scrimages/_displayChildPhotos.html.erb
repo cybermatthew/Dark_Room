@@ -11,7 +11,7 @@
 			<% end %>
 			By <a href="/users/<%= photo.user.id %>"><%= photo.user.username %></a>
 			<br><br>
-			<% if remainingTime <= 0 && votingTime > 0 %>
+			<% if scrimage.open_for_voting %>
 			<%= link_to 'Vote', vote_photos_path(photo_id: photo.id), :class => "submit votebutton", method: :post %> (<%= photo.votes %>)
 			<br/>
 			<% end %>

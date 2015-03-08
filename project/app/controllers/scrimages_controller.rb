@@ -5,6 +5,9 @@ class ScrimagesController < ApplicationController
 		@scrimage = Scrimage.find(params[:id])
 		@remainingSeconds = remaining_time(@scrimage)
 		@votingRemainingSeconds = voting_time(@scrimage)
+		if (@votingRemainingSeconds <= 0)
+			@scrimage.update_attribute(:open_for_voting, false);
+		end
 
 		@original_photo = Photo.where("scrimage_id = ? AND parent_photo_id = ?", @scrimage.id, -1).first
 
@@ -29,10 +32,10 @@ class ScrimagesController < ApplicationController
 
 		if params[:type] == "timed"
 			isTimed = 1
-			end_time = end_time + 5
+			end_time = end_time + 30.seconds
 		end
 
-		scrimage = Scrimage.new(:name => params[:name], :timed=> isTimed, :start_time => start_time, :end_time => end_time, :description => params[:description])
+		scrimage = Scrimage.new(:name => params[:name], :timed=> isTimed, :start_time => start_time, :end_time => end_time, :description => params[:description], :open_for_voting => 0)
 		scrimage.save()
 
 		if scrimage.id
@@ -70,12 +73,17 @@ class ScrimagesController < ApplicationController
 
 	  	@scrimage = Scrimage.find(params[:scrimage_id])
 
-		render :partial => "displayChildPhotos", :locals => {:scrimage => scrimage, :remainingTime => remaining_time(scrimage), :votingTime => voting_time(scrimage)}
+		render :partial => "displayChildPhotos", :locals => {:scrimage => scrimage}
 	end
 
 	def render_children
 		@scrimage = Scrimage.find(params[:scrimage_id])
-		render :json => {:html => render_to_string({:partial => "scrimages/displayChildPhotos", :formats => [:html, :js], :locals => {:scrimage => @scrimage, :remainingTime => remaining_time(@scrimage), :votingTime => voting_time(@scrimage)}, :layout => false})}
+		if params[:voting]
+			@scrimage.update_attribute(:open_for_voting, true);
+		else
+			@scrimage.update_attribute(:open_for_voting, false);
+		end
+		render :json => {:html => render_to_string({:partial => "scrimages/displayChildPhotos", :formats => [:html, :js], :locals => {:scrimage => @scrimage, :layout => false}})}
 	end
 
 	# returns json array with ids of the winning photos

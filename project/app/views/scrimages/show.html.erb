@@ -11,6 +11,8 @@
 
 <input id='scrimageID' type=hidden value=<%= @scrimage.id %> >
 
+<input id='voting' type=hidden value=<%= @scrimage.open_for_voting %> >
+
 <h1>Scrimage: <%= @scrimage.name %></h1>
 
 <h2>Start: <%= @scrimage.start_time.strftime("%B %e, %Y - %l:%M %P") %></h2>
@@ -100,13 +102,16 @@
 <div class="pageText">Description: <%= @scrimage.description %></div>
 
 <div id="childrenPhotos" class='childrenPhotos'>
-	<%= render :partial => "scrimages/displayChildPhotos", :locals => {:scrimage => @scrimage, :remainingTime => @remainingSeconds, :votingTime => @votingRemainingSeconds} %>
+	<%= render :partial => "scrimages/displayChildPhotos", :locals => { :scrimage => @scrimage } %>
 </div>
 
 <%= render partial: "layouts/apiCode" %>   
 
 <script type="text/javascript">
 	var switchedToVoting = false;
+	if ($("#voting").val() === "true") {
+		switchedToVoting = false;
+	}
 	var remainingSeconds = -1;
 
 	// -1 if unset, 0 if editing period, 1 if voting period, 2 if voting over
@@ -177,7 +182,7 @@
 			}
 		}
 
-		if ( scrimageTimePeriod != 2 ){
+		if (scrimageTimePeriod != 2){
 			calculateAndUpdateTime();
 
 			if (scrimageTimePeriod == 0) {
@@ -185,7 +190,6 @@
 			} else if (scrimageTimePeriod == 1) {
 				$("#clockDiv").prepend("<span class='countdownTitle'>Time Remaining to Vote</span>");
 				if (!switchedToVoting) {
-					console.log('re-render!');
 					switchedToVoting = true;
 					renderChildren();
 				}
@@ -198,7 +202,8 @@
 		$.ajax({
 			url : "/scrimages/render_children",
 			type : "POST",
-			data : { scrimage_id: document.getElementById("scrimageID").value },
+			data : { scrimage_id: document.getElementById("scrimageID").value,
+					voting: switchedToVoting },
 		    success: function(data){
 	            var childPhotos = document.getElementById("childrenPhotos");
 	            childPhotos.innerHTML = data.html;
