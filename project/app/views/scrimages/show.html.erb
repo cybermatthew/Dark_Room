@@ -3,9 +3,10 @@
 <input id="votingRemainingSeconds" type=hidden value=<%= @votingRemainingSeconds %> >
 
 
- <!-- <input id="initialRemainingSeconds" type=hidden value=5 >
+<!-- <input id="initialRemainingSeconds" type=hidden value=5 >
 
 <input id="votingRemainingSeconds" type=hidden value=5 > -->
+
 <input id="isTimed" type=hidden value=<%= @scrimage.timed %> >
 
 <input id="scrimageWinner" type=hidden value=<%= @scrimage.winner_id %> >
@@ -74,7 +75,7 @@
 <center>
 	<%= render :partial => "layouts/editableImage", :locals => {:scrimage_id => @scrimage.id, :image => @original_photo, :imageClass => "originalImage"} %>
 
-	<% if @scrimage.winner_id != -1 %>
+	<% if @scrimage.winner_id != -1 &&  @scrimage.winner_id != @original_photo.id %>
 		<br>
 		<br>
 
@@ -87,6 +88,13 @@
 				 	<img class = "treePhoto" src = "<%= @winningPhotos.first.filename %>"/> 
 				</div>
 			<% end %>
+		</div>
+	<% elsif @scrimage.winner_id == @original_photo.id %>
+		<br>
+		<br>
+
+		<div>
+			<div><strong><i>There is no winner for this scrimage</i></strong></div>
 		</div>
 	<% end %>
 
@@ -146,10 +154,11 @@
 			url : "/scrimages/set_winner",
 			type : "POST",
 			data : { 
-				scrimage_id: <%= @scrimage.id %>,
+				scrimage_id: <%= @scrimage.id %>
 			},
 		    success: function(data){
-
+		    	
+		    	console.log(data["winningPhotoID"])
 		    },
 	      	error:function(data){
 	      		alert("An unexpected error occurred.")
