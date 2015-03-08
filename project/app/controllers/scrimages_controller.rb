@@ -41,7 +41,7 @@ class ScrimagesController < ApplicationController
 		if scrimage.id
 			uploaded_io = params[:original_photo]
 			File.open(Rails.root.join('public', 'images', uploaded_io.original_filename), 'wb') do |file|
-	    			file.write(uploaded_io.read)
+	    		file.write(uploaded_io.read)
 	  		end
 
 			originalPhoto = Photo.new(:filename => "/images/" + params[:original_photo].original_filename, :description => params[:description], :user_id => current_user.id, :scrimage_id => scrimage.id)
@@ -100,11 +100,26 @@ class ScrimagesController < ApplicationController
 				
 				scrimage.save()
 
+				winningPhotoIDs.each do |photoID|
+					photo = Photo.find(photoID)
+					notification = Notification.new(:user_id => photo.user_id, :message => "100 Points Awarded - You won the scrimage with your photo, "+photo.description+"!")
+					notification.save()
+				end
+
 				render :json => {:winningPhotoID => winningPhotoIDs}  
   			}			
   		end
 	end
-	
+
+	def add_share
+		respond_to do |format|
+			format.json{
+				@scrimage = Scrimage.find(params[:scrimage_id])
+				render :json => {:html => render_to_string({:partial => "displayChildPhotos", :formats => [:html, :js], :locals => {:scrimage => @scrimage}, :layout => false})}  
+  			}			
+  		end
+	end
+
 	# Before filters
 
     def logged_in_user # Confirms user is logged in

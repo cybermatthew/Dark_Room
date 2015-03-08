@@ -12,9 +12,9 @@
 	</center>
 
 	<h1><%= @user.username %>'s Photos</h1>
-	<% Photo.where(user_id: @user.id).find_each do |p| %>
-		<a href="/photos/<%=p.id%>"><img src="<%= p.filename %>" class="thumbnail"></a>
-	<% end %>
+	<div id="userPhotos">
+		<%= render :partial => "users/draw_user_photos", :locals => {:user => @user.id} %>
+	</div>
 	<br/><br/>
 	<h1><%= @user.username %>'s Favorites</h1>
 	<% @user.favorite_photos.each do |p| %>
@@ -22,32 +22,54 @@
 	<% end %>
 <% end %>
 
-<% if @notifications.count() > 0 %>
-	<div id='notificationsModal' class="modalDialog">
-		<div>
-			<span onclick="closeModal('notificationsModal'); awardPoints();" title="Close" class="close">X</span>
-			<h2><%= @user.username %>'s Notifications</h2>
+<script type="text/javascript">
 
-			<ul>
-				<% @notifications.each do |notification| %>
-					<li><%= notification.message %></li>
+		// showModal('notificationsModal');
 
-					<% if notification.message.include? "Points" %>
-						<% @user.update(points: @user.points + 100) %>
-					<% end %>
+		$(function(){
+			if ( <%= @scrimagesToSet.size() %> > 0 ){
+				set_winners();
+			}
 
-					<% notification.update(been_viewed: 1) %>
-				<% end %>
-			</ul>
-		</div>
-	</div>
+			getNotifications();
+		});
 
-	<script type="text/javascript">
-		showModal('notificationsModal');
+		function getNotifications(){
+			$.ajax({
+				url : "/users/getNotifications",
+				type : "POST",
+				data : { 
+					user_id: <%= @user.id %>
+				},
+			    success: function(html){
+			    	$("body").append(html);
+			    	showModal('notificationsModal');
+			    },
+		      	error:function(data){
+		      		alert("An unexpected error occurred.")
+		      	}
+		    });	
+		}
+
+		function set_winners(){
+			$.ajax({
+				url : "/users/set_scrimage_winners",
+				type : "POST",
+				data : { 
+					user_id: <%= @user.id %>
+				},
+			    success: function(data){	
+			    	$("#userPhotos").html(data);
+			    },
+		      	error:function(data){
+		      		alert("An unexpected error occurred.")
+		      	}
+		    });	
+		}
+
 
 		function awardPoints(){
 			document.getElementById("points").innerHTML = "<%= @user.points %>";
 		}
 
 	</script>
-<% end %>

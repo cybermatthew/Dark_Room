@@ -5,7 +5,13 @@ Rails.application.routes.draw do
   get    'login'   => 'sessions#new'
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
+
+  resource :users do
+    post 'set_scrimage_winners'
+    post 'getNotifications'
+  end
   resources :users
+  
   resources :photos
 
   resource :photos do
@@ -23,6 +29,7 @@ Rails.application.routes.draw do
     post 'create'
     post 'uploadEditedImage'
     post 'set_winner'
+    post 'add_share'
     post 'render_children'
   end
   resources :scrimages

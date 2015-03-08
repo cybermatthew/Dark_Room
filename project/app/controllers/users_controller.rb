@@ -13,6 +13,8 @@ class UsersController < ApplicationController
 		end
 
 		@notifications = Notification.where("user_id = ? AND been_viewed = ?", @user.id, 0)
+
+		@scrimagesToSet = Scrimage.where("winner_id = ? AND timed = ? AND (end_time+5) <= ?", -1, 1, DateTime.now)
 	end
 
 	def new
@@ -56,6 +58,38 @@ class UsersController < ApplicationController
     	else
       		render 'edit'
     	end
+	end
+
+	def set_scrimage_winners
+
+		scrimages_to_update = Scrimage.where("winner_id = ? AND timed = ? AND (end_time+5) <= ?", -1, 1, DateTime.now)
+
+		scrimages_to_update.each do |scrimage|
+			maxVotes = scrimage.photos.maximum("votes")
+
+			winningPhotoIDs = scrimage.photos.where("votes = ?", maxVotes)
+
+			scrimage.winner_id = winningPhotoIDs.first.id
+			
+			scrimage.save()
+
+			winningPhotoIDs.each do |photoID|
+				photo = Photo.find(photoID)
+				notification = Notification.new(:user_id => photo.user_id, :message => "100 Points Awarded - You won the scrimage with your photo, "+photo.description+"!")
+				notification.save()
+			end
+
+		end
+
+		render :partial => "draw_user_photos", :locals => {:user => params[:user_id]}
+	end
+
+	def getNotifications
+		user = User.find(params[:user_id])
+
+		notifications = Notification.where("user_id = ? AND been_viewed = ?", user.id, 0)
+
+		render :partial => "draw_notifications", :locals => {:user => user, :notifications => notifications}
 	end
 
 	private
