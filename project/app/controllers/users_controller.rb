@@ -12,7 +12,7 @@ class UsersController < ApplicationController
 			flash.now[:error] = "Error"
 		end
 
-		@notifications = Notification.where("user_id = ? AND been_viewed = ?", @user.id, 0)
+		@notifications = Notification.where("user_id = ? AND been_viewed = ? AND ? = ?", @user.id, 0, @user.id, session[:username])
 
 		@scrimagesToSet = Scrimage.where("winner_id = ? AND timed = ? AND (end_time+5) <= ?", -1, 1, DateTime.now)
 	end
