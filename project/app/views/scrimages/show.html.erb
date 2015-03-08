@@ -1,6 +1,6 @@
-<input id="initialRemainingSeconds" type=hidden value=<%= @remainingSeconds %> >
+ <input id="initialRemainingSeconds" type=hidden value=<%= @remainingSeconds %> >
 
-<input id="votingRemainingSeconds" type=hidden value=<%= @votingRemainingSeconds %> >
+<input id="votingRemainingSeconds" type=hidden value=<%= @votingRemainingSeconds %> > 
 
 
  <!-- <input id="initialRemainingSeconds" type=hidden value=5 >
@@ -170,7 +170,23 @@
 			remainingSeconds = $("#votingRemainingSeconds").val();
 
 			if (scrimageTimePeriod == 2) {
-				//TODO: Write code for removing share button (after voting period) while currently on scrimage page 
+				//Removes share button (after voting period has ended) while currently on scrimage page 
+		        $.ajax({
+					url : "/scrimages/add_share",
+					type : "POST",
+					data : { 
+						scrimage_id: <%= @scrimage.id %>,
+					},
+				    success: function(data){
+            			var childPhotos = document.getElementById("childrenPhotos");
+                		childPhotos.innerHTML = data.html;
+                		console.log(data.html);
+				    	drawShareButton = 0;
+				    },
+			      	error:function(data){
+			      		alert("An unexpected error has occurred.")
+			      	}
+			    });	
 				setScrimageWinner();
 			}
 		}
@@ -194,7 +210,6 @@
                 			var childPhotos = document.getElementById("childrenPhotos");
 	                		childPhotos.innerHTML = data.html;
 	                		FB.XFBML.parse();
-	                		console.log(data.html);
 					    	drawShareButton = 1;
 					    },
 				      	error:function(data){
