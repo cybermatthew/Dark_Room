@@ -29,3 +29,28 @@ table {
 	background-color:#3B96A9;
 	padding:10px;
 }
+
+.countdownTitle {
+	text-transform:uppercase;
+	display:block;
+	margin:20px 0;
+	font-size:10px;
+	font-weight:bold;
+	letter-spacing:3px;
+}
+
+.countdown {
+	text-transform:uppercase;
+	font-size:18px;
+	letter-spacing:3px;
+}
+
+.countdown strong {
+	color:#ED7263;
+}
+
+#clockDiv {
+	text-align:center;
+	color:#000000;
+	margin-bottom:20px;
+}

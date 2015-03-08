@@ -10,9 +10,11 @@
 
 <h1>Scrimage: <%= @scrimage.name %></h1>
 
-<h2>Start Time: <%= @scrimage.start_time.to_formatted_s(:long) %></h2>
+<h2>Start: <%= @scrimage.start_time.to_formatted_s(:long) %></h2>
 
-<% if(@scrimage.timed == 1) %>End Time: <%= @scrimage.end_time.to_formatted_s(:long) %><% end %>
+<% if(@scrimage.timed == 1) %>
+<h2>End: <%= @scrimage.end_time.to_formatted_s(:long) %></h2>
+<% end %>
 
 <div id="clockDiv"></div>
 
@@ -126,7 +128,7 @@
 
 
 	function setScrimageWinner(){
-		$("#clockDiv").html("<br><center><b><i>This timed scrimage has ended</i></b></center><br><br>");
+		$("#clockDiv").html("<span class='countdownTitle'>This timed scrimage has ended</span>");
 
 		$(".hoverIcons").remove();
 
@@ -164,8 +166,8 @@
 
 			calculateAndUpdateTime();
 
-			if (scrimageTimePeriod == 0) $("#clockDiv").prepend("<br><b><i>Time Remaining to Submit Edits</i></b><br>");
-			else if (scrimageTimePeriod == 1) $("#clockDiv").prepend("<br><b><i>Time Remaining to Vote</i></b><br>");
+			if (scrimageTimePeriod == 0) $("#clockDiv").prepend("<span class='countdownTitle'>Time Remaining to Submit Edits</span>");
+			else if (scrimageTimePeriod == 1) $("#clockDiv").prepend("<span class='countdownTitle'>Time Remaining to Vote</span>");
 		}
 	}
 
@@ -186,12 +188,12 @@
 		var secondsRemaining = Math.floor(tempRemainingSeconds - (minutesRemaining*60));
 
 
-		var daysString = "Days: "+daysRemaining+"<br>";
-		var hoursString = "Hours: "+hoursRemaining+"<br>";
-		var minutesString = "Minutes: "+minutesRemaining+"<br>";
-		var secondsString = "Seconds: "+secondsRemaining;
+		var daysString = "<strong>" + daysRemaining + "</strong> Days, ";
+		var hoursString = "<strong>" + hoursRemaining + "</strong> Hours, ";
+		var minutesString = "<strong>" + minutesRemaining + "</strong> Minutes, ";
+		var secondsString = "<strong>" + secondsRemaining + "</strong> Seconds";
 
-		$("#clockDiv").html(daysString+hoursString+minutesString+secondsString);
+		$("#clockDiv").html("<span class='countdown'>"+daysString+hoursString+minutesString+secondsString+"</span>");
 	}
 
 	var editedImageDescription;
