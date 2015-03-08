@@ -9,9 +9,12 @@
 		<td><% if photo.description %>
 			<b><%= photo.description %></b><br/>
 			<% end %>
-			By <a href="/users/<%= photo.user.id %>"><%= photo.user.username %></a><br><br>
+			By <a href="/users/<%= photo.user.id %>"><%= photo.user.username %></a>
+			<br><br>
+			<% if remainingTime <= 0 && votingTime > 0 %>
 			<%= link_to 'Vote', vote_photos_path(photo_id: photo.id), :class => "submit votebutton", method: :post %> (<%= photo.votes %>)
 			<br/>
+			<% end %>
 			Comments: <%= photo.comments.count %><br/>
 		</td>
 	</tr>
