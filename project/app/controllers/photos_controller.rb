@@ -20,6 +20,25 @@ class PhotosController < ApplicationController
 			@error = true
 		else
 			@photo = Photo.find(params[:id])
+
+			if @photo.scrimage.winner_id == -1 && @photo.scrimage.timed == 1 && @photo.scrimage.end_time+5 <= DateTime.now
+				# must declare winner for scrimage
+				scrimage = @photo.scrimage
+				maxVotes = scrimage.photos.maximum("votes")
+
+				winningPhotoIDs = scrimage.photos.where("votes = ?", maxVotes)
+
+				scrimage.winner_id = winningPhotoIDs.first.id
+				
+				scrimage.save()
+
+				winningPhotoIDs.each do |photoID|
+					photo = Photo.find(photoID)
+					notification = Notification.new(:user_id => photo.user_id, :message => "100 Points Awarded - You won the scrimage with your photo, "+photo.description+"!")
+					notification.save()
+				end
+			end
+
 			@user = User.find(@photo.user_id)
 			@comments = Comment.where(:photo_id => params[:id])
 		end
