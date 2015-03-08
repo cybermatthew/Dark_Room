@@ -92,7 +92,7 @@ class PhotosController < ApplicationController
 			File.delete("public/images/" + old_photo_name);
 
 			@scrimage = Scrimage.find(params[:scrimage_id])
-			render :json => {:html => render_to_string({:partial => "scrimages/displayChildPhotos", :formats => [:html, :js], :locals => {:scrimage => @scrimage, :remainingTime => remaining_time(@scrimage), :votingTime => voting_time(@scrimage)}, :layout => false})}  
+			render :json => {:html => render_to_string({:partial => "scrimages/displayChildPhotos", :formats => [:html, :js], :locals => {:scrimage => @scrimage, :layout => false}})}  
 		else
 			respond_to do |format|
 				format.json{
@@ -107,7 +107,7 @@ class PhotosController < ApplicationController
 					photo = Photo.new(:filename => "/images/" + file_name, :description => params[:description], :user_id => current_user.id, :scrimage_id => params[:scrimage_id], :parent_photo_id => params[:parent_photo_id])
 					photo.save()
 	 				@scrimage = Scrimage.find(params[:scrimage_id])
-					render :json => {:html => render_to_string({:partial => "scrimages/displayChildPhotos", :formats => [:html, :js], :locals => {:scrimage => @scrimage, :remainingTime => remaining_time(@scrimage), :votingTime => voting_time(@scrimage)}, :layout => false})}  
+					render :json => {:html => render_to_string({:partial => "scrimages/displayChildPhotos", :formats => [:html, :js], :locals => {:scrimage => @scrimage, :layout => false}})}  
 	  			}			
 	  		end
 	  	end

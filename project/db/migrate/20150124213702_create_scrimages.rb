@@ -5,6 +5,7 @@ class CreateScrimages < ActiveRecord::Migration
       t.integer :timed
     	t.datetime :start_time
     	t.datetime :end_time, default: false
+      t.boolean :open_for_voting, default: false
     	t.string :description
     	t.integer :winner_id, default: -1
       t.timestamps null: false
