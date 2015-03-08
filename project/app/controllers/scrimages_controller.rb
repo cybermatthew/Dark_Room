@@ -3,9 +3,8 @@ class ScrimagesController < ApplicationController
 
 	def show
 		@scrimage = Scrimage.find(params[:id])
-		@remainingSeconds = (@scrimage.end_time.to_time - DateTime.now.to_time).to_i
-
-		@votingRemainingSeconds = ( (@scrimage.end_time.to_time+(5*60*60*24)) - DateTime.now.to_time ).to_i
+		@remainingSeconds = remaining_time(@scrimage)
+		@votingRemainingSeconds = voting_time(@scrimage)
 
 		@original_photo = Photo.where("scrimage_id = ? AND parent_photo_id = ?", @scrimage.id, -1).first
 
@@ -53,7 +52,6 @@ class ScrimagesController < ApplicationController
 		end
 	end
 
-
 	def uploadEditedImage
 		puts params[:editedPhoto]
   		puts "------------------------------"
@@ -68,7 +66,7 @@ class ScrimagesController < ApplicationController
 
 	  	scrimage = Scrimage.find(params[:scrimage_id])
 
-		render :partial => "displayChildPhotos", :locals => {:scrimage => scrimage}
+		render :partial => "displayChildPhotos", :locals => {:scrimage => scrimage, :remainingTime => remaining_time(scrimage), :votingTime => voting_time(scrimage)}
 	end
 
 	def set_winner
@@ -91,7 +89,6 @@ class ScrimagesController < ApplicationController
   			}			
   		end
 	end
-
 
 	# Before filters
 

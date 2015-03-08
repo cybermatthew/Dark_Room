@@ -1,11 +1,12 @@
+
  <input id="initialRemainingSeconds" type=hidden value=<%= @remainingSeconds %> >
 
 <input id="votingRemainingSeconds" type=hidden value=<%= @votingRemainingSeconds %> > 
 
 
- <!-- <input id="initialRemainingSeconds" type=hidden value=5 >
+<!-- <input id="initialRemainingSeconds" type=hidden value=10>
+<input id="votingRemainingSeconds" type=hidden value=10> -->
 
-<input id="votingRemainingSeconds" type=hidden value=5 > -->
 <input id="isTimed" type=hidden value=<%= @scrimage.timed %> >
 
 <input id="scrimageWinner" type=hidden value=<%= @scrimage.winner_id %> >
@@ -95,7 +96,7 @@
 <div class="pageText">Description: <%= @scrimage.description %></div>
 
 <div id="childrenPhotos" class='childrenPhotos'>
-	<%= render :partial => "scrimages/displayChildPhotos", :locals => {:scrimage => @scrimage} %>
+	<%= render :partial => "scrimages/displayChildPhotos", :locals => {:scrimage => @scrimage, :remainingTime => @remainingSeconds, :votingTime => @votingRemainingSeconds} %>
 </div>
 
 <%= render partial: "layouts/apiCode" %>   
@@ -132,7 +133,6 @@
 		initHoverIcons();
 	});
 
-
 	function setScrimageWinner(){
 		$("#clockDiv").html("<span class='countdownTitle'>This timed scrimage has ended</span>");
 
@@ -162,8 +162,11 @@
 	    });	
 	}
 
+<<<<<<< HEAD
 	var drawShareButton = 0; //Flag for determining when to draw the facebook Share button
 
+=======
+>>>>>>> afd7594e0ee245f01a6b618e5cfda8fd7ad662d5
 	function updateTime(){
 		if (remainingSeconds <= 0 && scrimageTimePeriod != 2){
 			scrimageTimePeriod++;
@@ -309,7 +312,7 @@
 	                     scrimage_id: document.getElementById("scrimageID").value,
 	                     description: "" + editedImageDescription,
 	                     parent_photo_id: document.getElementById("parentPhotoID").value,
-	                     hasBeenEdited: "" + imageAlreadyEdited},
+	                     hasBeenEdited: "" + imageAlreadyEdited },
 			    success: function(data){
 	                showSaveSuccessText();
 	                var childPhotos = document.getElementById("childrenPhotos");
@@ -321,9 +324,13 @@
 		       		showSaveErrorText();
 		      	}
 		    });
+<<<<<<< HEAD
 		}
 		//Executes when  you save an API-edited image to the database for the first time
 		else{
+=======
+		} else {
+>>>>>>> afd7594e0ee245f01a6b618e5cfda8fd7ad662d5
 	        $.ajax({
 				url : "/photos/save_edited_photo",
 				type : "POST",
