@@ -13,7 +13,7 @@
 
 	<h1><%= @user.username %>'s Photos</h1>
 	<div id="userPhotos">
-		<%= render :partial => "users/displayUserPhotos", :locals => {:user => @user.id} %>
+		<%= render :partial => "users/draw_user_photos", :locals => {:user => @user.id} %>
 	</div>
 	<br/><br/>
 	<h1><%= @user.username %>'s Favorites</h1>
@@ -22,37 +22,34 @@
 	<% end %>
 <% end %>
 
-<% if @notifications.count() > 0 %>
-	<div id='notificationsModal' class="modalDialog">
-		<div>
-			<span onclick="closeModal('notificationsModal'); awardPoints();" title="Close" class="close">X</span>
-			<h2><%= @user.username %>'s Notifications</h2>
-
-			<ul>
-				<% @notifications.each do |notification| %>
-					<li><%= notification.message %></li>
-
-					<% if notification.message.include? "Points" %>
-						<% @user.update(points: @user.points + 100) %>
-					<% end %>
-
-					<% notification.update(been_viewed: 1) %>
-				<% end %>
-			</ul>
-		</div>
-	</div>
-<% end %>
-
 <script type="text/javascript">
 
-		showModal('notificationsModal');
+		// showModal('notificationsModal');
 
 		$(function(){
-			console.log(<%= @scrimagesToSet.size() %>);
 			if ( <%= @scrimagesToSet.size() %> > 0 ){
 				set_winners();
 			}
+
+			getNotifications();
 		});
+
+		function getNotifications(){
+			$.ajax({
+				url : "/users/getNotifications",
+				type : "POST",
+				data : { 
+					user_id: <%= @user.id %>
+				},
+			    success: function(html){
+			    	$("body").append(html);
+			    	showModal('notificationsModal');
+			    },
+		      	error:function(data){
+		      		alert("An unexpected error occurred.")
+		      	}
+		    });	
+		}
 
 		function set_winners(){
 			$.ajax({
@@ -61,10 +58,8 @@
 				data : { 
 					user_id: <%= @user.id %>
 				},
-			    success: function(data){
-			    	
-
-			    	// console.log(data["winningPhotoID"])
+			    success: function(data){	
+			    	$("#userPhotos").html(data);
 			    },
 		      	error:function(data){
 		      		alert("An unexpected error occurred.")

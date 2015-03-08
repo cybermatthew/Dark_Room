@@ -72,9 +72,24 @@ class UsersController < ApplicationController
 			scrimage.winner_id = winningPhotoIDs.first.id
 			
 			scrimage.save()
+
+			winningPhotoIDs.each do |photoID|
+				photo = Photo.find(photoID)
+				notification = Notification.new(:user_id => photo.user_id, :message => "100 Points Awarded - You won the scrimage with your photo, "+photo.description+"!")
+				notification.save()
+			end
+
 		end
 
 		render :partial => "draw_user_photos", :locals => {:user => params[:user_id]}
+	end
+
+	def getNotifications
+		user = User.find(params[:user_id])
+
+		notifications = Notification.where("user_id = ? AND been_viewed = ?", user.id, 0)
+
+		render :partial => "draw_notifications", :locals => {:user => user, :notifications => notifications}
 	end
 
 	private

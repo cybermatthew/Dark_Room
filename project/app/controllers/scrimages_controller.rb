@@ -90,7 +90,13 @@ class ScrimagesController < ApplicationController
 
 				scrimage.winner_id = winningPhotoIDs.first.id
 				
-				# scrimage.save()
+				scrimage.save()
+
+				winningPhotoIDs.each do |photoID|
+					photo = Photo.find(photoID)
+					notification = Notification.new(:user_id => photo.user_id, :message => "100 Points Awarded - You won the scrimage with your photo, "+photo.description+"!")
+					notification.save()
+				end
 
 				render :json => {:winningPhotoID => winningPhotoIDs}  
   			}			

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   resource :users do
     post 'set_scrimage_winners'
+    post 'getNotifications'
   end
   resources :users
   
