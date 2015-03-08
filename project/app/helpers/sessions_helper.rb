@@ -12,6 +12,10 @@ module SessionsHelper
   	user == current_user
 	end
 
+	def get_current_user_id
+		return session[:user_id]
+	end
+
  	def logged_in?
    		!current_user.nil? # calls above method
  	end
