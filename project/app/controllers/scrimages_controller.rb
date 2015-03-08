@@ -21,14 +21,15 @@ class ScrimagesController < ApplicationController
 
 	def create
 		isTimed = 0
-		end_time = DateTime.now
+		start_time = DateTime.now
+		end_time = start_time
 
 		if params[:type] == "timed"
 			isTimed = 1
 			end_time = end_time + 5
 		end
 
-		scrimage = Scrimage.new(:name => params[:name], :timed=> isTimed, :start_time => Date.today, :end_time => end_time, :description => params[:description])
+		scrimage = Scrimage.new(:name => params[:name], :timed=> isTimed, :start_time => start_time, :end_time => end_time, :description => params[:description])
 		scrimage.save()
 
 		if scrimage.id
@@ -76,6 +77,7 @@ class ScrimagesController < ApplicationController
 				scrimage = Scrimage.find(params[:scrimage_id])
 				winningPhotoID = scrimage.photos.order("votes DESC").first.id
 				scrimage.winner_id = winningPhotoID
+				scrimage.save()
 				render :json => {:winningPhotoID => winningPhotoID}  
   			}			
   		end
