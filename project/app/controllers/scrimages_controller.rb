@@ -68,9 +68,14 @@ class ScrimagesController < ApplicationController
 	  	newPhoto = Photo.new(:filename => "/images/" + uploaded_io.original_filename, :description => params[:editedPhotoText], :user_id => current_user.id, :scrimage_id => params[:scrimage_id], :parent_photo_id => params[:parent_photo_id])
 	  	newPhoto.save()
 
-	  	scrimage = Scrimage.find(params[:scrimage_id])
+	  	@scrimage = Scrimage.find(params[:scrimage_id])
 
 		render :partial => "displayChildPhotos", :locals => {:scrimage => scrimage, :remainingTime => remaining_time(scrimage), :votingTime => voting_time(scrimage)}
+	end
+
+	def render_children
+		@scrimage = Scrimage.find(params[:scrimage_id])
+		render :json => {:html => render_to_string({:partial => "scrimages/displayChildPhotos", :formats => [:html, :js], :locals => {:scrimage => @scrimage, :remainingTime => remaining_time(@scrimage), :votingTime => voting_time(@scrimage)}, :layout => false})}
 	end
 
 	# returns json array with ids of the winning photos

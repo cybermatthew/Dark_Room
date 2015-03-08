@@ -35,7 +35,7 @@
 
 <span id = "browserImageDescription">
 	<h2> Image Description </h2>
-	Edited Photo Title (optional): 
+	Edited Photo Title (required): 
 	<br><br>
 	<%= text_field_tag :addedImageDescription, nil, :placeholder => "Photo Title", :size => "30x8", :class => "formField", :onkeyup => "updateDescriptionVal();" %>
 	<br><br>
@@ -109,7 +109,7 @@
 <%= render partial: "layouts/apiCode" %>   
 
 <script type="text/javascript">
-
+	var switchedToVoting = false;
 	var remainingSeconds = -1;
 
 	// -1 if unset, 0 if editing period, 1 if voting period, 2 if voting over
@@ -181,6 +181,7 @@
 			remainingSeconds = $("#votingRemainingSeconds").val();
 
 			if (scrimageTimePeriod == 2) {
+<<<<<<< HEAD
 				//Removes share button (after voting period has ended) while currently on scrimage page 
 		        $.ajax({
 					url : "/scrimages/add_share",
@@ -199,13 +200,20 @@
 			      	}
 			    });	
 				setScrimageWinner();
+=======
+				setScrimageWinner();
+				if (switchedToVoting) {
+					switchedToVoting = false;
+					renderChildren();
+				}
+>>>>>>> 622284bec62b230ddd44df5a7ff8d28e0fe8a1d7
 			}
 		}
 
 		if ( scrimageTimePeriod != 2 ){
-
 			calculateAndUpdateTime();
 
+<<<<<<< HEAD
 			if (scrimageTimePeriod == 0) $("#clockDiv").prepend("<br><b><i>Time Remaining to Submit Edits</i></b><br>");
 			else if (scrimageTimePeriod == 1) {
 				$("#clockDiv").prepend("<br><b><i>Time Remaining to Vote</i></b><br>");
@@ -231,7 +239,35 @@
 			}
 			if (scrimageTimePeriod == 0) $("#clockDiv").prepend("<span class='countdownTitle'>Time Remaining to Submit Edits</span>");
 			else if (scrimageTimePeriod == 1) $("#clockDiv").prepend("<span class='countdownTitle'>Time Remaining to Vote</span>");
+=======
+			if (scrimageTimePeriod == 0) {
+				$("#clockDiv").prepend("<span class='countdownTitle'>Time Remaining to Submit Edits</span>");
+			} else if (scrimageTimePeriod == 1) {
+				$("#clockDiv").prepend("<span class='countdownTitle'>Time Remaining to Vote</span>");
+				if (!switchedToVoting) {
+					console.log('re-render!');
+					switchedToVoting = true;
+					renderChildren();
+				}
+			}
+>>>>>>> 622284bec62b230ddd44df5a7ff8d28e0fe8a1d7
 		}
+	}
+
+	function renderChildren() {
+	// re-render child photos with vote button
+		$.ajax({
+			url : "/scrimages/render_children",
+			type : "POST",
+			data : { scrimage_id: document.getElementById("scrimageID").value },
+		    success: function(data){
+	            var childPhotos = document.getElementById("childrenPhotos");
+	            childPhotos.innerHTML = data.html;
+		    },
+	      	error:function(data){
+	       		console.log('error');
+	      	}
+	    });
 	}
 
 	function calculateAndUpdateTime(){
