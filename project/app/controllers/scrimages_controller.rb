@@ -8,9 +8,13 @@ class ScrimagesController < ApplicationController
 
 		@original_photo = Photo.where("scrimage_id = ? AND parent_photo_id = ?", @scrimage.id, -1).first
 
-		@numWinnerVotes = @scrimage.photos.order("votes DESC").first.votes
+		@numWinnerVotes = -1
+		@winningPhotos = []
 
-		@winningPhotos =  @scrimage.photos.where("votes == ? AND parent_photo_id != ?", @numWinnerVotes, -1)
+		if (@scrimage.winner_id != -1)
+			@numWinnerVotes = Photo.find(@scrimage.winner_id).votes
+			@winningPhotos =  Photo.where("scrimage_id = ? AND votes == ?", @scrimage.id, @numWinnerVotes)
+		end
 
 		# @photos = Photo.where("scrimage_id = ? AND parent_photo_id != ?", @scrimage.id, -1)
 	end
@@ -69,14 +73,21 @@ class ScrimagesController < ApplicationController
 		render :partial => "displayChildPhotos", :locals => {:scrimage => scrimage, :remainingTime => remaining_time(scrimage), :votingTime => voting_time(scrimage)}
 	end
 
+	# returns json array with ids of the winning photos
 	def set_winner
 		respond_to do |format|
 			format.json{
 				scrimage = Scrimage.find(params[:scrimage_id])
-				winningPhotoID = scrimage.photos.order("votes DESC").first.id
-				scrimage.winner_id = winningPhotoID
+
+				maxVotes = scrimage.photos.maximum("votes")
+
+				winningPhotoIDs = scrimage.photos.where("votes = ?", maxVotes)
+
+				scrimage.winner_id = winningPhotoIDs.first.id
+				
 				scrimage.save()
-				render :json => {:winningPhotoID => winningPhotoID}  
+
+				render :json => {:winningPhotoID => winningPhotoIDs}  
   			}			
   		end
 	end

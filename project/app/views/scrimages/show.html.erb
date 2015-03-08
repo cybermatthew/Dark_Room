@@ -4,8 +4,9 @@
 <input id="votingRemainingSeconds" type=hidden value=<%= @votingRemainingSeconds %> > 
 
 
-<!-- <input id="initialRemainingSeconds" type=hidden value=10>
-<input id="votingRemainingSeconds" type=hidden value=10> -->
+<!-- <input id="initialRemainingSeconds" type=hidden value=5 >
+
+<input id="votingRemainingSeconds" type=hidden value=5 > -->
 
 <input id="isTimed" type=hidden value=<%= @scrimage.timed %> >
 
@@ -75,8 +76,7 @@
 <center>
 	<%= render :partial => "layouts/editableImage", :locals => {:scrimage_id => @scrimage.id, :image => @original_photo, :imageClass => "originalImage"} %>
 
-	<!-- Case for when user accesses finished scrimage page from another page-->
-	<% if @scrimage.winner_id != -1 %> 
+	<% if @scrimage.winner_id != -1 &&  @scrimage.winner_id != @original_photo.id %>
 		<br>
 		<br>
 
@@ -89,6 +89,13 @@
 				 	<img class = "treePhoto" src = "<%= @winningPhotos.first.filename %>"/> 
 				</div>
 			<% end %>
+		</div>
+	<% elsif @scrimage.winner_id == @original_photo.id %>
+		<br>
+		<br>
+
+		<div>
+			<div><strong><i>There is no winner for this scrimage</i></strong></div>
 		</div>
 	<% end %>
 
@@ -151,10 +158,11 @@
 			url : "/scrimages/set_winner",
 			type : "POST",
 			data : { 
-				scrimage_id: <%= @scrimage.id %>,
+				scrimage_id: <%= @scrimage.id %>
 			},
 		    success: function(data){
-
+		    	
+		    	console.log(data["winningPhotoID"])
 		    },
 	      	error:function(data){
 	      		alert("An unexpected error has occurred.")
@@ -324,13 +332,8 @@
 		       		showSaveErrorText();
 		      	}
 		    });
-<<<<<<< HEAD
-		}
 		//Executes when  you save an API-edited image to the database for the first time
-		else{
-=======
 		} else {
->>>>>>> afd7594e0ee245f01a6b618e5cfda8fd7ad662d5
 	        $.ajax({
 				url : "/photos/save_edited_photo",
 				type : "POST",
