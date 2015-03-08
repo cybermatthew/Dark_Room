@@ -295,6 +295,10 @@ h2 a:link, h2 a:active, h2 a:visited, h2 a:hover {
 
 .close:hover { background: #ee7163; }
 
+.fbButton{
+	display: none;
+}
+
 #postSaveModal{
 	opacity: 0;
 }

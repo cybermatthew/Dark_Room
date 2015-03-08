@@ -23,6 +23,7 @@ Rails.application.routes.draw do
     post 'create'
     post 'uploadEditedImage'
     post 'set_winner'
+    post 'add_share'
   end
   resources :scrimages
 

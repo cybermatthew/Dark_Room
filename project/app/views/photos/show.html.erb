@@ -1,4 +1,5 @@
 <% if !@error %>
+
 	<input type=hidden id="photoID" value='<%= @photo.id %>' >
 	<h1><%= @photo.description %></h1>
 	<h2>Uploaded by <a href="/users/<%=@user.id%>"><%= @user.username %></a></h2>
@@ -27,6 +28,15 @@
 		<tr>
 			<td>
 				<img class="mainPhoto" src="<%= @photo.filename %>"><br><br>
+
+				<div align = "center">
+					<div class="fb-share-button fbButton" data-href= "<%= request.original_url %>" data-layout="button"></div>
+				</div>
+
+				<!--<span id = "a"> Share on Facebook </span>-->
+
+				<br>
+
 				<div id="commentsDiv" class="commentsDiv">
 					<span>Comments</span>
 					<br/>
@@ -82,5 +92,14 @@
 			}
 		});
 	}
+
+	/*$("#a").click(function(){
+		FB.ui({
+		  method: 'share',
+		  url: '<%= request.original_url %>',
+		  caption: 'An example caption',
+		}, function(response){});		
+	});*/
+
 
 </script>

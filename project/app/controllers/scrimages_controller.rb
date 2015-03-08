@@ -34,7 +34,7 @@ class ScrimagesController < ApplicationController
 		if scrimage.id
 			uploaded_io = params[:original_photo]
 			File.open(Rails.root.join('public', 'images', uploaded_io.original_filename), 'wb') do |file|
-	    			file.write(uploaded_io.read)
+	    		file.write(uploaded_io.read)
 	  		end
 
 			originalPhoto = Photo.new(:filename => "/images/" + params[:original_photo].original_filename, :description => params[:description], :user_id => current_user.id, :scrimage_id => scrimage.id)
@@ -77,6 +77,15 @@ class ScrimagesController < ApplicationController
 				winningPhotoID = scrimage.photos.order("votes DESC").first.id
 				scrimage.winner_id = winningPhotoID
 				render :json => {:winningPhotoID => winningPhotoID}  
+  			}			
+  		end
+	end
+
+	def add_share
+		respond_to do |format|
+			format.json{
+				@scrimage = Scrimage.find(params[:scrimage_id])
+				render :json => {:html => render_to_string({:partial => "displayChildPhotos", :formats => [:html, :js], :locals => {:scrimage => @scrimage}, :layout => false})}  
   			}			
   		end
 	end

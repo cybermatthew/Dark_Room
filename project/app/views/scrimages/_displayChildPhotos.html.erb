@@ -13,7 +13,28 @@
 			<%= link_to 'Vote', vote_photos_path(photo_id: photo.id), :class => "submit votebutton", method: :post %> (<%= photo.votes %>)
 			<br/>
 			Comments: <%= photo.comments.count %><br/>
+			<!--Check if OK to add Share button. Checks if the scrimage is over and if no winner has been 
+				determined yet, to make sure that the Share button appears only during the voting period
+				next to images edited by the user -->
+			<% if (scrimage.end_time.past?) && scrimage.winner_id == -1 %>	
+				<% if photo.user_id == current_user.id %>
+					<div class="fb-share-button fbButton" data-href= "<%= request.original_url %>" data-layout="button"></div>
+				<% end %>
+			<% end %>
 		</td>
+
 	</tr>
 <% end %>
 </table>
+
+<script type="text/javascript">
+
+	/*$("#a").click(function(){
+		FB.ui({
+		  method: 'share',
+		  url: '<%= request.original_url %>',
+		  caption: 'An example caption',
+		}, function(response){});		
+	});*/
+
+</script>

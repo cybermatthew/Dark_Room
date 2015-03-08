@@ -68,7 +68,8 @@
 <center>
 	<%= render :partial => "layouts/editableImage", :locals => {:scrimage_id => @scrimage.id, :image => @original_photo, :imageClass => "originalImage"} %>
 
-	<% if @scrimage.winner_id != -1 %>
+	<!-- Case for when user accesses finished scrimage page from another page-->
+	<% if @scrimage.winner_id != -1 %> 
 		<br>
 		<br>
 
@@ -102,6 +103,7 @@
 	// -1 if unset, 0 if editing period, 1 if voting period, 2 if voting over
 	var scrimageTimePeriod = -1;
 
+	//Runs when scrimage page is accessed from another page
 	$(function(){
 
 		// set scrimage time period
@@ -136,6 +138,9 @@
 	}
 
 	function determineScrimageWinner(){
+		//TODO: Update points for winner HERE while on page, and NOT in notification
+		//TODO: Update winner drawing HERE while on page, and not in the if (scrimage_winner_id != -1) code up top
+		//TODO: Update trophy drawing HERE while on page, and NOT in editableImage
         $.ajax({
 			url : "/scrimages/set_winner",
 			type : "POST",
@@ -146,18 +151,22 @@
 
 		    },
 	      	error:function(data){
-	      		alert("An unexpected error occurred.")
+	      		alert("An unexpected error has occurred.")
 	      	}
 	    });	
 	}
 
+	var drawShareButton = 0; //Flag for determining when to draw the facebook Share button
 
 	function updateTime(){
 		if (remainingSeconds <= 0 && scrimageTimePeriod != 2){
 			scrimageTimePeriod++;
 			remainingSeconds = $("#votingRemainingSeconds").val();
 
-			if (scrimageTimePeriod == 2) setScrimageWinner();
+			if (scrimageTimePeriod == 2) {
+				//TODO: Write code for removing share button (after voting period) while currently on scrimage page 
+				setScrimageWinner();
+			}
 		}
 
 		if ( scrimageTimePeriod != 2 ){
@@ -165,7 +174,29 @@
 			calculateAndUpdateTime();
 
 			if (scrimageTimePeriod == 0) $("#clockDiv").prepend("<br><b><i>Time Remaining to Submit Edits</i></b><br>");
-			else if (scrimageTimePeriod == 1) $("#clockDiv").prepend("<br><b><i>Time Remaining to Vote</i></b><br>");
+			else if (scrimageTimePeriod == 1) {
+				$("#clockDiv").prepend("<br><b><i>Time Remaining to Vote</i></b><br>");
+				if(drawShareButton == 0){
+					//Adds the share button (only during the voting period) while currently on scrimage page 
+			        $.ajax({
+						url : "/scrimages/add_share",
+						type : "POST",
+						data : { 
+							scrimage_id: <%= @scrimage.id %>,
+						},
+					    success: function(data){
+                			var childPhotos = document.getElementById("childrenPhotos");
+	                		childPhotos.innerHTML = data.html;
+	                		FB.XFBML.parse();
+	                		console.log(data.html);
+					    	drawShareButton = 1;
+					    },
+				      	error:function(data){
+				      		alert("An unexpected error has occurred.")
+				      	}
+				    });	
+				}
+			}
 		}
 	}
 
