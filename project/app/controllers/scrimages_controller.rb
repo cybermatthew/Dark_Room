@@ -26,36 +26,45 @@ class ScrimagesController < ApplicationController
 	end
 
 	def create
-		isTimed = 0
-		start_time = DateTime.now
-		end_time = start_time
+		if !params[:original_photo].nil?
+			isTimed = 0
+			start_time = DateTime.now
+			end_time = start_time
 
-		if params[:type] == "timed"
-			isTimed = 1
-			end_time = end_time + 30.seconds
-		end
-
-		scrimage = Scrimage.new(:name => params[:name], :timed=> isTimed, :start_time => start_time, :end_time => end_time, :description => params[:description], :open_for_voting => 0)
-		scrimage.save()
-
-		if scrimage.id
-			uploaded_io = params[:original_photo]
-			File.open(Rails.root.join('public', 'images', uploaded_io.original_filename), 'wb') do |file|
-	    		file.write(uploaded_io.read)
-	  		end
-
-			originalPhoto = Photo.new(:filename => "/images/" + params[:original_photo].original_filename, :description => params[:description], :user_id => current_user.id, :scrimage_id => scrimage.id)
-
-			originalPhoto.save()
-
-			if originalPhoto.id
-				redirect_to :action => "show", :id => scrimage.id
-			else
-				render :action => "new_scrimage"
+			if params[:type] == "timed"
+				isTimed = 1
+				end_time = end_time + 5
 			end
 
+			scrimage = Scrimage.new(:name => params[:name], :timed=> isTimed, :start_time => start_time, :end_time => end_time, :description => params[:description], :open_for_voting => 0)
+			scrimage.save()
+
+			if scrimage.id
+				uploaded_io = params[:original_photo]
+				File.open(Rails.root.join('public', 'images', uploaded_io.original_filename), 'wb') do |file|
+		    		file.write(uploaded_io.read)
+		  		end
+
+				originalPhoto = Photo.new(:filename => "/images/" + params[:original_photo].original_filename, :description => params[:description], :user_id => current_user.id, :scrimage_id => scrimage.id)
+
+				originalPhoto.save()
+
+				if originalPhoto.id
+					redirect_to :action => "show", :id => scrimage.id
+				else
+					delete scrimage
+
+					flash[:error] = "Error saving photo"
+					redirect_to :action => "new_scrimage"
+				end
+
+			else
+				flash[:error] = "A scrimage must have a title"
+				redirect_to :action => "new_scrimage"
+			end
 		else
-			render :action => "new_scrimage"
+			flash[:error] = "You must select a photo for the scrimage"
+			redirect_to :action => "new_scrimage"
 		end
 	end
 
