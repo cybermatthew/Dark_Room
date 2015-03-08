@@ -299,6 +299,7 @@
 		target = document.getElementById('postSaveModalText');
 		spinner = new Spinner(opts).spin(target);
 
+		//Executes when when you've made changes to an image that's already been edited by the API (i.e. when you click on "Continue Editing")
 		if(imageAlreadyEdited){
 	        $.ajax({
 				url : "/photos/save_edited_photo",
@@ -321,6 +322,7 @@
 		      	}
 		    });
 		}
+		//Executes when  you save an API-edited image to the database for the first time
 		else{
 	        $.ajax({
 				url : "/photos/save_edited_photo",

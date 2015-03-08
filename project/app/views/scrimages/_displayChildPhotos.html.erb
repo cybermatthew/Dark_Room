@@ -17,6 +17,7 @@
 				determined yet, to make sure that the Share button appears only during the voting period
 				next to images edited by the user -->
 			<% if (scrimage.end_time.past?) && scrimage.winner_id == -1 %>	
+				<!--<span id = "b"> Share on Facebook </span>-->
 				<% if photo.user_id == current_user.id %>
 					<div class="fb-share-button fbButton" data-href= "<%= request.original_url %>" data-layout="button"></div>
 				<% end %>
@@ -29,7 +30,7 @@
 
 <script type="text/javascript">
 
-	/*$("#a").click(function(){
+	/*$("#b").click(function(){
 		FB.ui({
 		  method: 'share',
 		  url: '<%= request.original_url %>',
