@@ -38,7 +38,7 @@ class ScrimagesController < ApplicationController
 		if scrimage.id
 			uploaded_io = params[:original_photo]
 			File.open(Rails.root.join('public', 'images', uploaded_io.original_filename), 'wb') do |file|
-	    			file.write(uploaded_io.read)
+	    		file.write(uploaded_io.read)
 	  		end
 
 			originalPhoto = Photo.new(:filename => "/images/" + params[:original_photo].original_filename, :description => params[:description], :user_id => current_user.id, :scrimage_id => scrimage.id)
@@ -68,9 +68,14 @@ class ScrimagesController < ApplicationController
 	  	newPhoto = Photo.new(:filename => "/images/" + uploaded_io.original_filename, :description => params[:editedPhotoText], :user_id => current_user.id, :scrimage_id => params[:scrimage_id], :parent_photo_id => params[:parent_photo_id])
 	  	newPhoto.save()
 
-	  	scrimage = Scrimage.find(params[:scrimage_id])
+	  	@scrimage = Scrimage.find(params[:scrimage_id])
 
 		render :partial => "displayChildPhotos", :locals => {:scrimage => scrimage, :remainingTime => remaining_time(scrimage), :votingTime => voting_time(scrimage)}
+	end
+
+	def render_children
+		@scrimage = Scrimage.find(params[:scrimage_id])
+		render :json => {:html => render_to_string({:partial => "scrimages/displayChildPhotos", :formats => [:html, :js], :locals => {:scrimage => @scrimage, :remainingTime => remaining_time(@scrimage), :votingTime => voting_time(@scrimage)}, :layout => false})}
 	end
 
 	# returns json array with ids of the winning photos
@@ -91,7 +96,16 @@ class ScrimagesController < ApplicationController
   			}			
   		end
 	end
-	
+
+	def add_share
+		respond_to do |format|
+			format.json{
+				@scrimage = Scrimage.find(params[:scrimage_id])
+				render :json => {:html => render_to_string({:partial => "displayChildPhotos", :formats => [:html, :js], :locals => {:scrimage => @scrimage}, :layout => false})}  
+  			}			
+  		end
+	end
+
 	# Before filters
 
     def logged_in_user # Confirms user is logged in
