@@ -12,9 +12,9 @@
 	</center>
 
 	<h1><%= @user.username %>'s Photos</h1>
-	<% Photo.where(user_id: @user.id).find_each do |p| %>
-		<a href="/photos/<%=p.id%>"><img src="<%= p.filename %>" class="thumbnail"></a>
-	<% end %>
+	<div id="userPhotos">
+		<%= render :partial => "users/displayUserPhotos", :locals => {:user => @user.id} %>
+	</div>
 	<br/><br/>
 	<h1><%= @user.username %>'s Favorites</h1>
 	<% @user.favorite_photos.each do |p| %>
@@ -41,13 +41,40 @@
 			</ul>
 		</div>
 	</div>
+<% end %>
 
-	<script type="text/javascript">
+<script type="text/javascript">
+
 		showModal('notificationsModal');
+
+		$(function(){
+			console.log(<%= @scrimagesToSet.size() %>);
+			if ( <%= @scrimagesToSet.size() %> > 0 ){
+				set_winners();
+			}
+		});
+
+		function set_winners(){
+			$.ajax({
+				url : "/users/set_scrimage_winners",
+				type : "POST",
+				data : { 
+					user_id: <%= @user.id %>
+				},
+			    success: function(data){
+			    	
+
+			    	// console.log(data["winningPhotoID"])
+			    },
+		      	error:function(data){
+		      		alert("An unexpected error occurred.")
+		      	}
+		    });	
+		}
+
 
 		function awardPoints(){
 			document.getElementById("points").innerHTML = "<%= @user.points %>";
 		}
 
 	</script>
-<% end %>

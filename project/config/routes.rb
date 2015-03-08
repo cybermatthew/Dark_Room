@@ -5,7 +5,12 @@ Rails.application.routes.draw do
   get    'login'   => 'sessions#new'
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
+
+  resource :users do
+    post 'set_scrimage_winners'
+  end
   resources :users
+  
   resources :photos
 
   resource :photos do

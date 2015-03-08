@@ -85,7 +85,7 @@ class ScrimagesController < ApplicationController
 
 				scrimage.winner_id = winningPhotoIDs.first.id
 				
-				scrimage.save()
+				# scrimage.save()
 
 				render :json => {:winningPhotoID => winningPhotoIDs}  
   			}			
