@@ -69,8 +69,6 @@ class ScrimagesController < ApplicationController
 	end
 
 	def uploadEditedImage
-		puts params[:editedPhoto]
-  		puts "------------------------------"
 
 		uploaded_io = params[:editedPhoto]
 		File.open(Rails.root.join('public', 'images', uploaded_io.original_filename), 'wb') do |file|
