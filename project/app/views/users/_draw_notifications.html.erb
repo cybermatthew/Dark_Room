@@ -7,11 +7,6 @@
 			<ul>
 				<% notifications.each do |notification| %>
 					<br><li><%= notification.message %></li>
-
-					<% if notification.message.include? "Points" %>
-						<% user.update(points: user.points + 100) %>
-					<% end %>
-
 					<% notification.update(been_viewed: 1) %>
 				<% end %>
 			</ul>

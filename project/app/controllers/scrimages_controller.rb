@@ -111,6 +111,11 @@ class ScrimagesController < ApplicationController
 				winningPhotoIDs.each do |photoID|
 					photo = Photo.find(photoID)
 					notification = Notification.new(:user_id => photo.user_id, :message => "100 Points Awarded - You won the scrimage with your photo, "+photo.description+"!")
+
+					#Ensures that all winners receive points for their winning photos
+					user = User.find(photo.user_id)
+					user.update(points: user.points + 100)
+
 					notification.save()
 				end
 
