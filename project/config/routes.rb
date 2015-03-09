@@ -28,7 +28,8 @@ Rails.application.routes.draw do
     get 'new_scrimage'
     post 'create'
     post 'uploadEditedImage'
-    post 'set_winner'
+    post 'add_winner_badges'
+    post 'show_winning_images'
     post 'add_share'
     post 'render_children'
   end

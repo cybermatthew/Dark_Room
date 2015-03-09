@@ -33,7 +33,7 @@ class ScrimagesController < ApplicationController
 
 			if params[:type] == "timed"
 				isTimed = 1
-				end_time = end_time + 30.seconds
+				end_time = end_time + 50.seconds
 				#end_time = end_time + 5
 			end
 
@@ -95,7 +95,7 @@ class ScrimagesController < ApplicationController
 	end
 
 	# returns json array with ids of the winning photos
-	def set_winner
+	def add_winner_badges
 		respond_to do |format|
 			format.json{
 				scrimage = Scrimage.find(params[:scrimage_id])
@@ -119,9 +119,27 @@ class ScrimagesController < ApplicationController
 					notification.save()
 				end
 
-				render :json => {:winningPhotoID => winningPhotoIDs}  
+				#render :json => {:winningPhotoID => winningPhotoIDs}  
+				render :json => {:html => render_to_string({:partial => "scrimages/displayChildPhotos", :formats => [:html, :js], :locals => {:scrimage => @scrimage, :layout => false}})}
   			}			
   		end
+	end
+
+	def show_winning_images
+		respond_to do |format|
+			format.json{
+				scrimage = Scrimage.find(params[:scrimage_id])
+
+				@winningPhotos = []
+
+				if (scrimage.winner_id != -1)
+					numWinnerVotes = Photo.find(scrimage.winner_id).votes
+					@winningPhotos =  Photo.where("scrimage_id = ? AND votes == ?", scrimage.id, numWinnerVotes)
+				end
+ 
+				render :json => {:html => render_to_string({:partial => "scrimages/winningImages", :formats => [:html, :js], :locals => {:winningPhotos => @winningPhotos}})}
+  			}			
+  		end		
 	end
 
 	def add_share

@@ -208,11 +208,7 @@ h2 a:link, h2 a:active, h2 a:visited, h2 a:hover {
 	display: inline-block;
 }
 
-.winnerIcon{
-	position:absolute;
-	display: inline;
-	top: -5%;
-	left: 65%;
+.winnerIconScrimage{
 	width: 100px;
 	height: 100px;
 }

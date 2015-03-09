@@ -1,0 +1,11 @@
+
+<div>Winning Image(s): </div>
+<% if @winningPhotos.size() > 1 %>
+	<%= render :partial => "photos/carousel", :locals => {:childPhotos => @winningPhotos} %>
+<% else %>
+	<div>
+		<a href = "/photos/<%= @winningPhotos.first.id %>">
+	 		<img class = "treePhoto" src = "<%= @winningPhotos.first.filename %>"/> 
+	 	</a>
+	</div>
+<% end %>

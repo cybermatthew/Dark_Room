@@ -5,7 +5,7 @@
 	<% count = count+1 %>
 	<tr>
 		<td class="childCount"><%= count %></td>
-		<td><%= render :partial => "layouts/editableImage", :locals => {:scrimage_id => scrimage.id, :image => photo, :imageClass => "responseImage", :curScrimage => scrimage} %>
+		<td><%= render :partial => "layouts/editableImage", :locals => {:scrimage_id => scrimage.id, :image => photo, :imageClass => "responseImage", :curScrimage => scrimage} %> </td>
 		<td><% if photo.description %>
 			<b><%= photo.description %></b><br/>
 			<% end %>
@@ -23,6 +23,14 @@
 				<!--<span id = "b"> Share on Facebook </span>-->
 				<div class="fb-share-button fbButton" data-href= "<%= request.original_url %>" data-layout="button"></div>
 			<% end %>
+		</td>
+		<td>
+			<% if @scrimage.winner_id != -1 && photo.votes == scrimage.photos.maximum("votes") %>
+				<span>
+					&nbsp;
+					<img class = "winnerIconScrimage" src='/site_images/winner.png'>
+				</span>
+			<% end %>			
 		</td>
 
 	</tr>
