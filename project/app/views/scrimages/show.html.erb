@@ -88,7 +88,9 @@
 				<%= render :partial => "photos/carousel", :locals => {:childPhotos => @winningPhotos} %>
 			<% else %>
 				<div>
-				 	<img class = "treePhoto" src = "<%= @winningPhotos.first.filename %>"/> 
+					<a href = "/photos/<%= @winningPhotos.first.id %>">
+				 		<img class = "treePhoto" src = "<%= @winningPhotos.first.filename %>"/> 
+				 	</a>
 				</div>
 			<% end %>
 		</div>

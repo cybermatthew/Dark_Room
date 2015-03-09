@@ -12,7 +12,7 @@
 
 		<% if @scrimage.winner_id != -1 && image.votes == Photo.find(@scrimage.winner_id).votes %>
 			<span >
-				<img class = "trophyIcon" src='/site_images/trophy.png'>
+				<img class = "winnerIcon" src='/site_images/winner.png'>
 			</span>
 		<% end %>
 

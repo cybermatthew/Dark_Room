@@ -208,7 +208,7 @@ h2 a:link, h2 a:active, h2 a:visited, h2 a:hover {
 	display: inline-block;
 }
 
-.trophyIcon{
+.winnerIcon{
 	position:absolute;
 	display: inline;
 	top: -5%;
