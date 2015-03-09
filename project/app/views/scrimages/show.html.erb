@@ -188,6 +188,7 @@
 					type : "POST",
 					data : { 
 						scrimage_id: <%= @scrimage.id %>,
+						voting: false
 					},
 				    success: function(data){
             			var childPhotos = document.getElementById("childrenPhotos");
@@ -224,6 +225,7 @@
 						type : "POST",
 						data : { 
 							scrimage_id: <%= @scrimage.id %>,
+							voting: switchedToVoting
 						},
 					    success: function(data){
                 			var childPhotos = document.getElementById("childrenPhotos");

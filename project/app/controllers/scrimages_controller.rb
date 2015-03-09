@@ -33,7 +33,8 @@ class ScrimagesController < ApplicationController
 
 			if params[:type] == "timed"
 				isTimed = 1
-				end_time = end_time + 5
+				end_time = end_time + 30.seconds
+				#end_time = end_time + 5
 			end
 
 			scrimage = Scrimage.new(:name => params[:name], :timed=> isTimed, :start_time => start_time, :end_time => end_time, :description => params[:description], :open_for_voting => 0)
@@ -122,6 +123,11 @@ class ScrimagesController < ApplicationController
 		respond_to do |format|
 			format.json{
 				@scrimage = Scrimage.find(params[:scrimage_id])
+				if params[:voting]
+					@scrimage.update_attribute(:open_for_voting, true);
+				else
+					@scrimage.update_attribute(:open_for_voting, false);
+				end
 				render :json => {:html => render_to_string({:partial => "displayChildPhotos", :formats => [:html, :js], :locals => {:scrimage => @scrimage}, :layout => false})}  
   			}			
   		end
