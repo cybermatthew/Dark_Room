@@ -33,8 +33,8 @@ class ScrimagesController < ApplicationController
 
 			if params[:type] == "timed"
 				isTimed = 1
-				end_time = end_time + 50.seconds
-				#end_time = end_time + 5
+				end_time = end_time + 5
+				#end_time = end_time + 50.seconds
 			end
 
 			scrimage = Scrimage.new(:name => params[:name], :timed=> isTimed, :start_time => start_time, :end_time => end_time, :description => params[:description], :open_for_voting => 0)
@@ -120,7 +120,7 @@ class ScrimagesController < ApplicationController
 				end
 
 				#render :json => {:winningPhotoID => winningPhotoIDs}  
-				render :json => {:html => render_to_string({:partial => "scrimages/displayChildPhotos", :formats => [:html, :js], :locals => {:scrimage => @scrimage, :layout => false}})}
+				render :json => {:html => render_to_string({:partial => "scrimages/displayChildPhotos", :formats => [:html, :js], :locals => {:scrimage => scrimage, :layout => false}})}
   			}			
   		end
 	end
@@ -128,16 +128,19 @@ class ScrimagesController < ApplicationController
 	def show_winning_images
 		respond_to do |format|
 			format.json{
-				scrimage = Scrimage.find(params[:scrimage_id])
 
+				@scrimage = Scrimage.find(params[:scrimage_id])
+				@original_photo = Photo.where("scrimage_id = ? AND parent_photo_id = ?", params[:scrimage_id], -1).first
 				@winningPhotos = []
 
-				if (scrimage.winner_id != -1)
-					numWinnerVotes = Photo.find(scrimage.winner_id).votes
-					@winningPhotos =  Photo.where("scrimage_id = ? AND votes == ?", scrimage.id, numWinnerVotes)
+				if (@scrimage.winner_id != -1)
+					numWinnerVotes = Photo.find(@scrimage.winner_id).votes
+					@winningPhotos =  Photo.where("scrimage_id = ? AND votes == ?", @scrimage.id, numWinnerVotes)
 				end
+
+				puts "Original Photo: #{@original_photo.id}"
  
-				render :json => {:html => render_to_string({:partial => "scrimages/winningImages", :formats => [:html, :js], :locals => {:winningPhotos => @winningPhotos}})}
+				render :json => {:html => render_to_string({:partial => "scrimages/winningImages", :formats => [:html, :js], :locals => {:winningPhotos => @winningPhotos, :scrimage => @scrimage}})}
   			}			
   		end		
 	end

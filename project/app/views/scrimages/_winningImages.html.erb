@@ -1,11 +1,33 @@
 
-<div>Winning Image(s): </div>
-<% if @winningPhotos.size() > 1 %>
-	<%= render :partial => "photos/carousel", :locals => {:childPhotos => @winningPhotos} %>
-<% else %>
+<% if scrimage.winner_id != -1 &&  scrimage.winner_id != @original_photo.id %>
+	<br>
+	<br>
+
+	<div>Winning Image(s): </div>
+	<% if winningPhotos.size() > 1 %>
+		<%= render :partial => "photos/carousel", :locals => {:childPhotos => winningPhotos} %>
+	<% else %>
+		<div>
+			<a href = "/photos/<%= winningPhotos.first.id %>">
+		 		<img class = "treePhoto" src = "<%= winningPhotos.first.filename %>"/> 
+		 	</a>
+		</div>
+	<% end %>
+
+<% elsif scrimage.winner_id == @original_photo.id %>
+	<br>
+	<br>
+
 	<div>
-		<a href = "/photos/<%= @winningPhotos.first.id %>">
-	 		<img class = "treePhoto" src = "<%= @winningPhotos.first.filename %>"/> 
-	 	</a>
+		<div><strong><i>There is no winner for this scrimage</i></strong></div>
 	</div>
+
 <% end %>
+
+
+
+
+
+
+
+

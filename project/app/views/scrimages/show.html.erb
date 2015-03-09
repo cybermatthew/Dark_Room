@@ -78,24 +78,12 @@
 <center>
 	<%= render :partial => "layouts/editableImage", :locals => {:scrimage_id => @scrimage.id, :image => @original_photo, :imageClass => "originalImage"} %>
 
-	<% if @scrimage.winner_id != -1 &&  @scrimage.winner_id != @original_photo.id %>
-		<br>
-		<br>
-
-		<div id = "winningImages">
-			<%= render :partial => "scrimages/winningImages", :locals => { :winningPhotos => @winningPhotos } %>
-		</div>
-
-	<% elsif @scrimage.winner_id == @original_photo.id %>
-		<br>
-		<br>
-
-		<div>
-			<div><strong><i>There is no winner for this scrimage</i></strong></div>
-		</div>
-	<% end %>
+	<div id = "winningImages">
+		<%= render :partial => "scrimages/winningImages", :locals => { :winningPhotos => @winningPhotos, :scrimage => @scrimage} %>
+	</div>
 
 </center>
+
 <div class="pageText">Description: <%= @scrimage.description %></div>
 
 <div id="childrenPhotos" class='childrenPhotos'>
@@ -162,7 +150,7 @@
 		    	//Draws the Winner badge next to the winning photos
     			var childPhotos = document.getElementById("childrenPhotos");
         		childPhotos.innerHTML = data.html;		    	
-		    	console.log(data["winningPhotoID"])
+		    	//console.log(data["winningPhotoID"])
 		    },
 	      	error:function(data){
 	      		alert("An unexpected error has occurred.")
@@ -180,7 +168,7 @@
 		    	//Draws the Winner badge next to the winning photos
     			var winningImages = document.getElementById("winningImages");
         		winningImages.innerHTML = data.html;		    	
-		    	console.log(data["winningPhotoID"])
+		    	//console.log(data["winningPhotoID"])
 		    },
 	      	error:function(data){
 	      		alert("An unexpected error has occurred.")
@@ -211,7 +199,6 @@
 				    success: function(data){
             			var childPhotos = document.getElementById("childrenPhotos");
                 		childPhotos.innerHTML = data.html;
-                		console.log(data.html);
 				    	drawShareButton = 0;
 				    },
 			      	error:function(data){
