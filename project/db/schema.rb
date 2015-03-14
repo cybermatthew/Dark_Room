@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20150302092049) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "comments", force: :cascade do |t|
     t.integer  "photo_id"
     t.integer  "user_id"
@@ -29,8 +32,8 @@ ActiveRecord::Schema.define(version: 20150302092049) do
     t.datetime "updated_at",     null: false
   end
 
-  add_index "favorites", ["favorited_type", "favorited_id"], name: "index_favorites_on_favorited_type_and_favorited_id"
-  add_index "favorites", ["user_id"], name: "index_favorites_on_user_id"
+  add_index "favorites", ["favorited_type", "favorited_id"], name: "index_favorites_on_favorited_type_and_favorited_id", using: :btree
+  add_index "favorites", ["user_id"], name: "index_favorites_on_user_id", using: :btree
 
   create_table "notifications", force: :cascade do |t|
     t.integer  "user_id"
@@ -68,8 +71,8 @@ ActiveRecord::Schema.define(version: 20150302092049) do
     t.integer "user_id",     null: false
   end
 
-  add_index "scrimages_users", ["scrimage_id"], name: "index_scrimages_users_on_scrimage_id"
-  add_index "scrimages_users", ["user_id"], name: "index_scrimages_users_on_user_id"
+  add_index "scrimages_users", ["scrimage_id"], name: "index_scrimages_users_on_scrimage_id", using: :btree
+  add_index "scrimages_users", ["user_id"], name: "index_scrimages_users_on_user_id", using: :btree
 
   create_table "sessions", force: :cascade do |t|
     t.string   "session_id", null: false
@@ -78,8 +81,8 @@ ActiveRecord::Schema.define(version: 20150302092049) do
     t.datetime "updated_at"
   end
 
-  add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", unique: true
-  add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at"
+  add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", unique: true, using: :btree
+  add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "username"
@@ -91,4 +94,5 @@ ActiveRecord::Schema.define(version: 20150302092049) do
     t.datetime "updated_at",      null: false
   end
 
+  add_foreign_key "favorites", "users"
 end
