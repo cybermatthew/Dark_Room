@@ -270,7 +270,7 @@
 
 		if (prevDateTime == -1) prevDateTime = new Date();
 		else {
-			if (prevDateTime < new Date()){
+			if (prevDateTime.getSeconds() != new Date().getSeconds()){
 				prevDateTime = new Date();
 				remainingSeconds--;
 			}
