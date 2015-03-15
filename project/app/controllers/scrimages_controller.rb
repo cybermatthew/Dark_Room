@@ -16,7 +16,7 @@ class ScrimagesController < ApplicationController
 
 		if (@scrimage.winner_id != -1)
 			@numWinnerVotes = Photo.find(@scrimage.winner_id).votes
-			@winningPhotos =  Photo.where("scrimage_id = ? AND votes == ?", @scrimage.id, @numWinnerVotes)
+			@winningPhotos =  Photo.where("scrimage_id = ? AND votes = ?", @scrimage.id, @numWinnerVotes)
 		end
 
 		# @photos = Photo.where("scrimage_id = ? AND parent_photo_id != ?", @scrimage.id, -1)
@@ -135,7 +135,7 @@ class ScrimagesController < ApplicationController
 
 				if (@scrimage.winner_id != -1)
 					numWinnerVotes = Photo.find(@scrimage.winner_id).votes
-					@winningPhotos =  Photo.where("scrimage_id = ? AND votes == ?", @scrimage.id, numWinnerVotes)
+					@winningPhotos =  Photo.where("scrimage_id = ? AND votes = ?", @scrimage.id, numWinnerVotes)
 				end
 
 				puts "Original Photo: #{@original_photo.id}"
