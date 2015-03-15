@@ -14,7 +14,7 @@ class UsersController < ApplicationController
 
 		@notifications = Notification.where("user_id = ? AND been_viewed = ? AND ? = ?", @user.id, 0, @user.id, get_current_user_id())
 
-		@scrimagesToSet = Scrimage.where("winner_id = ? AND timed = ? AND (end_time+5) <= ?", -1, 1, DateTime.now)
+		@scrimagesToSet = Scrimage.where("winner_id = ? AND timed = ? AND (end_time+interval'5 days') <= ?", -1, 1, DateTime.now)
 	end
 
 	def new
