@@ -54,7 +54,7 @@ class PhotosController < ApplicationController
 			@photo.votes += 1
 			@photo.save
 		else
-			flash[:notice] = "You've already voted in this scrImage"
+			flash[:error] = "You have already voted in this scrImage"
 		end
 		redirect_to request.referer
 	end

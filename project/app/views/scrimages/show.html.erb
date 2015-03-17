@@ -218,6 +218,7 @@
 				$("#clockDiv").prepend("<span class='countdownTitle'>Time Remaining to Vote</span>");
 				if (!switchedToVoting) {
 					switchedToVoting = true;
+					$(".hoverIcons").remove();
 					renderChildren();
 				}
 				if(drawShareButton == 0){

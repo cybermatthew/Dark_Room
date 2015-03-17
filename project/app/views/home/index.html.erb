@@ -13,7 +13,11 @@
 <% if @noscrimage %>
 	<p align="center">There are currently no scrImages open for voting. Please check back later.</p>
 <% else %>
-	<p align="center">This scrImage is currently open for voting. Cast a vote for your favorite image. Click <a href="/scrimages/<%=@scrimage.id%>">here</a> to see all images in this scrImage.</p>
+	<% if logged_in? %>
+		<p align="center">This scrImage is currently open for voting. Cast a vote for your favorite image. Click <a href="/scrimages/<%=@scrimage.id%>">here</a> to see all images in this scrImage.</p>
+	<% else %>
+		<p align="center">This scrImage is currently open for voting. Log in or sign up to cast your vote. Click <a href="/scrimages/<%=@scrimage.id%>">here</a> to see all images in this scrImage.</p>
+	<% end %>
 
 	<center><a href="/photos/<%=@originalPhoto.id%>"><img src="<%=@originalPhoto.filename%>" class="votingOrig"></a></center>
 
@@ -22,7 +26,9 @@
 		<div class="votingImage">
 			<a href="/photos/<%=p.id%>"><img src="<%=p.filename%>"></a>
 			<br/>
+			<% if logged_in? %>
 			<%= link_to 'Vote', vote_photos_path(photo_id: p.id), :class => "submit votebutton", method: :post %>
+			<% end %>
 		</div>
 		<% end %>
 	</div>

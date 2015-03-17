@@ -1,3 +1,7 @@
-<% Photo.where(user_id: user).find_each do |p| %>
-	<a href="/photos/<%=p.id%>"><img src="<%= p.filename %>" class="thumbnail"></a>
+<% if @userPhotos.empty? %>
+	<p>No photos yet!</p>
+<% else %>
+	<% @userPhotos.each do |p| %>
+		<a href="/photos/<%=p.id%>"><img src="<%= p.filename %>" class="thumbnail"></a>
+	<% end %>
 <% end %>
