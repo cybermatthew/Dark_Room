@@ -1,8 +1,5 @@
-
- <input id="initialRemainingSeconds" type=hidden value=<%= @remainingSeconds %> >
-
+<input id="initialRemainingSeconds" type=hidden value=<%= @remainingSeconds %> >
 <input id="votingRemainingSeconds" type=hidden value=<%= @votingRemainingSeconds %> > 
-
 
 <!-- <input id="initialRemainingSeconds" type=hidden value=5 >
 
@@ -268,8 +265,9 @@
 
 	function calculateAndUpdateTime(){
 
-		if (prevDateTime == -1) prevDateTime = new Date();
-		else {
+		if (prevDateTime == undefined || prevDateTime == -1) {
+			prevDateTime = new Date();
+		} else {
 			if (prevDateTime.getSeconds() != new Date().getSeconds()){
 				prevDateTime = new Date();
 				remainingSeconds--;
