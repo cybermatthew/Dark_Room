@@ -40,6 +40,9 @@
 				<div id="commentsDiv" class="commentsDiv">
 					<span>Comments</span>
 					<br/>
+					<% if @comments.empty? %>
+						No comments yet!
+					<% end %>
 					<% @comments.each do |comment| %>
 						<% commenter = User.find(comment.user_id) %>
 						<a href="/users/<%=commenter.id%>"><b><%= commenter.username %></b></a>: <%= comment.text %>

@@ -10,8 +10,8 @@
 
 <h1>Vote</h1>
 
-<% if @noscrimage %>
-	<p align="center">There are currently no scrImages open for voting. Please check back later.</p>
+<% if !@scrimage %>
+	<p align="center">There are currently no scrImages open for voting that you have not already voted in. Please check back later.</p>
 <% else %>
 	<% if logged_in? %>
 		<p align="center">This scrImage is currently open for voting. Cast a vote for your favorite image. Click <a href="/scrimages/<%=@scrimage.id%>">here</a> to see all images in this scrImage.</p>
