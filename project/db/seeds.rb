@@ -24,7 +24,10 @@ child_photo.save(:validate => false)
 child_photo2 = Photo.new(:filename => "/images/83c74aa98aaf43aa9f1af99ab066ddbf.jpg", :description => "Ceci n'est pas une pipe", :votes => 5, :user_id => admin_user.id, :scrimage_id => test_scrimage.id, :parent_photo_id => flower.id)
 child_photo2.save(:validate => false)
 
-child_photo3 = Photo.new(:filename => "/images/2047b54e939945fca25e9426c29a1eb5.jpg", :description => "Contemporary Art", :votes => 11, :user_id => admin_user.id, :scrimage_id => test_scrimage.id, :parent_photo_id => flower.id)
+alex_user = User.new(:username => "ta alex", :password => "alex", :bio => "scrImage is my favorite 194 project!!!", :profile_image => "alex_pic.jpg", :points => 0)
+alex_user.save(:validate => true)
+
+child_photo3 = Photo.new(:filename => "/images/2047b54e939945fca25e9426c29a1eb5.jpg", :description => "Contemporary Art", :votes => 11, :user_id => alex_user.id, :scrimage_id => test_scrimage.id, :parent_photo_id => flower.id)
 child_photo3.save(:validate => false)
 
 # load scrimage in voting period #
@@ -46,6 +49,7 @@ ultra_hipster_bees.save(:validate => false)
 
 what_is_bees = Photo.new(:filename => "/images/ec7b97e6a6194ffa8f6afaecace0929a.jpg", :description => "What is Bees", :votes => 0, :user_id => admin_user.id, :scrimage_id => test_scrimage2.id, :parent_photo_id => ultra_hipster_bees.id)
 what_is_bees.save(:validate => false)
+
 
 # # load scrimage in voting period 2 #
 # test_scrimage3 = Scrimage.new(:name => "Bees the Duck", :timed => 1, :start_time => DateTime.now-6, :end_time => DateTime.now-1, :description => "Let's edit Bees!", :open_for_voting => true)

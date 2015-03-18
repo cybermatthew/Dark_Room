@@ -29,10 +29,6 @@
 <script type="text/javascript">
 
 	$(function(){
-		if ( <%= @scrimagesToSet.size() %> > 0 ){
-			set_winners();
-		}
-
 		getNotifications();
 	});
 
@@ -46,23 +42,6 @@
 		    success: function(html){
 		    	$("body").append(html);
 		    	showModal('notificationsModal');
-		    },
-	      	error:function(data){
-	      		alert("An unexpected error occurred.")
-	      	}
-	    });	
-	}
-
-	function set_winners(){
-		$.ajax({
-			url : "/users/set_scrimage_winners",
-			type : "POST",
-			data : { 
-				user_id: <%= @user.id %>
-				photos: <%= @userPhotos %>
-			},
-		    success: function(data){	
-		    	$("#userPhotos").html(data);
 		    },
 	      	error:function(data){
 	      		alert("An unexpected error occurred.")
