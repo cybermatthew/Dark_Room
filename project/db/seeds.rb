@@ -30,6 +30,9 @@ alex_user.save(:validate => true)
 child_photo3 = Photo.new(:filename => "/images/2047b54e939945fca25e9426c29a1eb5.jpg", :description => "Contemporary Art", :votes => 11, :user_id => alex_user.id, :scrimage_id => test_scrimage.id, :parent_photo_id => flower.id)
 child_photo3.save(:validate => false)
 
+
+
+
 # load scrimage in voting period #
 test_scrimage2 = Scrimage.new(:name => "Bees the Duck", :timed => 1, :start_time => DateTime.now-6, :end_time => DateTime.now-1, :description => "Let's edit Bees!", :open_for_voting => true)
 test_scrimage2.save(:validate => true)
@@ -50,6 +53,26 @@ ultra_hipster_bees.save(:validate => false)
 what_is_bees = Photo.new(:filename => "/images/ec7b97e6a6194ffa8f6afaecace0929a.jpg", :description => "What is Bees", :votes => 0, :user_id => admin_user.id, :scrimage_id => test_scrimage2.id, :parent_photo_id => ultra_hipster_bees.id)
 what_is_bees.save(:validate => false)
 
+
+
+# load second scrimage in voting period #
+baby_scrimage = Scrimage.new(:name => "Cute Baby", :timed => 1, :start_time => DateTime.now, :end_time => DateTime.now+5, :description => "Why mess with adorable perfection?  BECAUSE WE CAN", :open_for_voting => false)
+baby_scrimage.save(:validate => true)
+
+baby_original = Photo.new(:filename => "/images/baby1.jpg", :description => "Cute Baby", :votes => 0, :user_id => alex_user.id, :scrimage_id => baby_scrimage.id)
+baby_original.save(:validate => false)
+
+baby_mustache = Photo.new(:filename => "/images/7c25d6c5a5f348dfbded70155716f4b3.jpg", :description => "Needing a Trim", :votes => 0, :user_id => alex_user.id, :scrimage_id => baby_scrimage.id, :parent_photo_id => baby_original.id)
+baby_mustache.save(:validate => false)
+
+baby_bowtie = Photo.new(:filename => "/images/e6c2590b1b9d4cd7acee62bfc5a0d6f0.jpg", :description => "DAPPER", :votes => 0, :user_id => alex_user.id, :scrimage_id => baby_scrimage.id, :parent_photo_id => baby_mustache.id)
+baby_bowtie.save(:validate => false)
+
+baby_hat = Photo.new(:filename => "/images/e0cbaefe75164785b3d4016c5814075b.jpg", :description => "hatz", :votes => 0, :user_id => admin_user.id, :scrimage_id => baby_scrimage.id, :parent_photo_id => baby_bowtie.id)
+baby_hat.save(:validate => false)
+
+baby_blurb = Photo.new(:filename => "/images/f5346ab5501a467ea7d65ac02518783a.jpg", :description => "WUV MY MOMMY", :votes => 0, :user_id => alex_user.id, :scrimage_id => baby_scrimage.id, :parent_photo_id => baby_hat.id)
+baby_blurb.save(:validate => false)
 
 # # load scrimage in voting period 2 #
 # test_scrimage3 = Scrimage.new(:name => "Bees the Duck", :timed => 1, :start_time => DateTime.now-6, :end_time => DateTime.now-1, :description => "Let's edit Bees!", :open_for_voting => true)

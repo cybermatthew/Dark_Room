@@ -24,6 +24,8 @@ class PhotosController < ApplicationController
 			scrimage = @photo.scrimage
 			maxVotes = scrimage.photos.maximum("votes")
 
+			@is_winner = false
+
 			if @photo.scrimage.winner_id == -1 && @photo.scrimage.timed == 1 && @photo.scrimage.end_time+5 <= DateTime.now
 				# must declare winner for scrimage
 
@@ -45,7 +47,10 @@ class PhotosController < ApplicationController
 				end
 			end
 
-			@is_winner = @photo.scrimage.photos.where("votes = ?", maxVotes).include?(@photo)
+			if @photo.scrimage.timed == 1 && @photo.scrimage.end_time+5 <= DateTime.now
+				@is_winner = @photo.scrimage.photos.where("votes = ?", maxVotes).include?(@photo)
+			end
+			
 			@user = User.find(@photo.user_id)
 			@comments = Comment.where(:photo_id => params[:id])
 		end
