@@ -64,7 +64,7 @@ class UsersController < ApplicationController
 
 	def set_scrimage_winners
 
-		scrimages_to_update = Scrimage.where("winner_id = ? AND timed = ? AND (end_time+5) <= ?", -1, 1, DateTime.now)
+		scrimages_to_update = Scrimage.where("winner_id = ? AND timed = ? AND (end_time+interval'5 days') <= ?", -1, 1, DateTime.now)
 
 		scrimages_to_update.each do |scrimage|
 			maxVotes = scrimage.photos.maximum("votes")
