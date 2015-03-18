@@ -19,12 +19,14 @@
 		<p align="center">This scrImage is currently open for voting. Log in or sign up to cast your vote. Click <a href="/scrimages/<%=@scrimage.id%>">here</a> to see all images in this scrImage.</p>
 	<% end %>
 
-	<center><a href="/photos/<%=@originalPhoto.id%>"><img src="<%=@originalPhoto.filename%>" class="votingOrig"></a></center>
+	<center>
+		<a href="/photos/<%=@originalPhoto.id%>"><img src="<%=@originalPhoto.filename%>" class="votingOrig"></a>
+	</center>
 
 	<div class="images">
 		<% @childPhotos.each do |p| %>
 		<div class="votingImage">
-			<a href="/photos/<%=p.id%>"><img src="<%=p.filename%>"></a>
+			<a href="/photos/<%=p.id%>"><img src="<%=p.filename%>" class="votingPhotos"></a>
 			<br/>
 			<% if logged_in? %>
 			<%= link_to 'Vote', vote_photos_path(photo_id: p.id), :class => "submit votebutton", method: :post %>
@@ -33,3 +35,11 @@
 		<% end %>
 	</div>
 <% end %>
+
+<script>
+$('.votebutton').click(function(e) {
+	$('.votebutton').fadeOut();
+	$('.votingPhotos').fadeOut();
+	$('.votingOrig').fadeOut();
+});
+</script>

@@ -53,6 +53,7 @@ class PhotosController < ApplicationController
 			userscrimage.save
 			@photo.votes += 1
 			@photo.save
+			flash[:success] = "Thanks for voting!"
 		else
 			flash[:error] = "You have already voted in this scrImage"
 		end

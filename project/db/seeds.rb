@@ -47,6 +47,17 @@ ultra_hipster_bees.save(:validate => false)
 what_is_bees = Photo.new(:filename => "/images/ec7b97e6a6194ffa8f6afaecace0929a.jpg", :description => "What is Bees", :votes => 0, :user_id => admin_user.id, :scrimage_id => test_scrimage2.id, :parent_photo_id => ultra_hipster_bees.id)
 what_is_bees.save(:validate => false)
 
+# # load scrimage in voting period 2 #
+# test_scrimage3 = Scrimage.new(:name => "Bees the Duck", :timed => 1, :start_time => DateTime.now-6, :end_time => DateTime.now-1, :description => "Let's edit Bees!", :open_for_voting => true)
+# test_scrimage3.save(:validate => true)
+
+# # load photos for scrimage in voting period 2 #
+# bees2 = Photo.new(:filename => "/images/bees.jpg", :description => "Bees", :votes => 0, :user_id => admin_user.id, :scrimage_id => test_scrimage3.id)
+# bees2.save(:validate => false)
+
+# bees3 = Photo.new(:filename => "/images/bees.jpg", :description => "Bees", :votes => 0, :user_id => admin_user.id, :scrimage_id => test_scrimage3.id, :parent_photo_id => bees2.id)
+# bees3.save(:validate => false)
+
 notification = Notification.new(:user_id => admin_user.id, :message => "100 Points Awarded - You won a scrimage!")
 notification.save()
 
