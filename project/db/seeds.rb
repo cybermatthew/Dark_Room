@@ -58,9 +58,6 @@ what_is_bees.save(:validate => false)
 # bees3 = Photo.new(:filename => "/images/bees.jpg", :description => "Bees", :votes => 0, :user_id => admin_user.id, :scrimage_id => test_scrimage3.id, :parent_photo_id => bees2.id)
 # bees3.save(:validate => false)
 
-notification = Notification.new(:user_id => admin_user.id, :message => "100 Points Awarded - You won a scrimage!")
-notification.save()
-
 # load comments #
 comment = Comment.new()
 comment.user_id = admin_user.id
