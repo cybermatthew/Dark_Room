@@ -7,14 +7,37 @@ class UsersController < ApplicationController
 	end
 
 	def show
+
+		scrimages_to_update = Scrimage.where("winner_id = ? AND timed = ? AND (end_time+interval'5 days') <= ?", -1, 1, DateTime.now)
+
+		scrimages_to_update.each do |scrimage|
+			maxVotes = scrimage.photos.maximum("votes")
+
+			winningPhotoIDs = scrimage.photos.where("votes = ?", maxVotes)
+
+			scrimage.winner_id = winningPhotoIDs.first.id
+			
+			scrimage.save()
+
+			winningPhotoIDs.each do |photoID|
+				photo = Photo.find(photoID)
+				notification = Notification.new(:user_id => photo.user_id, :message => "100 Points Awarded - You won the scrimage with your photo, "+photo.description+"!")
+
+				#Ensures that all winners receive points for their winning photos
+				user = User.find(photo.user_id)
+				user.update(points: user.points + 100)
+				
+				notification.save()
+			end
+
+		end
+
 		@user = User.find_by_id(params[:id])
 		if !@user
 			flash.now[:error] = "Error"
 		end
 
 		@notifications = Notification.where("user_id = ? AND been_viewed = ? AND ? = ?", @user.id, 0, @user.id, get_current_user_id())
-
-		@scrimagesToSet = Scrimage.where("winner_id = ? AND timed = ? AND (end_time+interval'5 days') <= ?", -1, 1, DateTime.now)
 
 		@userPhotos = Photo.where(user_id: params[:id])
 	end
@@ -60,30 +83,6 @@ class UsersController < ApplicationController
     	else
       		render 'edit'
     	end
-	end
-
-	def set_scrimage_winners
-
-		scrimages_to_update = Scrimage.where("winner_id = ? AND timed = ? AND (end_time+interval'5 days') <= ?", -1, 1, DateTime.now)
-
-		scrimages_to_update.each do |scrimage|
-			maxVotes = scrimage.photos.maximum("votes")
-
-			winningPhotoIDs = scrimage.photos.where("votes = ?", maxVotes)
-
-			scrimage.winner_id = winningPhotoIDs.first.id
-			
-			scrimage.save()
-
-			winningPhotoIDs.each do |photoID|
-				photo = Photo.find(photoID)
-				notification = Notification.new(:user_id => photo.user_id, :message => "100 Points Awarded - You won the scrimage with your photo, "+photo.description+"!")
-				notification.save()
-			end
-
-		end
-
-		render :partial => "draw_user_photos", :locals => {:user => params[:user_id], photos => params[:photos]}
 	end
 
 	def getNotifications
