@@ -106,6 +106,8 @@
 		});
 	}
 
+	var pictureURL = 'http://scrimage.herokuapp.com' + '<%= @photo.filename %>'
+
 	$("#a").click(function(){
 		FB.ui({
 		  method: 'feed',
@@ -113,7 +115,7 @@
 		  display: 'popup',
 		  name: 'Check out this photo on ScrImage!',
 		  description: 'Click on this page to view a larger version of this photo, as well as any comments and links to related photos.',
-		  picture: '<%= @photo.filename %>'
+		  picture: pictureURL
 		}, function(response){});		
 	});
 
