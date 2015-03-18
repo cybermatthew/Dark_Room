@@ -106,12 +106,14 @@
 		});
 	}
 
-	$("#a").click(function(e){
-		e.preventDefault();
+	$("#a").click(function(){
 		FB.ui({
-		  method: 'share',
+		  method: 'feed',
 		  url: '<%= request.original_url %>',
-		  caption: 'An example caption',
+		  display: 'popup',
+		  name: 'Check out this photo on ScrImage!',
+		  description: 'Click on this page to view a larger version of this photo, as well as any comments and links to related photos.',
+		  picture: '<%= @photo.filename %>'
 		}, function(response){});		
 	});
 
