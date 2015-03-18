@@ -78,7 +78,7 @@ body, html {
 }
 
 .profileimg {
-	width:300px;
+	max-width:300px;
 	margin-top: 20px;
 	border: 10px solid #ED7263;
 }
