@@ -24,7 +24,10 @@
 				next to images edited by the user -->
 			<% if scrimage.open_for_voting %>	
 				<!--<span id = "b"> Share on Facebook </span>-->
-				<div class="fb-share-button fbButton" data-href= "<%= request.original_url %>" data-layout="button"></div>
+				<span id = "fbShare" style = "cursor:pointer;" onclick = "share('http://scrimage.herokuapp.com' + '<%= photo.filename %>')";> 
+					<img src = "/site_images/fb_logo.png">
+					Share on Facebook 
+				</span>
 			<% end %>
 		</td>
 		<td>
@@ -42,12 +45,15 @@
 
 <script type="text/javascript">
 
-	/*$("#b").click(function(){
+	function share(pictureURL){
 		FB.ui({
-		  method: 'share',
-		  url: '<%= request.original_url %>',
-		  caption: 'An example caption',
-		}, function(response){});		
-	});*/
+		  method: 'feed',
+		  link: '<%= request.original_url %>',
+		  display: 'popup',
+		  name: 'Vote for this image on ScrImage!',
+		  description: 'The scrimage that this image is a part of is open for voting. Come cast your vote for this (or any other) image!',
+		  picture: pictureURL
+		}, function(response){});	
+	}
 
 </script>

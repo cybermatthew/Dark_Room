@@ -28,7 +28,11 @@
 		<tr>
 			<td>
 				<div align = "center">
-					<div class="fb-share-button fbButton" data-href= "<%= request.original_url %>" data-layout="button"></div>
+					<!--<div class="fb-share-button fbButton" data-href= "<%= request.original_url %>" data-layout="button"></div>-->
+					<span id = "fbShareButton" style = "cursor:pointer;"> 
+						<img src = "/site_images/fb_logo.png">
+						Share on Facebook 
+					</span>
 					<br>
 					<br>
 				</div>
@@ -42,8 +46,6 @@
 						<br>
 					<% end %>
 				</div>
-				
-				<span id = "a"> Share on Facebook </span>
 
 				<br>
 
@@ -108,12 +110,12 @@
 
 	var pictureURL = 'http://scrimage.herokuapp.com' + '<%= @photo.filename %>'
 
-	$("#a").click(function(){
+	$("#fbShareButton").click(function(){
 		FB.ui({
 		  method: 'feed',
-		  url: '<%= request.original_url %>',
+		  link: '<%= request.original_url %>',
 		  display: 'popup',
-		  name: 'Check out this photo on ScrImage!',
+		  name: 'Check out this photo on Scrimage!',
 		  description: 'Click on this page to view a larger version of this photo, as well as any comments and links to related photos.',
 		  picture: pictureURL
 		}, function(response){});		
