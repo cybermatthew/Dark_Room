@@ -13,7 +13,7 @@
 
 	<h1><%= @user.username %>'s Photos</h1>
 	<div id="userPhotos">
-		<%= render :partial => "users/draw_user_photos", :locals => {:user => @user.id} %>
+		<%= render :partial => "users/draw_user_photos", :locals => {:user => @user.id, :photos => @userPhotos} %>
 	</div>
 	<br/><br/>
 	<h1><%= @user.username %>'s Favorites</h1>
@@ -59,6 +59,7 @@
 			type : "POST",
 			data : { 
 				user_id: <%= @user.id %>
+				photos: <%= @userPhotos %>
 			},
 		    success: function(data){	
 		    	$("#userPhotos").html(data);

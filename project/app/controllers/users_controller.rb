@@ -83,7 +83,7 @@ class UsersController < ApplicationController
 
 		end
 
-		render :partial => "draw_user_photos", :locals => {:user => params[:user_id]}
+		render :partial => "draw_user_photos", :locals => {:user => params[:user_id], photos => params[:photos]}
 	end
 
 	def getNotifications
