@@ -29,10 +29,6 @@ class PhotosController < ApplicationController
 			if @photo.scrimage.winner_id == -1 && @photo.scrimage.timed == 1 && @photo.scrimage.end_time+(5*24*60*60) <= DateTime.now
 				# must declare winner for scrimage
 
-				puts "---------------------------------------------"
-				puts @photo.scrimage.end_time+5
-				puts DateTime.now
-
 				winningPhotoIDs = scrimage.photos.where("votes = ?", maxVotes)
 
 				scrimage.winner_id = winningPhotoIDs.first.id
