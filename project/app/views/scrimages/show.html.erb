@@ -38,7 +38,7 @@
 	<br><br>
 	<%= text_field_tag :addedImageDescription, nil, :placeholder => "Photo Title", :size => "30x8", :class => "formField", :onkeyup => "updateDescriptionVal();" %>
 	<br><br>
-	<button class='btn' onclick = "saveEditedImage();"> Save </button>
+	<button class='btn' onclick = "saveEditedImage();" id = "saveBtn"> Save </button>
 	<button class='btn' onclick="closePostSaveModal();"> Cancel </button> 
 </span>
 
@@ -302,6 +302,17 @@
 
 	function updateDescriptionVal(){
 		editedImageDescription = document.getElementById("addedImageDescription").value;
+
+		var saveBtn = document.getElementById("saveBtn");
+
+		if(editedImageDescription.length == 0){
+			saveBtn.disabled = true;
+			saveBtn.style.opacity = "0.2";
+		}
+		else{
+			saveBtn.disabled = false;
+			saveBtn.style.opacity = "1";
+		}
 	}
 
 	/*

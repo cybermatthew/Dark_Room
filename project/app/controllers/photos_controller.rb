@@ -47,10 +47,10 @@ class PhotosController < ApplicationController
 				end
 			end
 
-			if @photo.scrimage.timed == 1 && @photo.scrimage.end_time+5 <= DateTime.now
+			if(scrimage.winner_id != -1)
 				@is_winner = @photo.scrimage.photos.where("votes = ?", maxVotes).include?(@photo)
 			end
-			
+
 			@user = User.find(@photo.user_id)
 			@comments = Comment.where(:photo_id => params[:id])
 		end
