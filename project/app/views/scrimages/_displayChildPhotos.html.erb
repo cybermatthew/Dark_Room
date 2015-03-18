@@ -17,18 +17,22 @@
 			<% else %>
 				Votes: <%= photo.votes %><br/>
 			<% end %>
-			Comments: <%= photo.comments.count %><br/>
-			
+
 			<!--Check if OK to add Share button. Checks if the scrimage is over and if no winner has been 
-				determined yet, to make sure that the Share button appears only during the voting period
-				next to images edited by the user -->
+			determined yet, to make sure that the Share button appears only during the voting period
+			next to images edited by the user -->
 			<% if scrimage.open_for_voting %>	
 				<!--<span id = "b"> Share on Facebook </span>-->
+				<br/>
 				<span id = "fbShare" style = "cursor:pointer;" onclick = "share('http://scrimage.herokuapp.com' + '<%= photo.filename %>')";> 
 					<img src = "/site_images/fb_logo.png">
 					Share on Facebook 
 				</span>
+				<br/>
+				<br/>
 			<% end %>
+
+			Comments: <%= photo.comments.count %><br/>
 		</td>
 		<td>
 			<% if scrimage.end_time.past? && !scrimage.open_for_voting && scrimage.winner_id != -1 && ( scrimage.photos.maximum("votes") > 0 && photo.votes == scrimage.photos.maximum("votes")) %>
