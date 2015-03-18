@@ -56,7 +56,7 @@ what_is_bees.save(:validate => false)
 
 
 # load second scrimage in voting period #
-baby_scrimage = Scrimage.new(:name => "Cute Baby", :timed => 1, :start_time => DateTime.now, :end_time => DateTime.now+5, :description => "Why mess with adorable perfection?  BECAUSE WE CAN", :open_for_voting => false)
+baby_scrimage = Scrimage.new(:name => "Cute Baby", :timed => 1, :start_time => DateTime.now-7, :end_time => DateTime.now-2, :description => "Why mess with adorable perfection?  BECAUSE WE CAN", :open_for_voting => true)
 baby_scrimage.save(:validate => true)
 
 baby_original = Photo.new(:filename => "/images/baby1.jpg", :description => "Cute Baby", :votes => 0, :user_id => alex_user.id, :scrimage_id => baby_scrimage.id)
