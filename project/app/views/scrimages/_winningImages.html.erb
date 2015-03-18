@@ -14,7 +14,7 @@
 		</div>
 	<% end %>
 
-<% elsif scrimage.winner_id == @original_photo.id %>
+<% elsif scrimage.end_time.past? && !scrimage.open_for_voting && scrimage.winner_id == -1 %>
 	<br>
 	<br>
 

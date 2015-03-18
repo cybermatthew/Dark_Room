@@ -28,7 +28,7 @@
 			<% end %>
 		</td>
 		<td>
-			<% if scrimage.winner_id != -1 && ( scrimage.photos.maximum("votes") > 0 && photo.votes == scrimage.photos.maximum("votes")) %>
+			<% if scrimage.end_time.past? && !scrimage.open_for_voting && scrimage.winner_id != -1 && ( scrimage.photos.maximum("votes") > 0 && photo.votes == scrimage.photos.maximum("votes")) %>
 				<span>
 					&nbsp;
 					<img class = "winnerIconScrimage" src='/site_images/winner.png'>
