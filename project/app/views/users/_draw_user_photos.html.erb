@@ -1,7 +1,7 @@
-<% if @userPhotos === nil || @userPhotos.empty? %>
+<% if photos === nil || @userPhotos.empty? %>
 	<p>No photos yet!</p>
 <% else %>
-	<% @userPhotos.each do |p| %>
+	<% photos.each do |p| %>
 		<a href="/photos/<%=p.id%>"><img src="<%= p.filename %>" class="thumbnail"></a>
 	<% end %>
 <% end %>
