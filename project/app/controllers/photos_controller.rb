@@ -21,10 +21,11 @@ class PhotosController < ApplicationController
 		else
 			@photo = Photo.find(params[:id])
 
+			scrimage = @photo.scrimage
+			maxVotes = scrimage.photos.maximum("votes")
+
 			if @photo.scrimage.winner_id == -1 && @photo.scrimage.timed == 1 && @photo.scrimage.end_time+5 <= DateTime.now
 				# must declare winner for scrimage
-				scrimage = @photo.scrimage
-				maxVotes = scrimage.photos.maximum("votes")
 
 				winningPhotoIDs = scrimage.photos.where("votes = ?", maxVotes)
 
@@ -44,6 +45,7 @@ class PhotosController < ApplicationController
 				end
 			end
 
+			@is_winner = @photo.scrimage.photos.where("votes = ?", maxVotes).include?(@photo)
 			@user = User.find(@photo.user_id)
 			@comments = Comment.where(:photo_id => params[:id])
 		end
@@ -77,7 +79,7 @@ class PhotosController < ApplicationController
 	def save_edited_photo
 		require "open-uri"
 
-		if(params[:hasBeenEdited] == "true")
+		if(params[:hasBeenEdited] == "true") #Called when editing the photo currently open in the API
 			oldPhotoLink = params[:oldPhotoLink]
 			newPhotoLink = params[:newPhotoLink]
 
@@ -99,7 +101,7 @@ class PhotosController < ApplicationController
 
 			@scrimage = Scrimage.find(params[:scrimage_id])
 			render :json => {:html => render_to_string({:partial => "scrimages/displayChildPhotos", :formats => [:html, :js], :locals => {:scrimage => @scrimage, :layout => false}})}  
-		else
+		else #Called when saving a photo to the database for the first time
 			respond_to do |format|
 				format.json{
 					photoName = params[:editedPhotoLink]
