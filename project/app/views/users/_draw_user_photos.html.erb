@@ -1,4 +1,4 @@
-<% if @userPhotos.empty? %>
+<% if @userPhotos === nil || @userPhotos.empty? %>
 	<p>No photos yet!</p>
 <% else %>
 	<% @userPhotos.each do |p| %>
