@@ -27,10 +27,20 @@
 	<table class="showPhoto">
 		<tr>
 			<td>
+				<div align = "center">
+					<div class="fb-share-button fbButton" data-href= "<%= request.original_url %>" data-layout="button"></div>
+					<br>
+					<br>
+				</div>
 				<img class="mainPhoto" src="<%= @photo.filename %>"><br><br>
 
 				<div align = "center">
-					<div class="fb-share-button fbButton" data-href= "<%= request.original_url %>" data-layout="button"></div>
+					<%if @is_winner %>
+						<div align = "center">
+							<img class = "winnerIconScrimage" src='/site_images/winner.png'>
+						</div>
+						<br>
+					<% end %>
 				</div>
 				<!-- TODO: Add trophy code -->
 				<!--<span id = "a"> Share on Facebook </span>-->
