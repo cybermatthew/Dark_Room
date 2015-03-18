@@ -106,7 +106,8 @@
 		});
 	}
 
-	$("#a").click(function(){
+	$("#a").click(function(e){
+		e.preventDefault();
 		FB.ui({
 		  method: 'share',
 		  url: '<%= request.original_url %>',
